@@ -1,10 +1,10 @@
 # RestoChain
 The project aims to build a decentralized restaurant rating system using blockchain technology and smart contracts to improve food safety standards and reduce cases of food poisoning. The system relies  on recording user reviews and reports on restaurant hygiene and food  quality on a public, immutable blockchain, ensuring transparency and  credibility.
 **Key Features:**
-  ✔ **Decentralized & tamper-proof:** Ratings cannot be altered or deleted.
-  ✔ **Smart contract verification:** Reviews are validated automatically.
-  ✔ **Trusted data sources:** Integration with health authorities (Oracles) for verified inspections.
-  ✔ **Incentivized participation:** Possible token rewards for honest reviewers.
+  - **Decentralized & tamper-proof:** Ratings cannot be altered or deleted.
+  - **Smart contract verification:** Reviews are validated automatically.
+  - **Trusted data sources:** Integration with health authorities (Oracles) for verified inspections.
+  - **Incentivized participation:** Possible token rewards for honest reviewers.
 This system empowers consumers to make safer dining choices while encouraging restaurants to maintain high hygiene standards.
 
 # Front-End
