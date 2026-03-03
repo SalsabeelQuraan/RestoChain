@@ -11,11 +11,11 @@ This system empowers consumers to make safer dining choices while encouraging re
 **1.Signing in with a Gmail Account:**
   - Users can easily sign in using their Gmail account.  
   - Login is integrated with Google OAuth for security and easy access.  
-  - No need to create a new account or enter a password manually.  
+  - No need to create a new account or enter a password manually.
 **2.Linking the Account to Reviews:**
   - Each review is linked to the email address used in Gmail.  
   - Reviews remain secure, encrypted, and stored on the blockchain while maintaining email privacy.  
-  - The email is not publicly stored on the chain; instead, it is used to generate an encrypted internal identifier.  
+  - The email is not publicly stored on the chain; instead, it is used to generate an encrypted internal identifier.
 **3.Full Data Ownership:**
     - Users retain full ownership of their reviews and data.  
     - No intermediaries control or manipulate the content.  
@@ -45,7 +45,7 @@ Technical Process:
 Users can view all previously recorded reviews and reports on the blockchain, including:
   - Restaurant’s overall rating (average score based on verified reviews)
   - Health violation reports (with timestamps and details)
-  - Verification status of each report (confirmed by an Oracle?  Yes /  No)
+  - Verification status of each report (confirmed by an Oracle?  **Yes /  No**)
 Why This Matters?
   - **Fully transparent & decentralized:** No central database that can be manipulated.
   - **Immutable history:** All ratings and reports are permanently stored on-chain.
