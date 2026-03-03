@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Submit Food Poisoning Incident Report | FoodSafe Chain</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#6366f1",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f172a",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem",
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-effect {
+            backdrop-filter: blur(8px);
+        }
+        .token-glow {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300">
+<nav class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 sticky top-0 z-50 glass-effect">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">verified_user</span>
+<span class="font-bold text-xl tracking-tight">FoodSafe<span class="text-primary">Chain</span></span>
+</div>
+<div class="flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Restaurant Registry</a>
+<div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
+<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-xl">dark_mode</span>
+</button>
+<div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
+<div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+<span class="text-xs font-mono">0x71C...4f2E</span>
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="mb-10">
+<h1 class="text-4xl font-extrabold tracking-tight mb-2">Submit Food Poisoning Incident Report</h1>
+<p class="text-slate-500 dark:text-slate-400 max-w-2xl">Your data helps maintain global food safety standards. Reports are cryptographically signed and stored on the blockchain to ensure immutability and transparency.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 space-y-6">
+<form class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm p-8 space-y-8">
+<div>
+<div class="flex items-center gap-2 mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
+<span class="material-symbols-outlined text-primary">description</span>
+<h2 class="text-xl font-semibold">Incident Details</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
+</div>
+<div class="md:col-span-2 space-y-2">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
+<textarea class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
+</div>
+</div>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
+<span class="material-symbols-outlined text-primary">upload_file</span>
+<h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
+</div>
+<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
+</div>
+<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
+<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
+<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
+</div>
+</div>
+</div>
+<div class="pt-6">
+<div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
+<span class="material-symbols-outlined text-primary mt-1">info</span>
+<p class="text-sm text-slate-600 dark:text-slate-400">
+                                By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
+                            </p>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
+<span class="material-symbols-outlined">draw</span>
+                            Sign &amp; Submit to Blockchain
+                        </button>
+</div>
+</form>
+</div>
+<div class="space-y-6">
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm overflow-hidden relative">
+<div class="absolute -right-4 -top-4 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-amber-500">rewarded_ads</span>
+<h3 class="text-lg font-bold">Incentive Mechanism</h3>
+</div>
+<div class="text-center mb-8 relative">
+<div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-primary to-indigo-400 rounded-full text-white mb-4 token-glow ring-4 ring-white dark:ring-slate-900">
+<span class="material-symbols-outlined text-4xl">confirmation_number</span>
+</div>
+<h4 class="text-2xl font-bold mb-1">25% OFF</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400">Safety Verification Token</p>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                        To encourage high-quality data reporting, every verified incident report is rewarded with a <strong>25% discount token</strong> usable at any participating SafeChain restaurant.
+                    </p>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<div class="mt-1 w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-green-500 text-[16px] font-bold">check</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400">Verified by cross-referencing IPFS evidence</p>
+</div>
+<div class="flex items-start gap-3">
+<div class="mt-1 w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-green-500 text-[16px] font-bold">check</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400">Automatically minted to your wallet address</p>
+</div>
+<div class="flex items-start gap-3">
+<div class="mt-1 w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-green-500 text-[16px] font-bold">check</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400">Transferable on the secondary marketplace</p>
+</div>
+</div>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800/40 rounded-2xl p-6">
+<h3 class="font-bold text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">Report Elements</h3>
+<ul class="space-y-3">
+<li class="flex items-center justify-between text-sm py-2 border-b border-slate-200 dark:border-slate-800">
+<span>Cleanliness</span>
+<span class="material-symbols-outlined text-slate-400 text-sm">chevron_right</span>
+</li>
+<li class="flex items-center justify-between text-sm py-2 border-b border-slate-200 dark:border-slate-800">
+<span>Food condition</span>
+<span class="material-symbols-outlined text-slate-400 text-sm">chevron_right</span>
+</li>
+<li class="flex items-center justify-between text-sm py-2 border-b border-slate-200 dark:border-slate-800">
+<span>Ingredient freshness</span>
+<span class="material-symbols-outlined text-slate-400 text-sm">chevron_right</span>
+</li>
+<li class="flex items-center justify-between text-sm py-2 border-b border-slate-200 dark:border-slate-800">
+<span>Refrigeration/Temp</span>
+<span class="material-symbols-outlined text-slate-400 text-sm">chevron_right</span>
+</li>
+<li class="flex items-center justify-between text-sm py-2">
+<span>Staff hygiene practices</span>
+<span class="material-symbols-outlined text-slate-400 text-sm">chevron_right</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400">account_balance_wallet</span>
+<span class="text-sm text-slate-500 dark:text-slate-400">Powered by Web3 Infrastructure</span>
+</div>
+<div class="flex gap-8">
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">Safety FAQ</a>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">API Docs</a>
+</div>
+<p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
+</div>
+</footer>
+
+</body></html>

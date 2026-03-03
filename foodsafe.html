@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FoodSafe Ledger | Decentralized Food Safety Transparency</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#00d1c1",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#121212",
+                        "sidebar-dark": "#1e1e20",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .sidebar-item { border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.2s; }
+        .sidebar-item:hover { background: rgba(255,255,255,0.05); }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex">
+<aside class="hidden lg:flex flex-col w-72 bg-white dark:bg-sidebar-dark border-r border-slate-200 dark:border-slate-800 h-screen sticky top-0">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2 text-primary font-bold text-xl">
+<span class="material-icons-round">verified_user</span>
+<span>FoodSafe</span>
+</div>
+</div>
+<nav class="flex-1 py-4">
+<div class="px-6 py-3 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                Inspection Categories
+            </div>
+<ul>
+<li class="sidebar-item px-6 py-4 cursor-pointer flex items-center gap-3">
+<span class="material-icons-round text-primary text-xl">cleaning_services</span>
+<span class="font-medium">Cleanliness</span>
+</li>
+<li class="sidebar-item px-6 py-4 cursor-pointer flex items-center gap-3">
+<span class="material-icons-round text-primary text-xl">restaurant</span>
+<span class="font-medium">Food condition</span>
+</li>
+<li class="sidebar-item px-6 py-4 cursor-pointer flex items-center gap-3">
+<span class="material-icons-round text-primary text-xl">eco</span>
+<span class="font-medium">Ingredient freshness</span>
+</li>
+<li class="sidebar-item px-6 py-4 cursor-pointer flex items-center gap-3">
+<span class="material-icons-round text-primary text-xl">thermostat</span>
+<span class="font-medium">Refrigeration/Temp</span>
+</li>
+<li class="sidebar-item px-6 py-4 cursor-pointer flex items-center gap-3">
+<span class="material-icons-round text-primary text-xl">groups</span>
+<span class="font-medium">Staff hygiene practices</span>
+</li>
+<li class="px-6 py-4 cursor-pointer flex items-center gap-3 text-slate-400 hover:text-primary transition-colors">
+<span class="material-icons-round text-xl">more_horiz</span>
+<span class="font-medium">View All Elements</span>
+</li>
+</ul>
+</nav>
+<div class="p-6 bg-slate-50 dark:bg-slate-900/50">
+<button class="w-full flex items-center justify-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-2.5 rounded-lg shadow-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+<img alt="Google logo" class="w-4 h-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdiWRvPhr61eRAeIbIKVIQK2Ryr9h1T-vGK8UE3EhHcB24HhcYGqWHTuzBZsYF9hjh-aHxZawwR3ZoRWmHWXUeShK1vdR80oiMBSOkVzovtI7OOSlzZWqZYbFTWcb37lt0Gjxl2z8W5FiPmD3U-rtbuXmyWn58a5FdDsk_YLnldlVXSLwMRG29q7ofb_qn96WzE6C_kXU3BAkVjcgxwfP0bBlsHZfoyG9Vxvt41ZPewjeiFtxW4zR9fmgD9-TERk2nW5Gkxdq74oM"/>
+<span>Google Sign-in</span>
+</button>
+</div>
+</aside>
+<main class="flex-1 flex flex-col">
+<header class="h-16 flex items-center justify-between px-8 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4 lg:hidden">
+<span class="material-icons-round text-primary">verified_user</span>
+<span class="font-bold">FoodSafe</span>
+</div>
+<div class="hidden md:flex flex-1 max-w-xl">
+<div class="relative w-full group">
+<span class="material-icons-round absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border-none rounded-full focus:ring-2 focus:ring-primary/50 text-sm outline-none transition-all" placeholder="Search restaurants by name or blockchain ID..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-500 hover:text-primary transition-colors">
+<span class="material-icons-round">notifications_none</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary flex items-center justify-center font-bold text-white text-xs">
+                    JD
+                </div>
+</div>
+</header>
+<div class="p-8 lg:p-12 overflow-y-auto">
+<section class="max-w-6xl mx-auto mb-16">
+<div class="grid lg:grid-cols-2 gap-12 items-center">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-6">
+<span class="material-icons-round text-sm">security</span>
+                            Blockchain Verified
+                        </div>
+<h1 class="text-5xl font-extrabold leading-tight mb-6 tracking-tight">
+                            The Transparent <br/><span class="text-primary">Ledger for Food Safety</span>
+</h1>
+<p class="text-lg text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">
+                            Decentralized restaurant ratings built on immutable smart contracts. Ensure every hygiene report is tamper-proof and verified by licensed inspectors.
+                        </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-primary/20 transition-all flex items-center gap-2">
+                                Start Exploring
+                                <span class="material-icons-round text-sm">arrow_forward</span>
+</button>
+<button class="border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold py-3 px-8 rounded-full transition-all">
+                                How it works
+                            </button>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -top-10 -left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-10 -right-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+<div class="relative grid grid-cols-2 gap-4">
+<div class="glass-card p-6 rounded-2xl flex flex-col gap-4 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700">
+<span class="material-icons-round text-primary text-3xl">hub</span>
+<h3 class="font-bold">Decentralized</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">No central authority can manipulate or delete rating data.</p>
+</div>
+<div class="glass-card p-6 rounded-2xl flex flex-col gap-4 mt-8 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700">
+<span class="material-icons-round text-blue-500 text-3xl">history_edu</span>
+<h3 class="font-bold">Tamper-proof</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">Every audit is recorded on-chain with a cryptographic hash.</p>
+</div>
+<div class="glass-card p-6 rounded-2xl flex flex-col gap-4 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700">
+<span class="material-icons-round text-green-500 text-3xl">task_alt</span>
+<h3 class="font-bold">Verified Audits</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">Only authorized smart contracts can update restaurant status.</p>
+</div>
+<div class="glass-card p-6 rounded-2xl flex flex-col gap-4 mt-8 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700">
+<span class="material-icons-round text-purple-500 text-3xl">insights</span>
+<h3 class="font-bold">Real-time Data</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">Instant updates across the network for maximum safety.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="max-w-6xl mx-auto">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold flex items-center gap-2">
+<span class="material-icons-round text-primary">stars</span>
+                        Top Rated for Hygiene
+                    </h2>
+<a class="text-primary font-semibold hover:underline flex items-center gap-1" href="#">
+                        View all
+                        <span class="material-icons-round text-sm">east</span>
+</a>
+</div>
+<div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+<div class="group bg-white dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl transition-all">
+<div class="relative h-48 bg-slate-200 dark:bg-slate-700">
+<img alt="Restaurant interior" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-arySG44kcoPTQ3YMO7esDp9lrGAkC2EE9ZwK-n5o4IrCaWWP41vGa3yMUSMv8R66mehbuBGLYAWLhVAZggyYjmFIiOP41eQ5fEZqEpZ1sqH4WD_Cw04MlHtdX7qcdKdYRKOpez3BcOL9fXRl72rbIdlk958Aa8qo4qDA5cCYG0xC-jbTzj6KIbm4O1vdwx8BdTYPidlwbzfysuCtkg5rSCFJ7CT5xb75DuhfVG0Br5vz8IHJp_knqIUDwE10CZykxloCknMwfs4"/>
+<div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+<span class="material-icons-round text-[14px]">verified</span> 
+                                Grade A+
+                            </div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg group-hover:text-primary transition-colors">The Emerald Kitchen</h3>
+<span class="text-xs text-slate-400">ID: 0x7a...92f</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-1">Specializing in organic and sustainable dining.</p>
+<div class="flex items-center gap-4 text-xs font-medium border-t border-slate-100 dark:border-slate-700 pt-4">
+<div class="flex items-center gap-1">
+<span class="material-icons-round text-primary text-sm">schedule</span>
+<span>Audited 2d ago</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-icons-round text-primary text-sm">location_on</span>
+<span>Downtown</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group bg-white dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl transition-all">
+<div class="relative h-48 bg-slate-200 dark:bg-slate-700">
+<img alt="Modern bistro" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0BMdHqE-8jgLeQxg6dLxPvdQ2cw2tZFyQxNuEhBSs8g5XFQO5R5WjPEhuorn4WOfawlGdD7F8GHGz_poR94JSJQ-edsCkCYlmDYKTuJu8tw5TXyn8xYwTkG3jMbWzooQBplB7emgToUgUzSPQg9CmwJh1SafM3heotr2gZN2tzCJ7VsB_yY9Je4BQfofHes4vVbYbnZiU7QMGkE2fF0dwYOXsv5QT7ZfydB7jP3TEyOIru2y9OtRB8FKPraZ3AdxLkqd_03NA3S0"/>
+<div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+<span class="material-icons-round text-[14px]">verified</span> 
+                                Grade A
+                            </div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg group-hover:text-primary transition-colors">Bistro Blue</h3>
+<span class="text-xs text-slate-400">ID: 0x4d...31b</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-1">Contemporary seafood with open-view kitchen.</p>
+<div class="flex items-center gap-4 text-xs font-medium border-t border-slate-100 dark:border-slate-700 pt-4">
+<div class="flex items-center gap-1">
+<span class="material-icons-round text-primary text-sm">schedule</span>
+<span>Audited 5d ago</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-icons-round text-primary text-sm">location_on</span>
+<span>West Side</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group bg-white dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl transition-all">
+<div class="relative h-48 bg-slate-200 dark:bg-slate-700">
+<img alt="Busy restaurant" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBljtri57w6qMWV60fHXPXtceitaNEuUhQ32ejGnjmiv9xqIQI4-vlVdRuUi26yJk6ZOAlpRQx8pjYLNb6OIYgl19s8P_265rnDKNlHC5-nPBSrOvlkbpHDHOfJYAeucAvJXbUStZAYwSIeuDloWduTrDRqBb-e8KuTmRLI3G48I_DRvSotOn352zoI_cilgcwbFuRVzKQYul-XaptGWs42mdiQ7sORzcA05oBxe59PjwvLhbNPtvdmlpLdglb55K2VAAP9rpVA0U0"/>
+<div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+<span class="material-icons-round text-[14px]">verified</span> 
+                                Grade A
+                            </div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg group-hover:text-primary transition-colors">Saffron Terrace</h3>
+<span class="text-xs text-slate-400">ID: 0xbc...11e</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-1">Artisanal spice-driven cuisine with daily inspections.</p>
+<div class="flex items-center gap-4 text-xs font-medium border-t border-slate-100 dark:border-slate-700 pt-4">
+<div class="flex items-center gap-1">
+<span class="material-icons-round text-primary text-sm">schedule</span>
+<span>Audited 1w ago</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-icons-round text-primary text-sm">location_on</span>
+<span>Old Town</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<footer class="mt-auto border-t border-slate-200 dark:border-slate-800 p-8 text-center text-sm text-slate-500">
+<div class="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto gap-4">
+<div class="flex items-center gap-4">
+<span>© 2024 FoodSafe Ledger</span>
+<span class="w-1 h-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
+<a class="hover:text-primary" href="#">Privacy Protocol</a>
+<span class="w-1 h-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
+<a class="hover:text-primary" href="#">Terms of Service</a>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-green-500/10 text-green-500 rounded-full text-xs font-medium">
+<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    Mainnet Online: Block #19,452,001
+                </div>
+</div>
+</footer>
+</main>
+<button class="fixed bottom-6 right-6 p-3 rounded-full bg-white dark:bg-slate-800 shadow-xl border border-slate-200 dark:border-slate-700 text-slate-500 hover:text-primary z-[100]" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons-round">dark_mode</span>
+</button>
+<script>
+        // Initial set to dark mode based on context
+        document.documentElement.classList.add('dark');
+    </script>
+
+</body></html>
