@@ -7,7 +7,7 @@ The project aims to build a decentralized restaurant rating system using bloc
   - **Incentivized participation:** Possible token rewards for honest reviewers.
 This system empowers consumers to make safer dining choices while encouraging restaurants to maintain high hygiene standards.
 
-# Front-End
+# Front-End                            
 **1.Signing in with a Gmail Account:**
   - Users can easily sign in using their Gmail account.  
   - Login is integrated with Google OAuth for security and easy access.  
@@ -17,9 +17,9 @@ This system empowers consumers to make safer dining choices while encouraging re
   - Reviews remain secure, encrypted, and stored on the blockchain while maintaining email privacy.  
   - The email is not publicly stored on the chain; instead, it is used to generate an encrypted internal identifier.
 **3.Full Data Ownership:**
-    - Users retain full ownership of their reviews and data.  
-    - No intermediaries control or manipulate the content.  
-    - The system ensures accountability and prevents fake reviews by associating each review with a trusted Gmail identity.
+  - Users retain full ownership of their reviews and data.  
+  - No intermediaries control or manipulate the content.  
+  - The system ensures accountability and prevents fake reviews by associating each review with a trusted Gmail identity.
 
 # Smart Contract
 **Dynamic evaluation model**
@@ -45,7 +45,7 @@ Technical Process:
 Users can view all previously recorded reviews and reports on the blockchain, including:
   - Restaurant’s overall rating (average score based on verified reviews)
   - Health violation reports (with timestamps and details)
-  - Verification status of each report (confirmed by an Oracle?  **Yes /  No**)
+  - Verification status of each report (confirmed by an Oracle?  **Yes /  No**)                                                  
 Why This Matters?
   - **Fully transparent & decentralized:** No central database that can be manipulated.
   - **Immutable history:** All ratings and reports are permanently stored on-chain.
@@ -65,7 +65,7 @@ Miners/validators confirm the transaction (usually takes a few seconds to minute
   - **Success Notification**
     A confirmation message appears, displaying:
       - **Block Number** (where the review was recorded)
-      - **Transaction Hash** (TxHash) (proof of submission)
+      - **Transaction Hash** (TxHash) (proof of submission)                                                    
 Why This Matters?
   - **Self-Executing Logic:** The smart contract automatically enforces rules (no manual approval needed).
   - **Tamper-Proof:** Once confirmed, the review cannot be altered or deleted.
