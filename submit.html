@@ -43,15 +43,15 @@
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300">
 <nav class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 sticky top-0 z-50 glass-effect">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-<div class="flex items-center gap-2">
+<a href="foodsafe.html" class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary text-3xl">verified_user</span>
 <span class="font-bold text-xl tracking-tight">FoodSafe<span class="text-primary">Chain</span></span>
-</div>
+</a>
 <div class="flex items-center gap-6">
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Dashboard</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Restaurant Registry</a>
 <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
-<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" onclick="document.documentElement.classList.toggle('dark')" aria-label="Toggle dark mode">
 <span class="material-symbols-outlined text-xl">dark_mode</span>
 </button>
 <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
@@ -94,11 +94,12 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div id="upload-zone" tabindex="0" role="button" aria-label="Upload medical reports or photos" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group outline-none focus-visible:ring-2 focus-visible:ring-primary">
+<input type="file" id="file-upload" multiple class="hidden" aria-hidden="true">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
+<p id="upload-status" class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
 <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
 <div class="flex gap-2">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
@@ -201,5 +202,31 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+    const uploadZone = document.getElementById('upload-zone');
+    const fileUpload = document.getElementById('file-upload');
+    const uploadStatus = document.getElementById('upload-status');
+
+    uploadZone.addEventListener('click', () => fileUpload.click());
+
+    uploadZone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileUpload.click();
+        }
+    });
+
+    fileUpload.addEventListener('change', (e) => {
+        if (fileUpload.files.length > 0) {
+            const fileNames = Array.from(fileUpload.files).map(f => f.name).join(', ');
+            uploadStatus.textContent = fileUpload.files.length === 1 ? `File selected: ${fileNames}` : `${fileUpload.files.length} files selected`;
+            uploadStatus.classList.add('text-primary');
+        } else {
+            uploadStatus.textContent = 'Upload Medical Reports or Photos';
+            uploadStatus.classList.remove('text-primary');
+        }
+    });
+</script>
 
 </body></html>
