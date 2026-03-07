@@ -43,15 +43,15 @@
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300">
 <nav class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 sticky top-0 z-50 glass-effect">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-<div class="flex items-center gap-2">
+<a class="flex items-center gap-2" href="foodsafe.html">
 <span class="material-symbols-outlined text-primary text-3xl">verified_user</span>
 <span class="font-bold text-xl tracking-tight">FoodSafe<span class="text-primary">Chain</span></span>
-</div>
+</a>
 <div class="flex items-center gap-6">
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Dashboard</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Restaurant Registry</a>
 <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
-<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<button aria-label="Toggle dark mode" class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" onclick="document.documentElement.classList.toggle('dark')">
 <span class="material-symbols-outlined text-xl">dark_mode</span>
 </button>
 <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
@@ -76,16 +76,19 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="order-number">Order Number</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" id="order-number" placeholder="e.g. #FS-98210-XC" type="text"/>
 </div>
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="incident-date">Date &amp; Time of Incident</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" id="incident-date" type="datetime-local"/>
 </div>
 <div class="md:col-span-2 space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
-<textarea class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
+<div class="flex justify-between">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="case-description">Case Description</label>
+<span class="text-xs text-slate-400" id="char-count">0/500 characters</span>
+</div>
+<textarea class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" id="case-description" maxlength="500" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
 </div>
 </div>
 </div>
@@ -94,7 +97,8 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<input class="hidden" id="evidence-upload" type="file"/>
+<label class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group" for="evidence-upload" tabindex="0">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -105,7 +109,7 @@
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
-</div>
+</label>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -114,10 +118,10 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
-<span class="material-symbols-outlined">draw</span>
-                            Sign &amp; Submit to Blockchain
-                        </button>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" id="submit-button" type="button">
+<span class="material-symbols-outlined" id="submit-icon">draw</span>
+<span id="submit-text">Sign &amp; Submit to Blockchain</span>
+</button>
 </div>
 </form>
 </div>
@@ -201,5 +205,50 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+    const textarea = document.getElementById('case-description');
+    const charCount = document.getElementById('char-count');
+    const submitBtn = document.getElementById('submit-button');
+    const submitText = document.getElementById('submit-text');
+    const submitIcon = document.getElementById('submit-icon');
+    const uploadInput = document.getElementById('evidence-upload');
+    const uploadLabel = document.querySelector('label[for="evidence-upload"]');
+
+    uploadLabel.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            uploadInput.click();
+        }
+    });
+
+    textarea.addEventListener('input', () => {
+        const currentLength = textarea.value.length;
+        charCount.textContent = `${currentLength}/500 characters`;
+        if (currentLength >= 500) {
+            charCount.classList.add('text-red-500');
+        } else {
+            charCount.classList.remove('text-red-500');
+        }
+    });
+
+    submitBtn.addEventListener('click', () => {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+        submitText.textContent = 'Signing transaction...';
+        submitIcon.textContent = 'sync';
+        submitIcon.classList.add('animate-spin');
+
+        setTimeout(() => {
+            submitText.textContent = 'Report Submitted!';
+            submitIcon.textContent = 'check_circle';
+            submitIcon.classList.remove('animate-spin');
+            // Using inline style to ensure green background even if Tailwind classes aren't generated
+            submitBtn.style.backgroundColor = '#10b981'; // Emerald-500
+            submitBtn.classList.remove('bg-primary', 'shadow-primary/20');
+            submitBtn.classList.add('shadow-green-500/20');
+        }, 2000);
+    });
+</script>
 
 </body></html>
