@@ -1,0 +1,3 @@
+## 2024-05-24 - [Accessibility and Interactive Feedback in Blockchain Forms]
+**Learning:** Custom non-interactive elements (like dashed upload zones) require 'role="button"', 'tabindex="0"', and explicit 'Enter'/'Space' keydown listeners to be keyboard-accessible. Additionally, providing immediate visual feedback for simulated long-running operations (like blockchain transactions) using loading states and success indicators significantly improves perceived reliability.
+**Action:** Always include keyboard event listeners for 'tabindex="0"' elements and implement simple 'disabled' + 'loading icon' states for submission buttons in future forms.
