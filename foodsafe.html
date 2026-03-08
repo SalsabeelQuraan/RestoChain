@@ -262,8 +262,9 @@
 </div>
 </footer>
 </main>
-<button class="fixed bottom-6 right-6 p-3 rounded-full bg-white dark:bg-slate-800 shadow-xl border border-slate-200 dark:border-slate-700 text-slate-500 hover:text-primary z-[100]" onclick="document.documentElement.classList.toggle('dark')">
-<span class="material-icons-round">dark_mode</span>
+<button aria-label="Toggle dark mode" class="fixed bottom-6 right-6 p-3 rounded-full bg-white dark:bg-slate-800 shadow-xl border border-slate-200 dark:border-slate-700 text-slate-500 hover:text-primary z-[100]" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons-round dark:hidden">dark_mode</span>
+<span class="material-icons-round hidden dark:block">light_mode</span>
 </button>
 <script>
         // Initial set to dark mode based on context
