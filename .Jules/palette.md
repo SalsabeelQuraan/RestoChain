@@ -1,0 +1,3 @@
+## 2024-05-23 - [Multi-page Consistency & Interaction Feedback]
+**Learning:** In a multi-page static project, users expect consistent navigation (e.g., logo linking home) and immediate feedback for actions that imply a backend/blockchain process. Accessibility isn't just about labels, but also making non-interactive containers (like custom upload zones) focusable and operable via keyboard.
+**Action:** Always check brand logos for home links. For any "Submit" button, especially those simulating "Web3" transactions, implement a loading/disabled state to manage user expectations. Ensure custom interactive divs have `role="button"` and `tabindex="0"`.
