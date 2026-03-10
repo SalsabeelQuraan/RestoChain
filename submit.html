@@ -51,8 +51,9 @@
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Dashboard</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Restaurant Registry</a>
 <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
-<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-<span class="material-symbols-outlined text-xl">dark_mode</span>
+<button onclick="document.documentElement.classList.toggle('dark')" class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Toggle dark mode">
+<span class="material-symbols-outlined text-xl dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined text-xl hidden dark:block">light_mode</span>
 </button>
 <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
 <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -76,16 +77,16 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
+<label for="order-number" class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
+<input id="order-number" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
 </div>
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
+<label for="incident-date" class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
+<input id="incident-date" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
 </div>
 <div class="md:col-span-2 space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
-<textarea class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
+<label for="case-description" class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
+<textarea id="case-description" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
 </div>
 </div>
 </div>
@@ -94,7 +95,7 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div id="upload-zone" tabindex="0" role="button" aria-label="Upload Medical Reports or Photos" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-slate-900">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -114,10 +115,10 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
+<button id="submit-btn" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
 <span class="material-symbols-outlined">draw</span>
-                            Sign &amp; Submit to Blockchain
-                        </button>
+<span id="submit-text">Sign & Submit to Blockchain</span>
+</button>
 </div>
 </form>
 </div>
@@ -202,4 +203,56 @@
 </div>
 </footer>
 
+    <script>
+        // Handle accessibility for custom upload zone
+        const uploadZone = document.getElementById('upload-zone');
+        if (uploadZone) {
+            uploadZone.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    uploadZone.click();
+                }
+            });
+        }
+
+        // Handle simulated blockchain submission
+        const submitBtn = document.getElementById('submit-btn');
+        const submitText = document.getElementById('submit-text');
+
+        if (submitBtn && submitText) {
+            submitBtn.addEventListener('click', () => {
+                const originalContent = submitBtn.innerHTML;
+
+                // Processing state
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+                submitBtn.innerHTML = `
+                    <span class="material-symbols-outlined animate-spin">sync</span>
+                    <span>Processing Transaction...</span>
+                `;
+
+                // Simulate blockchain delay
+                setTimeout(() => {
+                    // Success state
+                    submitBtn.classList.remove('bg-primary', 'hover:bg-primary/90', 'shadow-primary/20');
+                    submitBtn.classList.add('bg-green-500', 'shadow-green-500/20');
+                    submitBtn.innerHTML = `
+                        <span class="material-symbols-outlined">check_circle</span>
+                        <div class="text-left">
+                            <div class="font-bold">Report Submitted Successfully</div>
+                            <div class="text-[10px] font-mono opacity-80 leading-none mt-1">Tx: 0x${Math.random().toString(16).substring(2, 10)}...${Math.random().toString(16).substring(2, 6)}</div>
+                        </div>
+                    `;
+
+                    // Optional: Reset after some time or keep as success
+                    // setTimeout(() => {
+                    //    submitBtn.disabled = false;
+                    //    submitBtn.classList.remove('opacity-75', 'cursor-not-allowed', 'bg-green-500', 'shadow-green-500/20');
+                    //    submitBtn.classList.add('bg-primary', 'hover:bg-primary/90', 'shadow-primary/20');
+                    //    submitBtn.innerHTML = originalContent;
+                    // }, 5000);
+                }, 2000);
+            });
+        }
+    </script>
 </body></html>
