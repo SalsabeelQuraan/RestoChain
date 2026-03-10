@@ -1,0 +1,3 @@
+## 2024-05-23 - Enhancing Blockchain Interactions and Form Accessibility
+**Learning:** Users interacting with blockchain-based systems expect clear visual feedback for asynchronous actions (signing/submitting). Providing states like "Processing..." and a success confirmation with a transaction hash significantly reduces anxiety and improves perceived performance. Additionally, custom interactive elements (like dashed upload zones) must be explicitly made focusable and keyboard-accessible to meet basic accessibility standards.
+**Action:** Always implement multi-state feedback for async actions and ensure non-native interactive elements have proper ARIA roles, tabindex, and keydown listeners.
