@@ -43,16 +43,17 @@
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300">
 <nav class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 sticky top-0 z-50 glass-effect">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-<div class="flex items-center gap-2">
+<a href="foodsafe.html" class="flex items-center gap-2 hover:opacity-90 transition-opacity">
 <span class="material-symbols-outlined text-primary text-3xl">verified_user</span>
 <span class="font-bold text-xl tracking-tight">FoodSafe<span class="text-primary">Chain</span></span>
-</div>
+</a>
 <div class="flex items-center gap-6">
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Dashboard</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Restaurant Registry</a>
 <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
-<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-<span class="material-symbols-outlined text-xl">dark_mode</span>
+<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" onclick="document.documentElement.classList.toggle('dark')" aria-label="Toggle Dark Mode">
+<span class="material-symbols-outlined text-xl dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined text-xl hidden dark:block">light_mode</span>
 </button>
 <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
 <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -76,16 +77,16 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
+<label for="order-number" class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
+<input id="order-number" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
 </div>
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
+<label for="incident-datetime" class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
+<input id="incident-datetime" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
 </div>
 <div class="md:col-span-2 space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
-<textarea class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
+<label for="case-description" class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
+<textarea id="case-description" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
 </div>
 </div>
 </div>
@@ -94,7 +95,7 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div id="file-upload-area" role="button" tabindex="0" aria-label="Upload Medical Reports or Photos" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group focus:ring-2 focus:ring-primary focus:outline-none">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -114,12 +115,72 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
-<span class="material-symbols-outlined">draw</span>
-                            Sign &amp; Submit to Blockchain
-                        </button>
+<button id="submit-btn" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed" type="button">
+<span class="material-symbols-outlined" id="btn-icon">draw</span>
+<span id="btn-text">Sign &amp; Submit to Blockchain</span>
+</button>
 </div>
 </form>
+
+<script>
+    const submitBtn = document.getElementById('submit-btn');
+    const btnIcon = document.getElementById('btn-icon');
+    const btnText = document.getElementById('btn-text');
+    const fileUploadArea = document.getElementById('file-upload-area');
+
+    if (submitBtn) {
+        submitBtn.addEventListener('click', () => {
+            submitBtn.disabled = true;
+            btnText.textContent = 'Processing...';
+            btnIcon.textContent = 'hourglass_empty';
+            btnIcon.classList.add('animate-spin');
+
+            setTimeout(() => {
+                btnText.textContent = 'Transaction Confirmed!';
+                btnIcon.textContent = 'task_alt';
+                btnIcon.classList.remove('animate-spin');
+                submitBtn.classList.remove('bg-primary');
+                submitBtn.classList.add('bg-green-500');
+
+                // Show a small success toast notification (simulated)
+                const toast = document.createElement('div');
+                toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-xl flex items-center gap-2 z-[200] animate-bounce';
+                toast.innerHTML = '<span class="material-symbols-outlined">verified</span> Transaction Hash: 0x7a...92f recorded!';
+                document.body.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.remove();
+                }, 5000);
+            }, 2000);
+        });
+    }
+
+    if (fileUploadArea) {
+        ['click', 'keydown'].forEach(evt => {
+            fileUploadArea.addEventListener(evt, (e) => {
+                if (evt === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
+                e.preventDefault();
+                // Simulate file input click
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.multiple = true;
+                input.click();
+
+                input.onchange = () => {
+                    if (input.files.length > 0) {
+                        const originalText = fileUploadArea.querySelector('p.text-base').textContent;
+                        fileUploadArea.querySelector('p.text-base').textContent = `${input.files.length} file(s) ready for IPFS upload.`;
+                        fileUploadArea.classList.add('border-primary', 'bg-primary/5');
+                        setTimeout(() => {
+                            fileUploadArea.querySelector('p.text-base').textContent = originalText;
+                            fileUploadArea.classList.remove('border-primary', 'bg-primary/5');
+                        }, 3000);
+                    }
+                };
+            });
+        });
+    }
+</script>
 </div>
 <div class="space-y-6">
 <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm overflow-hidden relative">
