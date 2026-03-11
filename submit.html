@@ -51,7 +51,7 @@
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Dashboard</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Restaurant Registry</a>
 <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
-<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" onclick="document.documentElement.classList.toggle('dark')" aria-label="Toggle dark mode">
 <span class="material-symbols-outlined text-xl">dark_mode</span>
 </button>
 <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
@@ -94,11 +94,12 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div id="upload-container" role="button" tabindex="0" aria-label="Upload medical reports or photos" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus:border-primary focus:outline-none transition-colors cursor-pointer group">
+<input type="file" id="evidence-upload" class="hidden" accept=".pdf,.jpg,.png">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
+<p id="upload-text" class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
 <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
 <div class="flex gap-2">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
@@ -114,7 +115,7 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
+<button id="submit-button" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
 <span class="material-symbols-outlined">draw</span>
                             Sign &amp; Submit to Blockchain
                         </button>
@@ -201,5 +202,56 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+    const uploadContainer = document.getElementById('upload-container');
+    const fileInput = document.getElementById('evidence-upload');
+    const uploadText = document.getElementById('upload-text');
+    const submitButton = document.getElementById('submit-button');
+
+    // File Upload Interactions
+    uploadContainer.addEventListener('click', () => fileInput.click());
+
+    uploadContainer.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput.click();
+        }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            uploadText.innerText = `Selected: ${e.target.files[0].name}`;
+            uploadText.classList.add('text-primary');
+        }
+    });
+
+    // Simulated Submission
+    submitButton.addEventListener('click', () => {
+        const originalContent = submitButton.innerHTML;
+        submitButton.disabled = true;
+        submitButton.innerHTML = `
+            <span class="material-symbols-outlined animate-spin">sync</span>
+            Processing...
+        `;
+
+        setTimeout(() => {
+            submitButton.classList.remove('bg-primary', 'hover:bg-primary/90');
+            submitButton.classList.add('bg-green-500');
+            submitButton.innerHTML = `
+                <span class="material-symbols-outlined">check_circle</span>
+                Submitted to Blockchain!
+            `;
+
+            // Optional: reset after some time
+            setTimeout(() => {
+                submitButton.disabled = false;
+                submitButton.classList.add('bg-primary', 'hover:bg-primary/90');
+                submitButton.classList.remove('bg-green-500');
+                submitButton.innerHTML = originalContent;
+            }, 3000);
+        }, 2000);
+    });
+</script>
 
 </body></html>
