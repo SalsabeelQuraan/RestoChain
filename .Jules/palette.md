@@ -1,0 +1,3 @@
+## 2024-05-23 - Improving Asynchronous Feedback and Accessibility in Reports
+**Learning:** Users often feel uncertain when performing actions that "feel" heavy or asynchronous, like blockchain transactions. Providing clear "Processing..." and "Submitted!" states significantly improves perceived reliability. Additionally, custom file upload areas are common accessibility pitfalls; they must be made keyboard-accessible (tabindex, role, event listeners) and provide immediate feedback on the selected file.
+**Action:** Always include ARIA roles/labels for custom interactive components and implement multi-state feedback for high-latency actions.
