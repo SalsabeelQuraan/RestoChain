@@ -1,0 +1,3 @@
+## 2024-05-24 - Accessible File Uploads and Focus Visibility
+**Learning:** In static HTML projects using Tailwind, custom interactive elements (like file upload areas or dark mode toggles) often omit standard browser focus indicators. Simply adding `tabindex="0"` or `focus:outline-none` is insufficient and can lead to accessibility regressions.
+**Action:** Always pair `focus:outline-none` with `focus-visible:ring-2` (or similar) to provide a clear focus indicator for keyboard users. For custom file uploads, use an accessible `<label>` (with role, tabindex, and keyboard listeners) linked to a hidden `<input type="file">`.
