@@ -9,6 +9,64 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('evidence-upload');
+            const uploadLabel = document.getElementById('upload-label');
+            const uploadText = document.getElementById('upload-text');
+            const uploadSubtext = document.getElementById('upload-subtext');
+            const uploadIcon = document.getElementById('upload-icon');
+            const uploadFormats = document.getElementById('upload-formats');
+
+            // Handle keyboard accessibility for the custom label button
+            uploadLabel.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    fileInput.click();
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    const fileName = e.target.files[0].name;
+                    uploadText.textContent = 'File Selected';
+                    uploadSubtext.innerHTML = '<span class="text-primary font-bold"></span><br>Ready to be encrypted and uploaded.';
+                    uploadSubtext.querySelector('span').textContent = fileName;
+                    uploadIcon.textContent = 'check_circle';
+                    uploadFormats.classList.add('hidden');
+                    uploadLabel.classList.remove('border-slate-200', 'dark:border-slate-700');
+                    uploadLabel.classList.add('border-primary', 'bg-primary/5');
+                }
+            });
+
+            const submitBtn = document.getElementById('submit-button');
+            const submitIcon = document.getElementById('submit-icon');
+            const submitText = document.getElementById('submit-text');
+
+            submitBtn.addEventListener('click', () => {
+                // Change to processing state
+                submitBtn.disabled = true;
+                submitText.textContent = 'Signing Transaction...';
+                submitIcon.textContent = 'sync';
+                submitIcon.classList.add('animate-spin');
+
+                // Simulate blockchain processing
+                setTimeout(() => {
+                    submitIcon.classList.remove('animate-spin');
+                    submitIcon.textContent = 'verified';
+                    submitText.textContent = 'Submitted to Blockchain!';
+                    submitBtn.classList.remove('bg-primary', 'hover:bg-primary/90');
+                    submitBtn.classList.add('bg-green-500');
+
+                    // Show a small success message below
+                    const successMsg = document.createElement('p');
+                    successMsg.className = 'text-center text-green-500 font-bold text-sm mt-4';
+                    successMsg.setAttribute('role', 'status');
+                    successMsg.textContent = 'Transaction Confirmed! Block #19,452,008';
+                    submitBtn.parentNode.appendChild(successMsg);
+                }, 2000);
+            });
+        });
+
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -76,16 +134,16 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="order-number">Order Number</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" id="order-number" placeholder="e.g. #FS-98210-XC" type="text"/>
 </div>
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="incident-date">Date &amp; Time of Incident</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" id="incident-date" type="datetime-local"/>
 </div>
 <div class="md:col-span-2 space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
-<textarea class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="case-description">Case Description</label>
+<textarea class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" id="case-description" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
 </div>
 </div>
 </div>
@@ -94,18 +152,19 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<input accept=".pdf,.jpg,.jpeg,.png" class="hidden" id="evidence-upload" type="file"/>
+<label class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-all cursor-pointer group focus-within:ring-2 focus-within:ring-primary/50 outline-none" for="evidence-upload" id="upload-label" role="button" tabindex="0">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
+<span class="material-symbols-outlined text-primary text-3xl" id="upload-icon">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
+<p class="text-base font-medium mb-1" id="upload-text">Upload Medical Reports or Photos</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center" id="upload-subtext">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<div class="flex gap-2" id="upload-formats">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
-</div>
+</label>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -114,10 +173,10 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
-<span class="material-symbols-outlined">draw</span>
-                            Sign &amp; Submit to Blockchain
-                        </button>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none" id="submit-button" type="button">
+<span class="material-symbols-outlined" id="submit-icon">draw</span>
+<span id="submit-text">Sign &amp; Submit to Blockchain</span>
+</button>
 </div>
 </form>
 </div>
