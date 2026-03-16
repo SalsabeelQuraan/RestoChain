@@ -94,7 +94,7 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+            <label for="evidence-upload" role="button" tabindex="0" aria-label="Upload medical reports or photos" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-all cursor-pointer group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-slate-900">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -105,7 +105,9 @@
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
-</div>
+                <input type="file" id="evidence-upload" name="evidence" class="hidden" multiple accept=".pdf,.jpg,.jpeg,.png">
+            </label>
+            <p id="upload-status" role="status" class="text-sm mt-4 text-primary font-medium text-center min-h-[1.25rem]"></p>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -202,4 +204,32 @@
 </div>
 </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('evidence-upload');
+            const uploadStatus = document.getElementById('upload-status');
+            const uploadLabel = fileInput ? fileInput.closest('label') : null;
+
+            if (fileInput && uploadStatus) {
+                fileInput.addEventListener('change', (e) => {
+                    const files = e.target.files;
+                    if (files.length > 0) {
+                        const fileNames = Array.from(files).map(file => file.name).join(', ');
+                        uploadStatus.textContent = `Selected: ${fileNames}`;
+                    } else {
+                        uploadStatus.textContent = '';
+                    }
+                });
+            }
+
+            if (uploadLabel) {
+                uploadLabel.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        fileInput.click();
+                    }
+                });
+            }
+        });
+    </script>
 </body></html>
