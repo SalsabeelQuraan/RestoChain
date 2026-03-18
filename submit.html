@@ -114,10 +114,10 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
-<span class="material-symbols-outlined">draw</span>
-                            Sign &amp; Submit to Blockchain
-                        </button>
+<button id="submit-report-btn" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
+<span id="submit-btn-icon" class="material-symbols-outlined">draw</span>
+<span id="submit-btn-text">Sign &amp; Submit to Blockchain</span>
+</button>
 </div>
 </form>
 </div>
@@ -201,5 +201,52 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<div class="hidden animate-spin"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const submitBtn = document.getElementById('submit-report-btn');
+        const btnText = document.getElementById('submit-btn-text');
+        const btnIcon = document.getElementById('submit-btn-icon');
+
+        if (submitBtn) {
+            submitBtn.addEventListener('click', () => {
+                // Prevent multiple clicks
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
+                submitBtn.classList.remove('active:scale-[0.98]', 'hover:bg-primary/90');
+
+                // Step 1: Signing
+                btnIcon.textContent = 'fingerprint';
+                btnIcon.classList.add('animate-pulse');
+                btnText.textContent = 'Signing Transaction...';
+
+                // Step 2: Confirming
+                setTimeout(() => {
+                    btnIcon.textContent = 'sync';
+                    btnIcon.classList.remove('animate-pulse');
+                    btnIcon.classList.add('animate-spin');
+                    btnText.textContent = 'Confirming on Blockchain...';
+                }, 1500);
+
+                // Step 3: Success
+                setTimeout(() => {
+                    btnIcon.classList.remove('animate-spin');
+                    btnIcon.textContent = 'check_circle';
+                    btnText.textContent = 'Report Submitted Successfully!';
+
+                    submitBtn.classList.remove('bg-primary', 'opacity-80');
+                    submitBtn.classList.add('bg-green-500', 'shadow-green-500/20');
+
+                    // Optional: Reset after some time or redirect
+                    setTimeout(() => {
+                        // For demo purposes, we just keep the success state
+                    }, 3000);
+                }, 4000);
+            });
+        }
+    });
+</script>
 
 </body></html>
