@@ -1,0 +1,3 @@
+## 2025-05-15 - Accessible File Upload with Dynamic Feedback
+**Learning:** For projects using Tailwind via CDN, classes added dynamically via JavaScript (e.g., success state colors) won't be processed unless they are present in the static HTML. Additionally, using a `<label>` as a container for a hidden `<input type="file">` provides a clean way to style file inputs while maintaining accessibility when combined with `role="button"`, `tabindex="0"`, and keyboard listeners.
+**Action:** Always include a hidden "safelist" div for dynamic Tailwind classes and use the label-container pattern for custom file upload UIs to ensure full keyboard and screen reader support.

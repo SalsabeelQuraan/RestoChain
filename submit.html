@@ -94,18 +94,19 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
+<label for="file-upload" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group focus-within:ring-2 focus-within:ring-primary/50" role="button" tabindex="0" aria-label="Upload Medical Reports or Photos">
+<input type="file" id="file-upload" name="evidence" multiple class="hidden">
+<div id="upload-icon-container" class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span id="upload-icon" class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<p id="upload-text" class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
+<p id="upload-subtext" class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
 <div class="flex gap-2">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
-</div>
+</label>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -201,5 +202,48 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<!-- Hidden element to ensure Tailwind classes are processed by CDN -->
+<div class="hidden bg-green-500/20 text-green-500 border-green-500/50 bg-green-500/5"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const fileInput = document.getElementById('file-upload');
+        const uploadLabel = fileInput.parentElement;
+        const uploadIcon = document.getElementById('upload-icon');
+        const uploadText = document.getElementById('upload-text');
+        const uploadSubtext = document.getElementById('upload-subtext');
+        const iconContainer = document.getElementById('upload-icon-container');
+
+        // Handle file selection
+        fileInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (files.length > 0) {
+                const fileCount = files.length;
+                const fileNames = Array.from(files).map(f => f.name).join(', ');
+
+                // Update UI for success state
+                uploadText.textContent = `${fileCount} file${fileCount > 1 ? 's' : ''} selected`;
+                uploadSubtext.textContent = fileNames.length > 50 ? fileNames.substring(0, 47) + '...' : fileNames;
+                uploadIcon.textContent = 'task_alt';
+
+                // Add success styling
+                iconContainer.classList.remove('bg-primary/10');
+                iconContainer.classList.add('bg-green-500/20');
+                uploadIcon.classList.remove('text-primary');
+                uploadIcon.classList.add('text-green-500');
+                uploadLabel.classList.add('border-green-500/50', 'bg-green-500/5');
+            }
+        });
+
+        // Keyboard accessibility for the label
+        uploadLabel.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInput.click();
+            }
+        });
+    });
+</script>
 
 </body></html>
