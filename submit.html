@@ -94,18 +94,19 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<input type="file" id="file-upload" multiple name="evidence" class="hidden" accept=".pdf,.jpg,.jpeg,.png">
+<label for="file-upload" role="button" tabindex="0" aria-label="Upload evidence" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group focus-visible:ring-2 focus-visible:ring-primary outline-none">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
+<span id="upload-icon" class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<p id="upload-text" class="text-base font-medium mb-1 text-center">Upload Medical Reports or Photos</p>
+<p id="upload-subtext" class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
 <div class="flex gap-2">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
-</div>
+</label>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -202,4 +203,37 @@
 </div>
 </footer>
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const fileInput = document.getElementById('file-upload');
+        const uploadLabel = document.querySelector('label[for="file-upload"]');
+        const uploadIcon = document.getElementById('upload-icon');
+        const uploadText = document.getElementById('upload-text');
+        const uploadSubtext = document.getElementById('upload-subtext');
+
+        if (fileInput && uploadLabel) {
+            // Handle file selection
+            fileInput.addEventListener('change', (e) => {
+                const files = e.target.files;
+                if (files.length > 0) {
+                    const fileNames = Array.from(files).map(f => f.name).join(', ');
+                    uploadText.textContent = files.length === 1 ? 'File Selected' : `${files.length} Files Selected`;
+                    uploadSubtext.textContent = fileNames;
+                    uploadIcon.textContent = 'check_circle';
+                    uploadIcon.classList.remove('text-primary');
+                    uploadIcon.classList.add('text-green-500');
+                    uploadLabel.classList.add('border-green-500', 'bg-green-50/30', 'dark:bg-green-900/10');
+                }
+            });
+
+            // Keyboard accessibility for the label
+            uploadLabel.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    fileInput.click();
+                }
+            });
+        }
+    });
+</script>
 </body></html>
