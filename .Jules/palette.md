@@ -1,0 +1,3 @@
+## 2024-03-20 - Enhanced File Upload Accessibility and Feedback
+**Learning:** Custom file upload areas (often styled `div`s) are frequently inaccessible to keyboard and screen reader users. Simply wrapping them in a `<label>` linked to a hidden `<input>` isn't enough for full accessibility; they require `role="button"`, `tabindex="0"`, and explicit `keydown` listeners for 'Enter' and 'Space' to match standard button behavior.
+**Action:** Always implement the accessible file upload pattern: Hidden input + Label container with `role="button"`, `tabindex="0"`, `aria-label`, and a JavaScript keydown listener to trigger the input via keyboard.
