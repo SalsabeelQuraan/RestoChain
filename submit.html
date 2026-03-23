@@ -114,9 +114,9 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
-<span class="material-symbols-outlined">draw</span>
-                            Sign &amp; Submit to Blockchain
+<button id="submit-report" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
+<span id="submit-icon" class="material-symbols-outlined">draw</span>
+                            <span id="submit-text" aria-live="polite">Sign &amp; Submit to Blockchain</span>
                         </button>
 </div>
 </form>
@@ -201,5 +201,30 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<div class="hidden animate-pulse text-green-500"></div>
+
+<script>
+    document.getElementById('submit-report').addEventListener('click', function() {
+        const btn = this;
+        const icon = document.getElementById('submit-icon');
+        const text = document.getElementById('submit-text');
+
+        // Processing state
+        btn.disabled = true;
+        btn.classList.add('opacity-75', 'cursor-not-allowed');
+        icon.textContent = 'cloud_upload';
+        icon.classList.add('animate-pulse');
+        text.textContent = 'Processing Transaction...';
+
+        // Simulate blockchain consensus
+        setTimeout(() => {
+            icon.classList.remove('animate-pulse');
+            icon.classList.add('text-green-500');
+            icon.textContent = 'check_circle';
+            text.textContent = 'Submitted Successfully';
+        }, 2000);
+    });
+</script>
 
 </body></html>
