@@ -1,0 +1,3 @@
+## 2024-05-15 - Accessible and Interactive File Uploads
+**Learning:** Custom UI components (like drag-and-drop areas) often fail accessibility checks and provide no user feedback. Using a semantic `<label>` linked to a hidden `<input>` provides native file selection while allowing custom styling. Adding `role="button"`, `tabindex="0"`, and `keydown` listeners (Enter/Space) is crucial for keyboard users.
+**Action:** Always implement custom interactive containers with appropriate ARIA roles, focus management, and keyboard event listeners. Provide immediate visual feedback for user actions (like file selection) using `role="status"`.
