@@ -1,0 +1,3 @@
+## 2024-03-26 - Accessible File Upload Pattern
+**Learning:** Custom decorative file upload areas often lack basic accessibility and functionality. Using a <label> as the container linked to a hidden <input type="file"> provides a standard-compliant way to handle file selection while maintaining design flexibility. Adding role="button", tabindex="0", and keyboard listeners (Enter/Space) ensures it is usable for screen reader and keyboard-only users.
+**Action:** Always use the <label> + hidden <input> pattern for custom upload UI. Include focus-within:ring for visual focus states and role="status" for dynamic feedback.
