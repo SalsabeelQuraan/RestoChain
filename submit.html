@@ -94,7 +94,7 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<label id="upload-container" for="file-upload" role="button" tabindex="0" aria-label="Upload Medical Reports or Photos" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 dark:focus-within:ring-offset-slate-900 transition-colors cursor-pointer group">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -105,7 +105,9 @@
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
-</div>
+<input id="file-upload" type="file" multiple accept=".pdf,.jpg,.jpeg,.png" class="sr-only" name="evidence" tabindex="-1" />
+<p id="upload-status" role="status" class="text-xs text-primary font-semibold mt-4 hidden"></p>
+</label>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -201,5 +203,57 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const fileInput = document.getElementById('file-upload');
+        const uploadStatus = document.getElementById('upload-status');
+        const uploadContainer = document.getElementById('upload-container');
+
+        if (fileInput && uploadStatus && uploadContainer) {
+            fileInput.addEventListener('change', (e) => {
+                const files = e.target.files;
+                if (files.length > 0) {
+                    const fileNames = Array.from(files).map(f => f.name).join(', ');
+                    uploadStatus.textContent = `Selected: ${fileNames}`;
+                    uploadStatus.classList.remove('hidden');
+                } else {
+                    uploadStatus.textContent = '';
+                    uploadStatus.classList.add('hidden');
+                }
+            });
+
+            // Keyboard accessibility for the custom label button
+            uploadContainer.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    fileInput.click();
+                }
+            });
+
+            // Drag and Drop Support
+            uploadContainer.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadContainer.classList.add('border-primary/50', 'bg-primary/5');
+            });
+
+            ['dragleave', 'dragend'].forEach(type => {
+                uploadContainer.addEventListener(type, () => {
+                    uploadContainer.classList.remove('border-primary/50', 'bg-primary/5');
+                });
+            });
+
+            uploadContainer.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadContainer.classList.remove('border-primary/50', 'bg-primary/5');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    fileInput.files = files;
+                    fileInput.dispatchEvent(new Event('change'));
+                }
+            });
+        }
+    });
+</script>
 
 </body></html>
