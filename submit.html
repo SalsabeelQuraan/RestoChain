@@ -51,8 +51,9 @@
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Dashboard</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Restaurant Registry</a>
 <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
-<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-<span class="material-symbols-outlined text-xl">dark_mode</span>
+<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined hidden dark:block">light_mode</span>
 </button>
 <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
 <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -94,18 +95,20 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<label id="upload-container" for="file-upload" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-all cursor-pointer group focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 dark:focus-within:ring-offset-slate-900" role="button" tabindex="0">
+<input type="file" id="file-upload" class="hidden" accept=".pdf,.jpg,.jpeg,.png" multiple tabindex="-1">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
 <p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
+<p id="upload-status" class="text-sm text-primary font-bold mb-2 hidden" role="status"></p>
 <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
 <div class="flex gap-2">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
-</div>
+</label>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -114,10 +117,10 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
+<button id="submit-btn" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed" type="button">
 <span class="material-symbols-outlined">draw</span>
-                            Sign &amp; Submit to Blockchain
-                        </button>
+<span id="btn-text">Sign &amp; Submit to Blockchain</span>
+</button>
 </div>
 </form>
 </div>
@@ -201,5 +204,74 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+    const uploadContainer = document.getElementById('upload-container');
+    const fileInput = document.getElementById('file-upload');
+    const uploadStatus = document.getElementById('upload-status');
+
+    function updateUploadStatus() {
+        if (fileInput.files.length > 0) {
+            const fileNames = Array.from(fileInput.files).map(f => f.name).join(', ');
+            uploadStatus.textContent = `Selected: ${fileNames}`;
+            uploadStatus.classList.remove('hidden');
+        } else {
+            uploadStatus.textContent = '';
+            uploadStatus.classList.add('hidden');
+        }
+    }
+
+    fileInput.addEventListener('change', updateUploadStatus);
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadContainer.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadContainer.classList.add('border-primary', 'bg-primary/5');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadContainer.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadContainer.classList.remove('border-primary', 'bg-primary/5');
+        });
+    });
+
+    uploadContainer.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        fileInput.files = dt.files;
+        updateUploadStatus();
+    });
+
+    uploadContainer.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput.click();
+        }
+    });
+
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = document.getElementById('btn-text');
+
+    submitBtn.addEventListener('click', () => {
+        submitBtn.disabled = true;
+        btnText.textContent = 'Processing Transaction...';
+
+        setTimeout(() => {
+            btnText.textContent = 'Successfully Submitted!';
+            submitBtn.classList.remove('bg-primary', 'disabled:opacity-50');
+            submitBtn.classList.add('bg-green-500');
+
+            setTimeout(() => {
+                btnText.textContent = 'Sign & Submit to Blockchain';
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('bg-green-500');
+                submitBtn.classList.add('bg-primary', 'disabled:opacity-50');
+            }, 3000);
+        }, 2000);
+    });
+</script>
 
 </body></html>
