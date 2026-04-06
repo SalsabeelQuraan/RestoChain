@@ -94,18 +94,16 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<input id="file-upload" type="file" class="hidden" accept=".pdf,.jpg,.jpeg,.png" multiple tabindex="-1">
+<label id="upload-container" for="file-upload" role="button" tabindex="0" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary focus-within:ring-2 focus-within:ring-primary transition-colors cursor-pointer group outline-none">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
-</div>
-</div>
+<p class="text-base font-medium mb-1 text-center">Upload Medical Reports or Photos</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.</p>
+<div class="flex gap-2"><span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span><span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span><span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span></div>
+<p id="upload-status" class="mt-4 text-sm font-medium text-primary hidden" role="status"></p>
+</label>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -202,4 +200,26 @@
 </div>
 </footer>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('upload-container');
+    const input = document.getElementById('file-upload');
+    const status = document.getElementById('upload-status');
+    const update = (f) => {
+        status.textContent = f.length ? `${f.length} file(s): ${Array.from(f).map(x => x.name).join(', ')}` : '';
+        status.classList.toggle('hidden', !f.length);
+    };
+    input.onchange = (e) => update(e.target.files);
+    container.onkeydown = (e) => (e.key === 'Enter' || e.key === ' ') && input.click();
+    ['dragenter', 'dragover'].forEach(n => container.addEventListener(n, (e) => {
+        e.preventDefault();
+        container.classList.add('border-primary', 'bg-primary/5');
+    }));
+    ['dragleave', 'drop'].forEach(n => container.addEventListener(n, (e) => {
+        e.preventDefault();
+        container.classList.remove('border-primary', 'bg-primary/5');
+        if (n === 'drop') { input.files = e.dataTransfer.files; update(input.files); }
+    }));
+});
+</script>
 </body></html>
