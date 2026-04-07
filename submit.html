@@ -41,6 +41,7 @@
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300">
+    <div class="hidden animate-spin bg-green-600"></div>
 <nav class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 sticky top-0 z-50 glass-effect">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
 <div class="flex items-center gap-2">
@@ -51,8 +52,9 @@
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Dashboard</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Restaurant Registry</a>
 <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
-<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-<span class="material-symbols-outlined text-xl">dark_mode</span>
+<button aria-label="Toggle Dark Mode" class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-primary outline-none" onclick="document.documentElement.classList.toggle('dark')">
+    <span class="material-symbols-outlined text-xl dark:hidden">dark_mode</span>
+    <span class="material-symbols-outlined text-xl hidden dark:block">light_mode</span>
 </button>
 <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
 <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -94,18 +96,20 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
-</div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
-</div>
-</div>
+<label for="file-upload" id="upload-container" role="button" tabindex="0" aria-label="Upload Medical Reports or Photos" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group focus-within:ring-2 focus-within:ring-primary outline-none">
+    <input type="file" id="file-upload" accept=".pdf,.jpg,.jpeg,.png" multiple class="hidden" tabindex="-1">
+    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+        <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
+    </div>
+    <p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
+    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+    <div class="flex gap-2">
+        <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
+        <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
+        <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
+    </div>
+</label>
+<p id="upload-status" class="text-sm font-medium text-primary mt-2 text-center" role="status"></p>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -114,10 +118,10 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
-<span class="material-symbols-outlined">draw</span>
-                            Sign &amp; Submit to Blockchain
-                        </button>
+<button id="submit-btn" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed" type="button">
+    <span class="material-symbols-outlined" id="btn-icon">draw</span>
+    <span id="btn-text">Sign &amp; Submit to Blockchain</span>
+</button>
 </div>
 </form>
 </div>
@@ -201,5 +205,77 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+    const uploadContainer = document.getElementById('upload-container');
+    const fileInput = document.getElementById('file-upload');
+    const uploadStatus = document.getElementById('upload-status');
+
+    const updateStatus = (files) => {
+        if (files.length > 0) {
+            uploadStatus.textContent = files.length === 1
+                ? `Selected: ${files[0].name}`
+                : `Selected: ${files.length} files`;
+        } else {
+            uploadStatus.textContent = '';
+        }
+    };
+
+    // Handle file input change
+    fileInput.addEventListener('change', (e) => {
+        updateStatus(e.target.files);
+    });
+
+    // Keyboard accessibility for the label container
+    uploadContainer.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput.click();
+        }
+    });
+
+    // Drag and drop visual feedback
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadContainer.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            uploadContainer.classList.add('border-primary', 'bg-primary/5');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadContainer.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            uploadContainer.classList.remove('border-primary', 'bg-primary/5');
+        });
+    });
+
+    // Handle dropped files
+    uploadContainer.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        fileInput.files = files;
+        updateStatus(files);
+    });
+
+    // Simulated Submission Feedback
+    const submitBtn = document.getElementById('submit-btn');
+    const btnIcon = document.getElementById('btn-icon');
+    const btnText = document.getElementById('btn-text');
+
+    submitBtn.addEventListener('click', async () => {
+        submitBtn.disabled = true;
+        btnIcon.textContent = 'progress_activity';
+        btnIcon.classList.add('animate-spin');
+        btnText.textContent = 'Processing Transaction...';
+
+        // Simulate blockchain transaction delay
+        await new Promise(resolve => setTimeout(resolve, 2500));
+
+        btnIcon.textContent = 'check_circle';
+        btnIcon.classList.remove('animate-spin');
+        btnText.textContent = 'Report Submitted Successfully!';
+        submitBtn.classList.replace('bg-primary', 'bg-green-600');
+    });
+</script>
 
 </body></html>
