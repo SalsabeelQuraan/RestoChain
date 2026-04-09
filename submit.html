@@ -76,16 +76,16 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
+<label for="onum" class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
+<input id="onum" name="onum" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
 </div>
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
+<label for="dt" class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
+<input id="dt" name="dt" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
 </div>
 <div class="md:col-span-2 space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
-<textarea class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
+<label for="desc" class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
+<textarea id="desc" name="desc" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
 </div>
 </div>
 </div>
@@ -94,18 +94,20 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<input type="file" id="file-upload" name="evidence" class="hidden" accept=".pdf,.jpg,.jpeg,.png" multiple tabindex="-1">
+<label for="file-upload" id="upload-container" role="button" tabindex="0" aria-label="Upload evidence" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group focus-within:ring-2 focus-within:ring-primary focus:outline-none">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform pointer-events-none">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
+<p class="text-base font-medium mb-1 pointer-events-none">Upload Medical Reports or Photos</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center pointer-events-none">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<div class="flex gap-2 pointer-events-none">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
-</div>
+<p id="upload-status" role="status" class="mt-4 text-sm text-primary font-semibold text-center hidden"></p>
+</label>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -114,7 +116,7 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
+<button id="submit-btn" class="w-full bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
 <span class="material-symbols-outlined">draw</span>
                             Sign &amp; Submit to Blockchain
                         </button>
@@ -202,4 +204,80 @@
 </div>
 </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('file-upload');
+            const uploadContainer = document.getElementById('upload-container');
+            const uploadStatus = document.getElementById('upload-status');
+            const submitBtn = document.getElementById('submit-btn');
+            const reportForm = submitBtn.closest('form');
+
+            // File selection feedback
+            fileInput.addEventListener('change', (e) => {
+                if (fileInput.files.length > 0) {
+                    const filenames = Array.from(fileInput.files).map(f => f.name).join(', ');
+                    uploadStatus.textContent = `Selected: ${filenames}`;
+                    uploadStatus.classList.remove('hidden');
+                } else {
+                    uploadStatus.classList.add('hidden');
+                }
+            });
+
+            // Keyboard support for custom upload label
+            uploadContainer.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    fileInput.click();
+                }
+            });
+
+            // Submission simulation
+            submitBtn.addEventListener('click', () => {
+                // Change to processing state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `
+                    <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Processing Transaction...</span>
+                `;
+
+                setTimeout(() => {
+                    // Show success state
+                    reportForm.innerHTML = `
+                        <div class="flex flex-col items-center justify-center py-12 text-center animate-in fade-in zoom-in duration-500">
+                            <div class="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined text-green-500 text-5xl">check_circle</span>
+                            </div>
+                            <h2 class="text-2xl font-bold mb-2">Report Successfully Submitted</h2>
+                            <p class="text-slate-500 dark:text-slate-400 mb-8 max-w-md">Your incident report has been cryptographically signed and recorded on the blockchain ledger.</p>
+
+                            <div class="w-full bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-100 dark:border-slate-800 text-left mb-8">
+                                <div class="flex flex-col gap-4">
+                                    <div class="flex flex-col">
+                                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Transaction Hash</span>
+                                        <span class="text-xs font-mono text-primary break-all">0x${Math.random().toString(16).substring(2, 15)}${Math.random().toString(16).substring(2, 15)}...</span>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Block Number</span>
+                                        <span class="text-xs font-mono">#19,452,042</span>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Reward Status</span>
+                                        <span class="text-xs font-semibold text-amber-500 flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-xs">auto_awesome</span>
+                                            25% OFF Token Minted
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button onclick="window.location.reload()" class="text-primary font-bold hover:underline">Submit another report</button>
+                        </div>
+                    `;
+                }, 2000);
+            });
+        });
+    </script>
 </body></html>
