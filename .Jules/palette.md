@@ -1,0 +1,3 @@
+## 2025-05-15 - [Accessible Custom File Uploads]
+**Learning:** Creating an accessible custom file upload requires a focusable container (e.g., a <label> with tabindex="0" and role="button") linked to a hidden <input type="file" tabindex="-1">. This ensures keyboard users can trigger the interaction while avoiding redundant tab stops. Real-time feedback for file selection must use an element with role="status" to be announced by screen readers.
+**Action:** Use this pattern whenever replacing static or inaccessible file upload placeholders. Ensure 'Enter' and 'Space' key listeners are manually added to the container to mirror native button behavior.
