@@ -1,0 +1,3 @@
+## 2024-05-23 - Accessible File Upload Pattern
+**Learning:** Static file upload placeholders can be transformed into functional, accessible components using a hidden file input linked to a keyboard-focusable label. Providing visual feedback for drag-and-drop and listing selected filenames significantly improves the user experience.
+**Action:** Use a hidden `<input type="file" tabindex="-1">` linked via `id`/`for` to a `<label role="button" tabindex="0">` container. Use `.sr-only` to hide the input while keeping it accessible. Implement JavaScript for filename feedback and drag-and-drop state changes.
