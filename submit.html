@@ -38,6 +38,17 @@
         .token-glow {
             box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
         }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300">
@@ -94,7 +105,8 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<label id="upload-container" for="file-upload" role="button" tabindex="0" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 transition-all cursor-pointer group outline-none">
+<input type="file" id="file-upload" name="evidence" multiple accept=".pdf,.jpg,.jpeg,.png" class="sr-only" tabindex="-1">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -105,7 +117,8 @@
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
-</div>
+<p id="upload-status" role="status" class="mt-4 text-sm font-medium text-primary hidden"></p>
+</label>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -202,4 +215,58 @@
 </div>
 </footer>
 
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const uploadContainer = document.getElementById('upload-container');
+            const fileInput = document.getElementById('file-upload');
+            const uploadStatus = document.getElementById('upload-status');
+
+            if (uploadContainer && fileInput && uploadStatus) {
+                // Update file status on selection
+                fileInput.addEventListener('change', () => {
+                    const files = fileInput.files;
+                    if (files.length > 0) {
+                        const fileNames = Array.from(files).map(f => f.name).join(', ');
+                        uploadStatus.textContent = `Selected: ${fileNames}`;
+                        uploadStatus.classList.remove('hidden');
+                    } else {
+                        uploadStatus.textContent = '';
+                        uploadStatus.classList.add('hidden');
+                    }
+                });
+
+                // Keyboard accessibility (Enter/Space)
+                uploadContainer.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        fileInput.click();
+                    }
+                });
+
+                // Drag and drop visual feedback
+                ['dragover', 'dragenter'].forEach(eventName => {
+                    uploadContainer.addEventListener(eventName, (e) => {
+                        e.preventDefault();
+                        uploadContainer.classList.add('border-primary', 'bg-primary/5');
+                        uploadContainer.classList.remove('border-slate-200', 'dark:border-slate-700', 'bg-slate-50/50', 'dark:bg-slate-800/20');
+                    });
+                });
+
+                ['dragleave', 'dragend', 'drop'].forEach(eventName => {
+                    uploadContainer.addEventListener(eventName, (e) => {
+                        e.preventDefault();
+                        uploadContainer.classList.remove('border-primary', 'bg-primary/5');
+                        uploadContainer.classList.add('border-slate-200', 'dark:border-slate-700', 'bg-slate-50/50', 'dark:bg-slate-800/20');
+                    });
+                });
+
+                uploadContainer.addEventListener('drop', (e) => {
+                    const dt = e.dataTransfer;
+                    const files = dt.files;
+                    fileInput.files = files;
+                    fileInput.dispatchEvent(new Event('change'));
+                });
+            }
+        });
+    </script>
 </body></html>
