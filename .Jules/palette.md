@@ -1,0 +1,3 @@
+## 2025-05-14 - Accessible File Upload Pattern for Static HTML
+**Learning:** Even when using Tailwind CSS via CDN without a local build step, standard utility classes like `.sr-only` are available if the core plugins (forms, typography) are included. Implementing custom file upload interactions in static projects requires manually linking a hidden input with a focusable label and handling keyboard events (Space/Enter) to ensure parity with standard button behavior.
+**Action:** Use a hidden `<input type="file" class="sr-only" tabindex="-1">` linked to a `<label tabindex="0" role="button">`, and provide a `role="status"` element for real-time feedback on selected files. Avoid committing temporary verification artifacts or binary files to the repository.
