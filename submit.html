@@ -94,18 +94,19 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<input accept=".pdf,.jpg,.jpeg,.png" class="sr-only" id="evidence-upload" multiple name="evidence" type="file"/>
+<label class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus-within:ring-2 focus-within:ring-primary/50 transition-all cursor-pointer group outline-none" for="evidence-upload" id="upload-container" role="button" tabindex="0">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
 <p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center" id="file-list-display">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
 <div class="flex gap-2">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
-</div>
+</label>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -201,5 +202,43 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const input = document.getElementById('evidence-upload');
+        const container = document.getElementById('upload-container');
+        const display = document.getElementById('file-list-display');
 
+        const updateDisplay = () => {
+            const files = Array.from(input.files);
+            if (files.length > 0) {
+                display.textContent = files.map(f => f.name).join(', ');
+                display.className = 'text-sm text-primary font-bold mb-4 text-center';
+            } else {
+                display.innerHTML = 'Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.';
+                display.className = 'text-sm text-slate-500 dark:text-slate-400 mb-4 text-center';
+            }
+        };
+
+        input.addEventListener('change', updateDisplay);
+
+        ['dragover', 'dragleave', 'drop'].forEach(evt => {
+            container.addEventListener(evt, (e) => {
+                e.preventDefault();
+                container.classList.toggle('border-primary', evt === 'dragover');
+                container.classList.toggle('bg-primary/5', evt === 'dragover');
+                if (evt === 'drop') {
+                    input.files = e.dataTransfer.files;
+                    updateDisplay();
+                }
+            });
+        });
+
+        container.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                input.click();
+            }
+        });
+    });
+</script>
 </body></html>
