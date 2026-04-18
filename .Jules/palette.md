@@ -1,0 +1,3 @@
+## 2024-05-15 - Accessible Custom File Upload
+**Learning:** In static HTML projects using Tailwind CDN, a custom file upload can be made accessible by using a `<label>` as the interactive container (`tabindex="0"`, `role="button"`) linked to a hidden `<input type="file" tabindex="-1">`. Visual feedback for focus (using `focus-within`) and drag-and-drop states (using dynamic classes) is essential for a good UX.
+**Action:** Always link custom upload containers to hidden inputs via `id`/`for`, and ensure keyboard listeners (Enter/Space) and ARIA roles are present. Use a hidden element to pre-load dynamic Tailwind classes for the CDN.
