@@ -8,6 +8,8 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<!-- Hidden elements to ensure Tailwind CDN includes dynamic classes -->
+<div class="hidden border-primary bg-primary/5"></div>
 <script>
         tailwind.config = {
             darkMode: "class",
@@ -51,7 +53,7 @@
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Dashboard</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Restaurant Registry</a>
 <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
-<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<button aria-label="Toggle dark mode" class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" onclick="document.documentElement.classList.toggle('dark'); this.querySelector('span').textContent = document.documentElement.classList.contains('dark') ? 'light_mode' : 'dark_mode'">
 <span class="material-symbols-outlined text-xl">dark_mode</span>
 </button>
 <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
@@ -94,18 +96,23 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<label class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus-within:ring-2 focus-within:ring-primary/50 transition-all cursor-pointer group outline-none" for="evidence-upload" id="upload-container" role="button" tabindex="0">
+<input accept=".pdf,.jpg,.jpeg,.png" class="sr-only" id="evidence-upload" multiple="" name="evidence" tabindex="-1" type="file"/>
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
+<span class="text-base font-medium mb-1">Upload Medical Reports or Photos</span>
+<span class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</span>
+<div class="flex gap-2 mb-4">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
+<div class="hidden text-xs font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-full flex items-center gap-2" id="file-feedback" role="status">
+<span class="material-symbols-outlined text-[14px]">attach_file</span>
+<span id="file-count">0 files selected</span>
 </div>
+</label>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -187,6 +194,52 @@
 </div>
 </div>
 </main>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('upload-container');
+            const input = document.getElementById('evidence-upload');
+            const feedback = document.getElementById('file-feedback');
+            const fileCountText = document.getElementById('file-count');
+
+            const updateFeedback = () => {
+                const count = input.files.length;
+                if (count > 0) {
+                    feedback.classList.remove('hidden');
+                    fileCountText.textContent = `${count} file${count > 1 ? 's' : ''} selected`;
+                } else {
+                    feedback.classList.add('hidden');
+                }
+            };
+
+            input.addEventListener('change', updateFeedback);
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                container.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    container.classList.add('border-primary', 'bg-primary/5');
+                });
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                container.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    container.classList.remove('border-primary', 'bg-primary/5');
+                });
+            });
+
+            container.addEventListener('drop', (e) => {
+                input.files = e.dataTransfer.files;
+                updateFeedback();
+            });
+
+            container.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    input.click();
+                }
+            });
+        });
+    </script>
 <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-12">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
 <div class="flex items-center gap-2">
