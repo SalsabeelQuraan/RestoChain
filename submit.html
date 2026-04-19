@@ -94,18 +94,21 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
-</div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
-</div>
-</div>
+<input type="file" id="evidence-upload" name="evidence" multiple accept=".pdf,.jpg,.jpeg,.png" class="sr-only" tabindex="-1">
+<label for="evidence-upload" id="upload-container" tabindex="0" role="button" aria-label="Upload medical reports or photos" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus-within:ring-2 focus-within:ring-primary/50 transition-all cursor-pointer group outline-none">
+    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+        <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
+    </div>
+    <div id="file-list-display" class="text-center">
+        <span class="block text-base font-medium mb-1">Upload Medical Reports or Photos</span>
+        <span class="block text-sm text-slate-500 dark:text-slate-400 mb-4">Drag and drop files here, or click to browse.<br>Files will be encrypted and uploaded to IPFS.</span>
+        <div class="flex gap-2 justify-center">
+            <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
+            <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
+            <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
+        </div>
+    </div>
+</label>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -201,5 +204,50 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const input = document.getElementById('evidence-upload');
+        const container = document.getElementById('upload-container');
+        const display = document.getElementById('file-list-display');
+        const defaultContent = display.innerHTML;
+
+        const updateDisplay = (files) => {
+            if (files && files.length > 0) {
+                display.innerHTML = '<p class="text-sm font-bold mb-2">Selected Files:</p><ul class="space-y-1" id="file-list"></ul>';
+                const list = display.querySelector('#file-list');
+                Array.from(files).forEach(f => {
+                    const li = document.createElement('li');
+                    li.className = 'text-xs text-primary font-medium truncate max-w-[200px]';
+                    li.textContent = f.name;
+                    list.appendChild(li);
+                });
+            } else {
+                display.innerHTML = defaultContent;
+            }
+        };
+
+        input.addEventListener('change', (e) => updateDisplay(e.target.files));
+
+        ['dragover', 'dragleave', 'drop'].forEach(evt => {
+            container.addEventListener(evt, (e) => {
+                e.preventDefault();
+                container.classList.toggle('border-primary', evt === 'dragover');
+                container.classList.toggle('bg-primary/5', evt === 'dragover');
+                if (evt === 'drop') {
+                    input.files = e.dataTransfer.files;
+                    updateDisplay(input.files);
+                }
+            });
+        });
+
+        container.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                input.click();
+            }
+        });
+    });
+</script>
 
 </body></html>
