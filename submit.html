@@ -94,18 +94,19 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<input accept=".pdf,.jpg,.jpeg,.png" class="sr-only" id="evidence-upload" multiple name="evidence" tabindex="-1" type="file"/>
+<label class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group focus-within:ring-2 focus-within:ring-primary/50 outline-none" for="evidence-upload" id="upload-container" role="button" tabindex="0">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform pointer-events-none">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
+<p class="text-base font-medium mb-1 pointer-events-none">Upload Medical Reports or Photos</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center pointer-events-none" id="file-list-display">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<div class="flex gap-2 pointer-events-none">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
-</div>
+</label>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -202,4 +203,52 @@
 </div>
 </footer>
 
+<script>
+    const uploadContainer = document.getElementById('upload-container');
+    const fileInput = document.getElementById('evidence-upload');
+    const fileListDisplay = document.getElementById('file-list-display');
+
+    const updateFileList = () => {
+        const files = fileInput.files;
+        if (files.length > 0) {
+            const filenames = Array.from(files).map(f => f.name).join(', ');
+            fileListDisplay.textContent = `Selected: ${filenames}`;
+            fileListDisplay.classList.remove('text-slate-500', 'dark:text-slate-400');
+            fileListDisplay.classList.add('text-primary', 'font-bold');
+        } else {
+            fileListDisplay.innerHTML = 'Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.';
+            fileListDisplay.classList.add('text-slate-500', 'dark:text-slate-400');
+            fileListDisplay.classList.remove('text-primary', 'font-bold');
+        }
+    };
+
+    fileInput.addEventListener('change', updateFileList);
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadContainer.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            uploadContainer.classList.add('border-primary', 'bg-primary/5');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadContainer.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            uploadContainer.classList.remove('border-primary', 'bg-primary/5');
+        }, false);
+    });
+
+    uploadContainer.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        fileInput.files = dt.files;
+        fileInput.dispatchEvent(new Event('change'));
+    }, false);
+
+    uploadContainer.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput.click();
+        }
+    });
+</script>
 </body></html>
