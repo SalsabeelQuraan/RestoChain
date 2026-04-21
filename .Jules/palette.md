@@ -1,0 +1,4 @@
+## 2025-05-14 - Accessible File Upload Pattern
+**Learning:** Transforming a static upload placeholder into an interactive component requires careful orchestration of hidden inputs and accessible labels. Using a hidden input (`tabindex="-1"`) linked to a keyboard-focusable (`tabindex="0"`) label with `role="button"` ensures screen readers and keyboard users can interact with the component naturally. Pointer events on child elements of the drop target should often be disabled (`pointer-events-none`) to prevent visual flickering during drag operations, though this must be balanced against text selectability.
+
+**Action:** When implementing custom file uploads, use the pattern of a hidden input + focusable label, and ensure drag-and-drop feedback is handled via CSS classes toggled by JavaScript events. Always include 'Enter' and 'Space' key listeners on the container to trigger the file picker.
