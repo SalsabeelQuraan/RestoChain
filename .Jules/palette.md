@@ -1,0 +1,3 @@
+## 2024-05-24 - Accessible File Upload Transformation
+**Learning:** Transforming a static upload placeholder into a functional, keyboard-accessible component requires converting block-level elements (like `div` or `p`) to inline-level elements (like `span` with Tailwind display utilities) inside the `<label>` to maintain HTML validity. Additionally, custom focus states (`focus-visible`) and keyboard listeners for 'Enter'/'Space' are essential for parity with native inputs.
+**Action:** Use `span` for all children of interactive labels and implement a standard JavaScript pattern for keyboard triggering and visual drag-and-drop feedback.
