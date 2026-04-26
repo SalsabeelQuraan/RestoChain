@@ -94,7 +94,8 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div id="upload-container" role="button" tabindex="0" aria-label="Upload Medical Reports or Photos" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
+<input type="file" id="file-upload" class="hidden" multiple>
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -106,6 +107,7 @@
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
 </div>
+<div id="file-list-display" class="mt-4 flex flex-wrap gap-2"></div>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -202,4 +204,46 @@
 </div>
 </footer>
 
+<script>
+    const container = document.getElementById('upload-container');
+    const input = document.getElementById('file-upload');
+    const display = document.getElementById('file-list-display');
+
+    container.addEventListener('click', () => input.click());
+    container.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            input.click();
+        }
+    });
+
+    ['dragenter', 'dragover'].forEach(name => {
+        container.addEventListener(name, (e) => {
+            e.preventDefault();
+            container.classList.add('border-primary', 'bg-primary/5');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(name => {
+        container.addEventListener(name, (e) => {
+            e.preventDefault();
+            container.classList.remove('border-primary', 'bg-primary/5');
+        });
+    });
+
+    container.addEventListener('drop', (e) => {
+        input.files = e.dataTransfer.files;
+        input.dispatchEvent(new Event('change'));
+    });
+
+    input.addEventListener('change', () => {
+        display.innerHTML = '';
+        Array.from(input.files).forEach(file => {
+            const span = document.createElement('span');
+            span.className = 'px-3 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20';
+            span.textContent = file.name;
+            display.appendChild(span);
+        });
+    });
+</script>
 </body></html>
