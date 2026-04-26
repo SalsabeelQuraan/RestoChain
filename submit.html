@@ -94,7 +94,8 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<input type="file" id="file-upload" class="sr-only" multiple accept=".pdf,.jpg,.png" tabindex="-1">
+<div id="upload-container" role="button" tabindex="0" aria-label="Upload evidence" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary focus:outline-none transition-colors cursor-pointer group">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -106,6 +107,7 @@
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
 </div>
+<div id="file-list-display" class="mt-4 flex flex-wrap gap-2"></div>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -201,5 +203,24 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+    const [drop, input, list] = ['upload-container', 'file-upload', 'file-list-display'].map(id => document.getElementById(id));
+    const handleFiles = (files) => {
+        list.replaceChildren(...Array.from(files).map(file => {
+            const span = document.createElement('span');
+            span.className = 'px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full text-xs font-medium';
+            span.textContent = file.name;
+            return span;
+        }));
+    };
+    drop.addEventListener('click', () => input.click());
+    drop.addEventListener('keydown', e => ['Enter', ' '].includes(e.key) && (e.preventDefault(), input.click()));
+    input.addEventListener('change', e => e.target.files.length && handleFiles(e.target.files));
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => (e.preventDefault(), e.stopPropagation())));
+    ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, () => drop.classList.add('border-primary', 'bg-primary/5')));
+    ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, () => drop.classList.remove('border-primary', 'bg-primary/5')));
+    drop.addEventListener('drop', e => e.dataTransfer.files.length && (input.files = e.dataTransfer.files, handleFiles(e.dataTransfer.files)));
+</script>
 
 </body></html>

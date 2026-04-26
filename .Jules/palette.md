@@ -1,0 +1,3 @@
+## 2025-05-14 - Accessible File Upload Pattern
+**Learning:** Transforming static upload placeholders into accessible, functional components requires a combination of hidden inputs for functionality and semantic ARIA roles (role="button", tabindex="0") for keyboard accessibility. Visual feedback during drag-and-drop operations significantly improves the user's confidence in the interaction.
+**Action:** Always pair custom-styled upload areas with a hidden `<input type="file" tabindex="-1">` and ensure all interaction states (click, Enter, Space, drag-and-drop) are handled with clear visual feedback using focus rings and background state changes.
