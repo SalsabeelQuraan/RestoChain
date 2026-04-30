@@ -55,7 +55,7 @@
 <a class="hover:text-primary transition-colors" href="#">Latest Blocks</a>
 <a class="hover:text-primary transition-colors" href="#">Analytics</a>
 </div>
-<button class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:ring-2 ring-primary/20 transition-all" onclick="document.documentElement.classList.toggle('dark')">
+<button aria-label="Toggle dark mode" class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:ring-2 ring-primary/20 transition-all" onclick="document.documentElement.classList.toggle('dark')">
 <span class="material-symbols-outlined dark:hidden">dark_mode</span>
 <span class="material-symbols-outlined hidden dark:block">light_mode</span>
 </button>
@@ -109,10 +109,10 @@
 </div>
 </div>
 </div>
-<button class="mt-2 w-full md:w-auto bg-red-500 hover:bg-red-600 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-red-500/20 transition-all flex items-center justify-center gap-2">
+<a href="submit.html" class="mt-2 w-full md:w-auto bg-red-500 hover:bg-red-600 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-red-500/20 transition-all flex items-center justify-center gap-2">
 <span class="material-symbols-outlined">report_problem</span>
                                 Report Food Poisoning
-                            </button>
+                            </a>
 </div>
 </div>
 </div>
@@ -215,7 +215,10 @@
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-[14px]">link</span>
 <span class="uppercase tracking-tight">TxHash:</span>
-<span class="hover:text-primary cursor-pointer transition-colors">0x9f1a7b...8e2c4d9b0f3e7a1c5d8a6b4c2e1f0d</span>
+<span class="hover:text-primary cursor-pointer transition-colors" id="hash-1">0x9f1a7b...8e2c4d9b0f3e7a1c5d8a6b4c2e1f0d</span>
+<button aria-label="Copy transaction hash" class="copy-trigger p-1 hover:bg-slate-200 dark:hover:bg-slate-800 rounded transition-colors" data-target="hash-1">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
 </div>
 <button class="flex items-center gap-1 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
 <span class="material-symbols-outlined text-[14px]">open_in_new</span>
@@ -248,7 +251,10 @@
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-[14px]">link</span>
 <span class="uppercase tracking-tight">TxHash:</span>
-<span class="hover:text-primary cursor-pointer transition-colors">0xb3e1d4...f7a1c5d8a6b4c2e1f0d9f1a7b8e2c4</span>
+<span class="hover:text-primary cursor-pointer transition-colors" id="hash-2">0xb3e1d4...f7a1c5d8a6b4c2e1f0d9f1a7b8e2c4</span>
+<button aria-label="Copy transaction hash" class="copy-trigger p-1 hover:bg-slate-200 dark:hover:bg-slate-800 rounded transition-colors" data-target="hash-2">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
 </div>
 </div>
 </div>
@@ -289,9 +295,12 @@
 <span class="text-primary font-bold">New Review Added</span>
 <span class="text-slate-400">Just now</span>
 </div>
-<div class="text-slate-500 break-all mb-1">
-                                Hash: 0x9f1a...2e1f0d
-                            </div>
+<div class="text-slate-500 break-all mb-1 flex items-center justify-between">
+<span id="hash-3">Hash: 0x9f1a...2e1f0d</span>
+<button aria-label="Copy transaction hash" class="copy-trigger p-1 hover:bg-slate-200 dark:hover:bg-slate-800 rounded transition-colors" data-target="hash-3">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
 <div class="flex items-center gap-2">
 <span class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Gas: 21.4 Gwei</span>
 <span class="px-1.5 py-0.5 rounded bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">Success</span>
@@ -314,9 +323,12 @@
 <span class="text-primary font-bold">New Review Added</span>
 <span class="text-slate-400">4m ago</span>
 </div>
-<div class="text-slate-500 break-all mb-1">
-                                Hash: 0xb3e1...f0d9f1
-                            </div>
+<div class="text-slate-500 break-all mb-1 flex items-center justify-between">
+<span id="hash-4">Hash: 0xb3e1...f0d9f1</span>
+<button aria-label="Copy transaction hash" class="copy-trigger p-1 hover:bg-slate-200 dark:hover:bg-slate-800 rounded transition-colors" data-target="hash-4">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
 <div class="flex items-center gap-2">
 <span class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Gas: 19.8 Gwei</span>
 <span class="px-1.5 py-0.5 rounded bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">Success</span>
@@ -358,5 +370,26 @@
 </div>
 </div>
 </footer>
+
+<script>
+    document.querySelectorAll('.copy-trigger').forEach(button => {
+        button.addEventListener('click', () => {
+            const targetId = button.getAttribute('data-target');
+            const textToCopy = document.getElementById(targetId).textContent.replace('Hash: ', '').trim();
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const icon = button.querySelector('.material-symbols-outlined');
+                const originalIcon = icon.textContent;
+                icon.textContent = 'check';
+                button.classList.add('text-primary');
+
+                setTimeout(() => {
+                    icon.textContent = originalIcon;
+                    button.classList.remove('text-primary');
+                }, 2000);
+            });
+        });
+    });
+</script>
 
 </body></html>
