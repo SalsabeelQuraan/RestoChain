@@ -51,7 +51,7 @@
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Dashboard</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Restaurant Registry</a>
 <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
-<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<button aria-label="Toggle dark mode" class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" onclick="document.documentElement.classList.toggle('dark')">
 <span class="material-symbols-outlined text-xl">dark_mode</span>
 </button>
 <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
@@ -76,16 +76,16 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
+<label for="order-number" class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
+<input id="order-number" name="order-number" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
 </div>
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
+<label for="incident-date" class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
+<input id="incident-date" name="incident-date" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
 </div>
 <div class="md:col-span-2 space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
-<textarea class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
+<label for="case-description" class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
+<textarea id="case-description" name="case-description" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
 </div>
 </div>
 </div>
@@ -94,18 +94,20 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<div id="upload-container" role="button" tabindex="0" aria-label="Upload medical reports or photos" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<input type="file" id="file-upload" multiple class="hidden" tabindex="-1">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform pointer-events-none">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
+<p class="text-base font-medium mb-1 pointer-events-none">Upload Medical Reports or Photos</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center pointer-events-none">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<div class="flex gap-2 pointer-events-none">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
 </div>
+<div id="file-list-display" class="mt-4 space-y-2"></div>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -114,10 +116,16 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
-<span class="material-symbols-outlined">draw</span>
-                            Sign &amp; Submit to Blockchain
-                        </button>
+<button id="submit-button" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
+<span id="submit-icon" class="material-symbols-outlined">draw</span>
+<span id="submit-text">Sign &amp; Submit to Blockchain</span>
+</button>
+<div id="submission-status" aria-live="polite" role="status" class="mt-4 hidden p-4 rounded-xl border">
+<div class="flex items-center gap-3">
+<span id="status-icon" class="material-symbols-outlined"></span>
+<span id="status-text" class="text-sm font-medium"></span>
+</div>
+</div>
 </div>
 </form>
 </div>
@@ -201,5 +209,44 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+    const $ = id => document.getElementById(id);
+    const up = $('upload-container'), fi = $('file-upload'), fl = $('file-list-display'), btn = $('submit-button');
+
+    up.onclick = () => fi.click();
+    up.onkeydown = e => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), fi.click());
+
+    ['dragover', 'dragleave', 'drop'].forEach(ev => up.addEventListener(ev, e => {
+        e.preventDefault();
+        up.classList.toggle('border-primary', ev === 'dragover');
+        up.classList.toggle('bg-primary/5', ev === 'dragover');
+        if (ev === 'drop') { fi.files = e.dataTransfer.files; updateFileList(); }
+    }));
+
+    fi.onchange = updateFileList;
+    function updateFileList() {
+        fl.replaceChildren(...Array.from(fi.files).map(f => {
+            const el = Object.assign(document.createElement('div'), { className: 'flex items-center gap-2 text-sm bg-slate-100 dark:bg-slate-800 p-2 rounded-lg' });
+            const icon = Object.assign(document.createElement('span'), { className: 'material-symbols-outlined text-slate-400 text-sm', textContent: 'insert_drive_file' });
+            const name = Object.assign(document.createElement('span'), { className: 'truncate', textContent: f.name });
+            el.append(icon, name); return el;
+        }));
+    }
+
+    btn.onclick = () => {
+        btn.disabled = true; btn.classList.add('opacity-50', 'cursor-not-allowed');
+        $('submit-text').textContent = 'Submitting to Blockchain...';
+        $('submit-icon').classList.add('animate-spin'); $('submit-icon').textContent = 'sync';
+        setTimeout(() => {
+            $('submission-status').classList.remove('hidden');
+            $('submission-status').classList.add('bg-green-500/10', 'border-green-500/20', 'text-green-600');
+            $('status-icon').textContent = 'check_circle';
+            $('status-text').textContent = 'Report successfully signed and submitted to block #19,452,102';
+            $('submit-text').textContent = 'Submitted Successfully';
+            $('submit-icon').classList.remove('animate-spin'); $('submit-icon').textContent = 'task_alt';
+        }, 2000);
+    };
+</script>
 
 </body></html>
