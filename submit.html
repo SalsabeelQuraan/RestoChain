@@ -114,10 +114,29 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
-<span class="material-symbols-outlined">draw</span>
-                            Sign &amp; Submit to Blockchain
+<button id="submit-button" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed" type="button">
+<span id="submit-icon" class="material-symbols-outlined">draw</span>
+                            <span id="submit-text">Sign &amp; Submit to Blockchain</span>
                         </button>
+                        <div id="submission-status" class="hidden mt-6 p-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl flex items-start gap-4 transition-all animate-in fade-in slide-in-from-top-4 duration-500" role="status" aria-live="polite">
+                            <div id="status-icon" class="w-10 h-10 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-green-600 dark:text-green-400">check_circle</span>
+                            </div>
+                            <div id="status-text" class="flex-1 min-w-0">
+                                <h3 class="text-sm font-bold text-green-800 dark:text-green-300">Transaction Confirmed!</h3>
+                                <p class="text-xs text-green-700 dark:text-green-400 mt-1">Your report has been successfully recorded on the blockchain.</p>
+                                <div class="mt-3 flex flex-col gap-1.5 font-mono text-[10px] text-green-600 dark:text-green-400 bg-white/50 dark:bg-slate-900/50 p-3 rounded-lg border border-green-100 dark:border-green-800/50">
+                                    <div class="flex justify-between gap-4">
+                                        <span class="font-bold uppercase opacity-60">TxHash:</span>
+                                        <span class="truncate">0x7d2a...8c1f4</span>
+                                    </div>
+                                    <div class="flex justify-between gap-4">
+                                        <span class="font-bold uppercase opacity-60">Block:</span>
+                                        <span>#19,452,108</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 </div>
 </form>
 </div>
@@ -201,5 +220,27 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+    <script>
+        const submitButton = document.getElementById('submit-button');
+        const submitIcon = document.getElementById('submit-icon');
+        const submitText = document.getElementById('submit-text');
+        const submissionStatus = document.getElementById('submission-status');
+
+        if (submitButton) {
+            submitButton.addEventListener('click', () => {
+                submitButton.disabled = true;
+                submitIcon.textContent = 'hourglass_empty';
+                submitIcon.classList.add('animate-spin');
+                submitText.textContent = 'Submitting to Blockchain...';
+
+                // Mock blockchain confirmation delay
+                setTimeout(() => {
+                    submitButton.classList.add('hidden');
+                    submissionStatus.classList.remove('hidden');
+                }, 1500);
+            });
+        }
+    </script>
 
 </body></html>
