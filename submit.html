@@ -94,17 +94,14 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<div id="upload-container" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group" tabindex="0" role="button" aria-label="Upload files">
+<input type="file" id="file-upload" multiple class="hidden">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform pointer-events-none">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
-</div>
+<p class="text-base font-medium mb-1 pointer-events-none">Upload Medical Reports or Photos</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center pointer-events-none">Drag and drop files here, or click to browse.</p>
+<div id="file-list-display" class="mt-4 space-y-2 w-full px-10"></div>
 </div>
 </div>
 <div class="pt-6">
@@ -201,5 +198,20 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
-
+<script>
+    const c = document.getElementById('upload-container'), i = document.getElementById('file-upload'), d = document.getElementById('file-list-display');
+    c.addEventListener('click', () => i.click());
+    c.addEventListener('keydown', e => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), i.click()));
+    ['dragover', 'dragleave', 'drop'].forEach(v => c.addEventListener(v, e => { e.preventDefault(); c.classList.toggle('border-primary', v !== 'dragleave'); }));
+    c.addEventListener('drop', e => { i.files = e.dataTransfer.files; u(); });
+    i.addEventListener('change', u);
+    function u() {
+        d.replaceChildren();
+        [...i.files].forEach(f => {
+            const s = document.createElement('span');
+            s.className = 'block px-3 py-1.5 bg-primary/5 border border-primary/10 rounded-lg text-primary text-sm font-medium animate-in fade-in slide-in-from-left-2';
+            s.textContent = f.name; d.appendChild(s);
+        });
+    }
+</script>
 </body></html>
