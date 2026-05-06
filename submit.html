@@ -76,16 +76,16 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
+<label for="order-number" class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
+<input id="order-number" name="order-number" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
 </div>
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
+<label for="incident-date" class="text-sm font-medium text-slate-700 dark:text-slate-300">Date & Time of Incident</label>
+<input id="incident-date" name="incident-date" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
 </div>
 <div class="md:col-span-2 space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
-<textarea class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
+<label for="case-description" class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
+<textarea id="case-description" name="case-description" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
 </div>
 </div>
 </div>
@@ -94,7 +94,8 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div id="upload-container" role="button" tabindex="0" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors cursor-pointer group">
+<input type="file" id="file-input" multiple class="hidden">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -106,6 +107,7 @@
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
 </div>
+<div id="file-list-display" class="mt-4 flex flex-wrap gap-2"></div>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -114,10 +116,11 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
-<span class="material-symbols-outlined">draw</span>
-                            Sign &amp; Submit to Blockchain
-                        </button>
+<button id="submit-button" class="w-full bg-primary hover:bg-primary/90 disabled:opacity-50 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
+<span id="submit-icon" class="material-symbols-outlined">draw</span>
+<span id="submit-text">Sign & Submit to Blockchain</span>
+</button>
+<div id="submission-status" role="status" aria-live="polite" class="hidden mt-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20"></div>
 </div>
 </form>
 </div>
@@ -202,4 +205,81 @@
 </div>
 </footer>
 
+<script>
+    const uploadContainer = document.getElementById('upload-container');
+    const fileInput = document.getElementById('file-input');
+    const fileListDisplay = document.getElementById('file-list-display');
+    const submitButton = document.getElementById('submit-button');
+    const submissionStatus = document.getElementById('submission-status');
+    const submitText = document.getElementById('submit-text');
+    const submitIcon = document.getElementById('submit-icon');
+
+    const updateFileList = () => {
+        fileListDisplay.replaceChildren(...Array.from(fileInput.files).map(file => {
+            const span = document.createElement('span');
+            span.className = 'px-2 py-1 bg-primary/10 text-primary text-xs rounded border border-primary/20';
+            span.textContent = file.name;
+            return span;
+        }));
+    };
+
+    uploadContainer.onclick = () => fileInput.click();
+    uploadContainer.onkeydown = e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput.click();
+        }
+    };
+
+    fileInput.onchange = updateFileList;
+
+    ['dragenter', 'dragover'].forEach(name => {
+        uploadContainer.addEventListener(name, e => {
+            e.preventDefault();
+            uploadContainer.classList.add('border-primary', 'bg-primary/5');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(name => {
+        uploadContainer.addEventListener(name, e => {
+            e.preventDefault();
+            uploadContainer.classList.remove('border-primary', 'bg-primary/5');
+            if (name === 'drop') {
+                fileInput.files = e.dataTransfer.files;
+                updateFileList();
+            }
+        });
+    });
+
+    submitButton.onclick = () => {
+        submitButton.disabled = true;
+        submitText.textContent = 'Submitting to Blockchain...';
+        submitIcon.className = 'material-symbols-outlined animate-spin';
+        submitIcon.textContent = 'progress_activity';
+
+        setTimeout(() => {
+            submissionStatus.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-emerald-500">check_circle</span>
+                    <div>
+                        <p class="font-bold text-emerald-600 dark:text-emerald-400">Report Successfully Mined!</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            Block: #19,452,088 • Tx: 0x${Math.random().toString(16).slice(2)}
+                        </p>
+                    </div>
+                </div>
+            `;
+            submissionStatus.classList.remove('hidden');
+            submitText.textContent = 'Submitted Successfully';
+            submitIcon.className = 'material-symbols-outlined';
+            submitIcon.textContent = 'verified';
+        }, 2000);
+    };
+
+    const darkModeToggle = document.querySelector('button[onclick*="classList.toggle(\'dark\')"]') ||
+                        document.querySelector('nav button .material-symbols-outlined')?.parentElement;
+    if (darkModeToggle) {
+        darkModeToggle.onclick = () => document.documentElement.classList.toggle('dark');
+    }
+</script>
 </body></html>
