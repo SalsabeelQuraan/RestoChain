@@ -51,8 +51,9 @@
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Dashboard</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Restaurant Registry</a>
 <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
-<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-<span class="material-symbols-outlined text-xl">dark_mode</span>
+<button aria-label="Toggle dark mode" class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined text-xl dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined text-xl hidden dark:block">light_mode</span>
 </button>
 <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
 <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -94,18 +95,20 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<div id="upload-container" role="button" tabindex="0" aria-label="Upload evidence files" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group focus:outline-none focus:ring-2 focus:ring-primary/50">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform pointer-events-none">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
+<p class="text-base font-medium mb-1 pointer-events-none">Upload Medical Reports or Photos</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center pointer-events-none">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<div class="flex gap-2 pointer-events-none">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
+<input accept=".pdf,.jpg,.jpeg,.png" class="hidden" id="file-input" multiple type="file"/>
 </div>
+<div class="mt-4 flex flex-wrap gap-2" id="file-list-display"></div>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -202,4 +205,35 @@
 </div>
 </footer>
 
+<script>
+    const container = document.getElementById('upload-container');
+    const input = document.getElementById('file-input');
+    const display = document.getElementById('file-list-display');
+
+    const updateFiles = (files) => {
+        display.replaceChildren();
+        Array.from(files).forEach(file => {
+            const span = document.createElement('span');
+            span.className = "px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full text-xs font-medium";
+            span.textContent = file.name;
+            display.appendChild(span);
+        });
+    };
+
+    container.onclick = () => input.click();
+    container.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } };
+
+    input.onchange = () => updateFiles(input.files);
+
+    container.ondragover = (e) => { e.preventDefault(); container.classList.add('border-primary', 'bg-primary/5'); };
+    container.ondragleave = () => container.classList.remove('border-primary', 'bg-primary/5');
+    container.ondrop = (e) => {
+        e.preventDefault();
+        container.classList.remove('border-primary', 'bg-primary/5');
+        if (e.dataTransfer.files.length) {
+            input.files = e.dataTransfer.files;
+            updateFiles(input.files);
+        }
+    };
+</script>
 </body></html>
