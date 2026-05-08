@@ -1,0 +1,3 @@
+## 2025-05-15 - Functional File Upload Pattern
+**Learning:** Transforming a static placeholder into a functional file upload requires careful coordination between a focusable container and a hidden input. Key micro-UX elements include 'pointer-events-none' on children to prevent event bubbling issues, and manual 'DataTransfer' synchronization to ensure drag-and-dropped files are actually included in the form's 'files' property.
+**Action:** Always use 'pointer-events-none' on decorative children of custom interactive containers and ensure 'e.dataTransfer.files' is assigned to 'input.files' during drop events.
