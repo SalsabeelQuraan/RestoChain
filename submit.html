@@ -9,6 +9,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 <script>
+        const updateFiles = (files) => {
+            const display = document.getElementById('file-list-display');
+            display.replaceChildren(...Array.from(files).map(file => {
+                const span = document.createElement('span');
+                span.className = 'px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium border border-primary/20 animate-in fade-in zoom-in duration-300';
+                span.textContent = file.name;
+                return span;
+            }));
+        };
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -51,8 +60,9 @@
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Dashboard</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Restaurant Registry</a>
 <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
-<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-<span class="material-symbols-outlined text-xl">dark_mode</span>
+<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined text-xl dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined text-xl hidden dark:block">light_mode</span>
 </button>
 <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
 <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -76,16 +86,16 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
+<label for="order-number" class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
+<input id="order-number" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
 </div>
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
+<label for="incident-date" class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
+<input id="incident-date" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
 </div>
 <div class="md:col-span-2 space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
-<textarea class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
+<label for="case-description" class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
+<textarea id="case-description" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
 </div>
 </div>
 </div>
@@ -94,17 +104,19 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<div id="upload-container" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group relative">
+<input type="file" id="file-input" class="hidden" multiple accept=".pdf,.jpg,.jpeg,.png">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform pointer-events-none">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
+<p class="text-base font-medium mb-1 pointer-events-none">Upload Medical Reports or Photos</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center pointer-events-none">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<div class="flex gap-2 mb-4 pointer-events-none">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
+<div id="file-list-display" class="w-full flex flex-wrap gap-2 justify-center"></div>
 </div>
 </div>
 <div class="pt-6">
@@ -114,10 +126,28 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
-<span class="material-symbols-outlined">draw</span>
-                            Sign &amp; Submit to Blockchain
-                        </button>
+<button id="submit-button" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed" type="button">
+<span id="submit-icon" class="material-symbols-outlined">draw</span>
+<span id="submit-text">Sign &amp; Submit to Blockchain</span>
+</button>
+<div id="submission-status" class="mt-4 hidden animate-in fade-in slide-in-from-top-2 duration-500" role="status" aria-live="polite">
+<div class="p-6 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl">
+<div class="flex items-center gap-3 text-emerald-600 dark:text-emerald-400 mb-4">
+<span class="material-symbols-outlined">check_circle</span>
+<p class="font-bold">Transaction Confirmed!</p>
+</div>
+<div class="space-y-2 font-mono text-[11px] text-slate-500 dark:text-slate-400">
+<div class="flex justify-between border-b border-emerald-100 dark:border-emerald-800/50 pb-2">
+<span>Block Number:</span>
+<span class="text-emerald-600 dark:text-emerald-400">#19,452,084</span>
+</div>
+<div class="flex flex-col gap-1">
+<span>Transaction Hash:</span>
+<span class="text-emerald-600 dark:text-emerald-400 break-all">0x7d2a8b...f9e1c3a0</span>
+</div>
+</div>
+</div>
+</div>
 </div>
 </form>
 </div>
@@ -202,4 +232,36 @@
 </div>
 </footer>
 
+<script>
+    const container = document.getElementById('upload-container');
+    const input = document.getElementById('file-input');
+    container.onclick = () => input.click();
+    input.onchange = (e) => updateFiles(e.target.files);
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(name => {
+        container.addEventListener(name, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (['dragenter', 'dragover'].includes(name)) container.classList.add('border-primary', 'bg-primary/5');
+            else container.classList.remove('border-primary', 'bg-primary/5');
+            if (name === 'drop') {
+                input.files = e.dataTransfer.files;
+                updateFiles(input.files);
+            }
+        });
+    });
+    document.getElementById('submit-button').onclick = function() {
+        const btn = this;
+        const text = document.getElementById('submit-text');
+        const icon = document.getElementById('submit-icon');
+        const status = document.getElementById('submission-status');
+        btn.disabled = true;
+        text.textContent = 'Submitting to Blockchain...';
+        icon.textContent = 'hourglass_empty';
+        icon.classList.add('animate-spin');
+        setTimeout(() => {
+            btn.classList.add('hidden');
+            status.classList.remove('hidden');
+        }, 1500);
+    };
+</script>
 </body></html>
