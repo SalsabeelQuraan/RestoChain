@@ -1,0 +1,3 @@
+## 2025-05-14 - [Theme Toggle Pattern for Static HTML]
+**Learning:** For static HTML projects using Tailwind CSS and the CDN, a functional dark mode toggle requires manual logic for class toggling, persistence (localStorage), and matching system preferences (matchMedia). Using Tailwind's `dark:hidden` and `hidden dark:block` utility classes on icons provides a clean, declarative way to swap icons without complex JavaScript DOM manipulation.
+**Action:** Implement the toggle using `document.documentElement.classList.toggle('dark')`, store state in `localStorage`, and use the `prefers-color-scheme` media query for the initial state if no preference is saved.
