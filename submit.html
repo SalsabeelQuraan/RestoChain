@@ -114,10 +114,11 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
-<span class="material-symbols-outlined">draw</span>
-                            Sign &amp; Submit to Blockchain
+<button id="submit-button" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed" type="button">
+<span id="submit-icon" class="material-symbols-outlined">draw</span>
+                            <span id="submit-text">Sign &amp; Submit to Blockchain</span>
                         </button>
+<div id="submission-status" class="mt-4 hidden" role="status" aria-live="polite"></div>
 </div>
 </form>
 </div>
@@ -201,5 +202,43 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+    const submitBtn = document.getElementById('submit-button');
+    const submitText = document.getElementById('submit-text');
+    const submitIcon = document.getElementById('submit-icon');
+    const statusContainer = document.getElementById('submission-status');
+
+    if (submitBtn) {
+        submitBtn.addEventListener('click', () => {
+            submitBtn.disabled = true;
+            submitText.textContent = 'Submitting to Blockchain...';
+            submitIcon.textContent = 'sync';
+            submitIcon.classList.add('animate-spin');
+
+            setTimeout(() => {
+                submitIcon.classList.remove('animate-spin');
+                submitIcon.textContent = 'verified';
+                submitText.textContent = 'Report Submitted Successfully';
+                submitBtn.classList.remove('bg-primary', 'hover:bg-primary/90', 'active:scale-[0.98]', 'disabled:opacity-50');
+                submitBtn.classList.add('bg-emerald-500');
+
+                statusContainer.innerHTML = `
+                    <div class="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl p-4">
+                        <div class="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold mb-2">
+                            <span class="material-symbols-outlined text-sm">verified_user</span>
+                            Transaction Confirmed
+                        </div>
+                        <div class="space-y-1 font-mono text-[10px] text-slate-500 dark:text-slate-400">
+                            <p>Block Number: #19,842,${Math.floor(Math.random() * 999)}</p>
+                            <p class="truncate">TxHash: 0x${Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('')}</p>
+                        </div>
+                    </div>
+                `;
+                statusContainer.classList.remove('hidden');
+            }, 2000);
+        });
+    }
+</script>
 
 </body></html>
