@@ -94,7 +94,8 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<input type="file" id="file_upload" multiple accept=".pdf,.jpg,.jpeg,.png" class="hidden" onchange="const container = document.getElementById('file-list'); container.innerHTML = ''; Array.from(this.files).forEach(f => { const s = document.createElement('span'); s.className = 'text-xs bg-primary/10 text-primary px-2 py-1 rounded'; s.textContent = f.name; container.appendChild(s); });">
+<div id="upload-container" role="button" tabindex="0" aria-label="Upload evidence files" onclick="document.getElementById('file_upload').click()" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); document.getElementById('file_upload').click(); }" ondragover="event.preventDefault(); this.classList.add('border-primary', 'bg-primary/5')" ondragleave="this.classList.remove('border-primary', 'bg-primary/5')" ondrop="event.preventDefault(); this.classList.remove('border-primary', 'bg-primary/5'); const f = event.dataTransfer.files; if(f.length) { document.getElementById('file_upload').files = f; document.getElementById('file_upload').dispatchEvent(new Event('change')); }" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -106,6 +107,7 @@
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
 </div>
+<div id="file-list" class="flex flex-wrap gap-2 mt-4"></div>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
