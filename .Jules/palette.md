@@ -1,0 +1,3 @@
+## 2024-05-15 - [Interactive Drag-and-Drop & Form Feedback]
+**Learning:** Applying `pointer-events-none` to child elements within a custom interactive drag-and-drop container ensures that drag events consistently target the parent, preventing flickering and improving reliability. Providing immediate visual feedback on form submission (loading states and success confirmation) significantly reduces user uncertainty during blockchain transactions.
+**Action:** Always use `pointer-events-none` for nested decorative elements in drag zones and implement terminal success states for async-like interactions.
