@@ -94,18 +94,15 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<div id="upload-zone" role="button" tabindex="0" aria-label="Upload evidence (PDF, JPG, or PNG)" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-all cursor-pointer group focus:outline-none focus:ring-2 focus:ring-primary/50">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform pointer-events-none">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
+<p class="text-base font-medium mb-1 pointer-events-none">Upload Medical Reports or Photos</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center pointer-events-none">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<div id="file-list" class="flex flex-wrap gap-2 mt-4 pointer-events-none"></div>
 </div>
-</div>
+<input type="file" id="file-input" class="hidden" accept=".pdf,.jpg,.jpeg,.png" multiple name="evidence">
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -201,5 +198,57 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+    const uploadZone = document.getElementById('upload-zone');
+    const fileInput = document.getElementById('file-input');
+    const fileList = document.getElementById('file-list');
+
+    const updateFileList = (files) => {
+        fileList.innerHTML = '';
+        Array.from(files).forEach(file => {
+            const span = document.createElement('span');
+            span.className = 'px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded text-xs font-medium';
+            span.textContent = file.name;
+            fileList.appendChild(span);
+        });
+    };
+
+    uploadZone.addEventListener('click', () => fileInput.click());
+
+    uploadZone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput.click();
+        }
+    });
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('border-primary', 'bg-primary/5');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('border-primary', 'bg-primary/5');
+        });
+    });
+
+    uploadZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        fileInput.files = files;
+        updateFileList(files);
+        // Dispatch change event manually to ensure any other listeners are triggered
+        fileInput.dispatchEvent(new Event('change'));
+    });
+
+    fileInput.addEventListener('change', () => {
+        updateFileList(fileInput.files);
+    });
+</script>
 
 </body></html>
