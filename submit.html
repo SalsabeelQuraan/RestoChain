@@ -94,13 +94,14 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
-<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<input accept=".pdf,.jpg,.jpeg,.png" class="hidden" id="file-input" multiple type="file"/>
+<div aria-label="Upload medical reports or photos" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group focus-within:ring-2 focus-within:ring-primary/50 outline-none" id="upload-zone" role="button" tabindex="0">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform pointer-events-none">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
+<p class="text-base font-medium mb-1 pointer-events-none">Upload Medical Reports or Photos</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center pointer-events-none">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<div class="flex flex-wrap justify-center gap-2 pointer-events-none" id="file-list-container">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
@@ -202,4 +203,57 @@
 </div>
 </footer>
 
+<script>
+        const uploadZone = document.getElementById('upload-zone');
+        const fileInput = document.getElementById('file-input');
+        const fileListContainer = document.getElementById('file-list-container');
+
+        const updateUI = (files) => {
+            if (files.length > 0) {
+                fileListContainer.innerHTML = '';
+                Array.from(files).forEach(file => {
+                    const badge = document.createElement('span');
+                    badge.className = 'px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded text-xs font-medium';
+                    badge.textContent = file.name;
+                    fileListContainer.appendChild(badge);
+                });
+            }
+        };
+
+        uploadZone.addEventListener('click', () => fileInput.click());
+
+        uploadZone.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInput.click();
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => updateUI(e.target.files));
+
+        ['dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+
+        uploadZone.addEventListener('dragover', () => {
+            uploadZone.classList.add('border-primary/50', 'bg-primary/5');
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadZone.addEventListener(eventName, () => {
+                uploadZone.classList.remove('border-primary/50', 'bg-primary/5');
+            });
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                updateUI(files);
+            }
+        });
+    </script>
 </body></html>
