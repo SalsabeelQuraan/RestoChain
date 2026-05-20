@@ -94,7 +94,9 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="space-y-4">
+<label class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all cursor-pointer group" id="drop-zone">
+<input class="sr-only" id="evidence-upload" multiple="" type="file"/>
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -105,6 +107,8 @@
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
+</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="file-list"></div>
 </div>
 </div>
 <div class="pt-6">
@@ -201,5 +205,51 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+    (function() {
+        const dz = document.getElementById('drop-zone');
+        const fi = document.getElementById('evidence-upload');
+        const fl = document.getElementById('file-list');
+
+        const updateUI = (files) => {
+            fl.innerHTML = '';
+            Array.from(files).forEach(f => {
+                const item = document.createElement('div');
+                item.className = 'flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg';
+                const icon = document.createElement('span');
+                icon.className = 'material-symbols-outlined text-primary';
+                icon.textContent = 'description';
+                const info = document.createElement('div');
+                info.className = 'flex-1 min-w-0';
+                const name = document.createElement('p');
+                name.className = 'text-sm font-medium truncate';
+                name.textContent = f.name;
+                const size = document.createElement('p');
+                size.className = 'text-xs text-slate-500';
+                size.textContent = (f.size / 1024).toFixed(1) + ' KB';
+                info.append(name, size);
+                item.append(icon, info);
+                fl.appendChild(item);
+            });
+        };
+
+        ['dragover', 'drop'].forEach(ev => dz.addEventListener(ev, e => {
+            e.preventDefault();
+            dz.classList.toggle('border-primary', e.type === 'dragover');
+            dz.classList.toggle('bg-primary/5', e.type === 'dragover');
+            if (e.type === 'drop') {
+                fi.files = e.dataTransfer.files;
+                updateUI(fi.files);
+            }
+        }));
+
+        dz.addEventListener('dragleave', () => {
+            dz.classList.remove('border-primary', 'bg-primary/5');
+        });
+
+        fi.addEventListener('change', () => updateUI(fi.files));
+    })();
+</script>
 
 </body></html>

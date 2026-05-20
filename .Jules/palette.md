@@ -1,0 +1,3 @@
+## 2025-05-14 - Functional File Upload with Accessibility
+**Learning:** Using `display: none` or `hidden` on file inputs removes them from the keyboard tab order, breaking accessibility for custom upload zones. Using Tailwind's `sr-only` keeps the input functional for screen readers and keyboard users while hiding it visually. Additionally, wrapping the input in a `<label>` and using `focus-within` on the label allows for styling the entire zone based on the input's focus state.
+**Action:** Always use `sr-only` instead of `hidden` for inputs that need to be accessible but are visually replaced by custom UI. Ensure `textContent` is used instead of `innerHTML` when rendering user-provided data like file names to prevent XSS.
