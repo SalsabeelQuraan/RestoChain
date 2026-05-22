@@ -94,12 +94,13 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<input accept=".pdf,.jpg,.jpeg,.png" class="hidden" id="file-upload" multiple type="file"/>
+<div aria-label="Upload evidence and documentation" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus-within:border-primary transition-colors cursor-pointer group outline-none focus-visible:ring-2 ring-primary ring-offset-2 dark:ring-offset-slate-900" id="upload-zone" role="button" tabindex="0">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<p class="text-base font-medium mb-1" id="upload-text">Upload Medical Reports or Photos</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center" id="upload-hint">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
 <div class="flex gap-2">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
@@ -202,4 +203,27 @@
 </div>
 </footer>
 
+<script>
+(function() {
+    const zone = document.getElementById('upload-zone'), input = document.getElementById('file-upload');
+    const text = document.getElementById('upload-text'), hint = document.getElementById('upload-hint');
+    const update = (f) => {
+        if (f.length) {
+            text.textContent = `${f.length} file${f.length > 1 ? 's' : ''} selected`;
+            text.className = 'text-base font-bold text-primary mb-1';
+            hint.textContent = Array.from(f).map(x => x.name).join(', ');
+            hint.className = 'text-sm text-primary/80 mb-4 text-center line-clamp-1';
+            zone.classList.add('border-primary', 'bg-primary/5');
+            zone.classList.remove('border-slate-200', 'dark:border-slate-700');
+        }
+    };
+    zone.onclick = () => input.click();
+    zone.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } };
+    input.onchange = (e) => update(e.target.files);
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(n => zone.addEventListener(n, e => { e.preventDefault(); e.stopPropagation(); }));
+    ['dragenter', 'dragover'].forEach(n => zone.addEventListener(n, () => zone.classList.add('border-primary', 'bg-primary/5')));
+    ['dragleave', 'drop'].forEach(n => zone.addEventListener(n, () => { if (!input.files.length) zone.classList.remove('border-primary', 'bg-primary/5'); }));
+    zone.addEventListener('drop', e => { input.files = e.dataTransfer.files; input.dispatchEvent(new Event('change')); });
+})();
+</script>
 </body></html>

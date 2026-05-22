@@ -1,0 +1,3 @@
+## 2025-05-14 - Functional Custom File Upload Pattern
+**Learning:** Transforming static upload placeholders into accessible interactive components requires a multi-layered approach: a hidden native input for functionality, ARIA roles/tabindex for screen readers, and specific keyboard listeners (Enter/Space) with `e.preventDefault()` to mirror native button behavior. Dispatching a 'change' event after a 'drop' ensures a single source of truth for UI updates.
+**Action:** Always use a hidden native input as the state holder and use 'dispatchEvent(new Event("change"))' to sync custom drag-and-drop logic with standard click-to-upload handlers.
