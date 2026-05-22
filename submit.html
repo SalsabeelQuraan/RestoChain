@@ -94,12 +94,13 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div id="upload-zone" role="button" tabindex="0" aria-label="Upload evidence and documentation" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus-within:border-primary outline-none focus-visible:ring-2 ring-primary ring-offset-2 dark:ring-offset-slate-900 transition-colors cursor-pointer group">
+<input type="file" id="file-upload" multiple class="hidden"/>
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<p id="upload-text" class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
+<p id="upload-subtext" class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
 <div class="flex gap-2">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
@@ -201,5 +202,53 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+<script>
+    (() => {
+        const zone = document.getElementById('upload-zone');
+        const input = document.getElementById('file-upload');
+        const text = document.getElementById('upload-text');
+        const subtext = document.getElementById('upload-subtext');
 
+        const updateUI = (files) => {
+            if (files.length > 0) {
+                text.textContent = `${files.length} file${files.length > 1 ? 's' : ''} selected`;
+                text.classList.add('text-primary');
+                subtext.textContent = Array.from(files).map(f => f.name).join(', ');
+                subtext.classList.add('line-clamp-1');
+            }
+        };
+
+        zone.addEventListener('click', () => input.click());
+        zone.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                input.click();
+            }
+        });
+
+        input.addEventListener('change', (e) => updateUI(e.target.files));
+
+        ['dragenter', 'dragover'].forEach(name => {
+            zone.addEventListener(name, (e) => {
+                e.preventDefault();
+                zone.classList.add('border-primary', 'bg-primary/5');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(name => {
+            zone.addEventListener(name, (e) => {
+                e.preventDefault();
+                zone.classList.remove('border-primary', 'bg-primary/5');
+            });
+        });
+
+        zone.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                input.files = files;
+                input.dispatchEvent(new Event('change'));
+            }
+        });
+    })();
+</script>
 </body></html>
