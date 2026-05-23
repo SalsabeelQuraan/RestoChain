@@ -1,0 +1,3 @@
+## 2025-05-14 - Functional and Accessible Upload Zone
+**Learning:** Transforming static upload placeholders into functional components requires pairing a hidden `<input type="file">` with a custom-styled trigger. To maintain accessibility, the trigger must have `role="button"`, `tabindex="0"`, and specific keyboard handlers (Enter/Space) to match native button behavior. Drag-and-drop support should be implemented by updating the hidden input's `files` property and providing immediate visual feedback on the staged file count.
+**Action:** Use a hidden input + styled div pattern with `role="button"` and `focus-visible` rings for all custom interactive placeholders.
