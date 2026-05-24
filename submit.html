@@ -94,12 +94,13 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div id="upload-zone" role="button" tabindex="0" aria-label="Upload evidence and documentation" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus-within:border-primary outline-none focus-visible:ring-2 ring-primary ring-offset-2 dark:ring-offset-slate-900 transition-colors cursor-pointer group">
+<input class="hidden" id="file-upload" multiple="" type="file"/>
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
-<p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
-<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
+<p class="text-base font-medium mb-1" id="upload-text">Upload Medical Reports or Photos</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center" id="upload-subtext">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
 <div class="flex gap-2">
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
@@ -201,5 +202,39 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+(function() {
+    const z = document.getElementById('upload-zone'), i = document.getElementById('file-upload');
+    const t = document.getElementById('upload-text'), s = document.getElementById('upload-subtext');
+    if (!z || !i) return;
+    const up = (f) => {
+        if (f.length > 0) {
+            t.textContent = `${f.length} file${f.length > 1 ? 's' : ''} selected`;
+            s.textContent = Array.from(f).map(x => x.name).join(', ');
+            s.classList.add('line-clamp-1', 'px-4');
+            z.classList.add('border-primary', 'bg-primary/5');
+            z.classList.remove('border-slate-200', 'dark:border-slate-700');
+        } else {
+            t.textContent = 'Upload Medical Reports or Photos';
+            s.innerHTML = 'Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.';
+            s.classList.remove('line-clamp-1', 'px-4');
+            z.classList.remove('border-primary', 'bg-primary/5');
+            z.classList.add('border-slate-200', 'dark:border-slate-700');
+        }
+    };
+    z.onclick = () => i.click();
+    z.onkeydown = (e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), i.click());
+    i.onchange = (e) => up(e.target.files);
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(n => z.addEventListener(n, e => (e.preventDefault(), e.stopPropagation())));
+    ['dragenter', 'dragover'].forEach(n => z.addEventListener(n, () => z.classList.add('border-primary', 'bg-primary/10')));
+    ['dragleave', 'drop'].forEach(n => z.addEventListener(n, () => {
+        z.classList.remove('bg-primary/10');
+        if (i.files.length > 0) z.classList.add('bg-primary/5');
+        else z.classList.remove('border-primary');
+    }));
+    z.addEventListener('drop', (e) => { i.files = e.dataTransfer.files; i.dispatchEvent(new Event('change')); });
+})();
+</script>
 
 </body></html>
