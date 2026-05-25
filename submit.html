@@ -94,7 +94,8 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<input class="hidden" id="file-upload" multiple="" type="file"/>
+<div aria-label="Upload evidence and documentation" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group focus-within:border-primary outline-none focus-visible:ring-2 ring-primary ring-offset-2 dark:ring-offset-slate-900" id="upload-zone" role="button" tabindex="0">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -202,4 +203,29 @@
 </div>
 </footer>
 
+<script>
+(function() {
+    const [zone, input] = ['upload-zone', 'file-upload'].map(id => document.getElementById(id));
+    const [text, subtext] = ['p.text-base', 'p.text-sm'].map(s => zone.querySelector(s));
+    const update = (f) => {
+        const has = f.length > 0;
+        text.textContent = has ? `${f.length} file(s) selected` : 'Upload Medical Reports or Photos';
+        subtext.textContent = has ? Array.from(f).map(i => i.name).join(', ') : 'Drag and drop files here, or click to browse. Files will be encrypted and uploaded to IPFS.';
+        subtext.classList.toggle('line-clamp-1', has);
+        zone.classList.toggle('border-primary', has);
+        zone.classList.toggle('border-slate-200', !has);
+        zone.classList.toggle('dark:border-slate-700', !has);
+    };
+    zone.onclick = () => input.click();
+    zone.onkeydown = (e) => { if (['Enter', ' '].includes(e.key)) { e.preventDefault(); input.click(); } };
+    input.onchange = () => update(input.files);
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(e => zone.addEventListener(e, (ev) => { ev.preventDefault(); ev.stopPropagation(); }));
+    ['dragenter', 'dragover'].forEach(e => zone.addEventListener(e, () => zone.classList.add('border-primary', 'bg-primary/5')));
+    ['dragleave', 'drop'].forEach(e => zone.addEventListener(e, () => {
+        zone.classList.remove('bg-primary/5');
+        if (!input.files.length) zone.classList.remove('border-primary');
+    }));
+    zone.addEventListener('drop', (e) => { input.files = e.dataTransfer.files; input.dispatchEvent(new Event('change')); });
+})();
+</script>
 </body></html>
