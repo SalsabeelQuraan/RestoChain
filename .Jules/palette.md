@@ -1,0 +1,3 @@
+## 2025-05-14 - Accessible & Functional Upload Patterns
+**Learning:** Static upload zones often lack basic accessibility (tab index, roles) and functional feedback. In static HTML projects, an IIFE can safely encapsulate the logic for handling complex interactions like drag-and-drop and keyboard events without polluting the global scope.
+**Action:** When encountering placeholder upload zones, implement a hidden file input triggered by a styled, focusable 'button' div. Use `textContent` for feedback to avoid XSS and use Tailwind's `focus-within` and `ring` utilities for consistent focus indicators.
