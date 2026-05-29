@@ -1,0 +1,3 @@
+## 2024-05-22 - Transforming Static Placeholders into Functional Components
+**Learning:** In static HTML prototypes, sections like file uploads are often just visual placeholders. Converting them into functional components requires careful attention to accessibility (ARIA roles, keyboard support) and state management (visual feedback for drag-and-drop).
+**Action:** Use a hidden file input alongside a focusable container to leverage native file browsing while maintaining a custom design. Always implement `keydown` handlers for custom interactive `div`s to ensure they satisfy accessibility requirements.
