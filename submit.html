@@ -94,7 +94,8 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div id="upload-zone" tabindex="0" role="button" aria-label="Upload medical reports or photos" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group focus-within:border-primary outline-none focus-visible:ring-2 ring-primary ring-offset-2 dark:ring-offset-slate-900">
+<input type="file" id="file-input" multiple accept=".pdf,.jpg,.jpeg,.png" class="sr-only" />
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -104,6 +105,14 @@
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
+</div>
+<div id="file-list" class="hidden mt-6 w-full max-w-md bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
+<div class="px-4 py-2 bg-slate-50 dark:bg-slate-700/50 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+<span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Selected Files</span>
+<span id="file-count" class="bg-primary/20 text-primary text-[10px] px-2 py-0.5 rounded-full font-bold">0</span>
+</div>
+<div id="file-names" class="divide-y divide-slate-100 dark:divide-slate-700 max-h-32 overflow-y-auto p-2">
+</div>
 </div>
 </div>
 </div>
@@ -202,4 +211,54 @@
 </div>
 </footer>
 
+<script>
+(() => {
+    const [zone, input, list, names, count] = ['upload-zone', 'file-input', 'file-list', 'file-names', 'file-count'].map(id => document.getElementById(id));
+
+    const updateUI = (files) => {
+        names.innerHTML = '';
+        if (files.length > 0) {
+            list.classList.remove('hidden');
+            count.textContent = files.length;
+            Array.from(files).forEach(f => {
+                const item = document.createElement('div');
+                item.className = 'py-1.5 px-2 text-xs text-slate-600 dark:text-slate-400 flex items-center gap-2';
+                const icon = document.createElement('span');
+                icon.className = 'material-symbols-outlined text-[14px]';
+                icon.textContent = 'description';
+                const name = document.createElement('span');
+                name.className = 'truncate';
+                name.textContent = f.name;
+                item.append(icon, name);
+                names.appendChild(item);
+            });
+        } else {
+            list.classList.add('hidden');
+        }
+    };
+
+    zone.addEventListener('click', () => input.click());
+    zone.addEventListener('keydown', e => {
+        if (['Enter', ' '].includes(e.key)) {
+            e.preventDefault();
+            input.click();
+        }
+    });
+
+    ['dragover', 'dragleave', 'drop'].forEach(evt => {
+        zone.addEventListener(evt, e => {
+            e.preventDefault();
+            e.stopPropagation();
+            zone.classList.toggle('border-primary', evt === 'dragover');
+            zone.classList.toggle('bg-primary/5', evt === 'dragover');
+            if (evt === 'drop') {
+                input.files = e.dataTransfer.files;
+                updateUI(input.files);
+            }
+        });
+    });
+
+    input.addEventListener('change', () => updateUI(input.files));
+})();
+</script>
 </body></html>
