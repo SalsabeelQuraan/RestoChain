@@ -94,7 +94,8 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div id="upload-zone" tabindex="0" role="button" aria-label="Upload evidence" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-all cursor-pointer group focus-within:border-primary outline-none focus-visible:ring-2 ring-primary ring-offset-2 dark:ring-offset-slate-900">
+<input type="file" id="file-input" multiple class="hidden" accept=".pdf,.jpg,.png">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
@@ -106,6 +107,7 @@
 <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
 </div>
 </div>
+<div id="file-list" class="mt-4 space-y-2"></div>
 </div>
 <div class="pt-6">
 <div class="p-4 bg-primary/5 border border-primary/20 rounded-xl mb-6 flex items-start gap-4">
@@ -201,5 +203,50 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
+
+<script>
+(function() {
+    const [zone, input, list] = ['upload-zone', 'file-input', 'file-list'].map(id => document.getElementById(id));
+
+    const updateList = (files) => {
+        list.innerHTML = '';
+        Array.from(files).forEach(file => {
+            const item = document.createElement('div');
+            item.className = 'flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700 animate-in fade-in slide-in-from-bottom-1';
+
+            const icon = document.createElement('span');
+            icon.className = 'material-symbols-outlined text-primary';
+            icon.textContent = file.type.includes('pdf') ? 'picture_as_pdf' : 'image';
+
+            const name = document.createElement('span');
+            name.className = 'text-sm font-medium truncate flex-1';
+            name.textContent = file.name;
+
+            const size = document.createElement('span');
+            size.className = 'text-xs text-slate-400';
+            size.textContent = (file.size / 1024).toFixed(1) + ' KB';
+
+            item.append(icon, name, size);
+            list.appendChild(item);
+        });
+    };
+
+    zone.onclick = () => input.click();
+    zone.onkeydown = (e) => { if (['Enter', ' '].includes(e.key)) { e.preventDefault(); input.click(); } };
+    input.onchange = () => updateList(input.files);
+
+    ['dragover', 'dragleave', 'drop'].forEach(evt => {
+        zone.addEventListener(evt, (e) => {
+            e.preventDefault();
+            zone.classList.toggle('bg-primary/5', evt === 'dragover');
+            zone.classList.toggle('border-primary', evt === 'dragover');
+            if (evt === 'drop') {
+                input.files = e.dataTransfer.files;
+                updateList(input.files);
+            }
+        });
+    });
+})();
+</script>
 
 </body></html>
