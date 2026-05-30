@@ -94,17 +94,14 @@
 <span class="material-symbols-outlined text-primary">upload_file</span>
 <h2 class="text-xl font-semibold">Evidence &amp; Documentation</h2>
 </div>
-<div class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div id="dropzone" tabindex="0" role="button" aria-label="Upload evidence" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-10 flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-800/20 hover:border-primary/50 focus-within:border-primary outline-none transition-colors cursor-pointer group">
+<input type="file" id="file-input" class="hidden" multiple accept=".pdf,.jpg,.png">
 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
 </div>
 <p class="text-base font-medium mb-1">Upload Medical Reports or Photos</p>
 <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Drag and drop files here, or click to browse.<br/>Files will be encrypted and uploaded to IPFS.</p>
-<div class="flex gap-2">
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PDF</span>
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">JPG</span>
-<span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono uppercase">PNG</span>
-</div>
+<div id="file-list" class="flex flex-wrap gap-2 justify-center"></div>
 </div>
 </div>
 <div class="pt-6">
@@ -201,5 +198,33 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
-
+<script>
+    (function() {
+        const [zone, input, list] = ['dropzone', 'file-input', 'file-list'].map(id => document.getElementById(id));
+        const upd = (files) => {
+            list.innerHTML = '';
+            Array.from(files).forEach(f => {
+                const b = document.createElement('span');
+                b.className = 'px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded text-xs font-medium flex items-center gap-1';
+                const n = document.createElement('span');
+                n.className = 'truncate max-w-[150px]';
+                n.textContent = f.name;
+                const i = document.createElement('span');
+                i.className = 'material-symbols-outlined text-sm';
+                i.textContent = 'attachment';
+                b.append(i, n);
+                list.appendChild(b);
+            });
+        };
+        zone.addEventListener('click', () => input.click());
+        zone.addEventListener('keydown', (e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), input.click()));
+        input.addEventListener('change', (e) => upd(e.target.files));
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(n => zone.addEventListener(n, (e) => {
+            e.preventDefault();
+            zone.classList.toggle('border-primary', n === 'dragenter' || n === 'dragover');
+            zone.classList.toggle('bg-primary/5', n === 'dragenter' || n === 'dragover');
+            if (n === 'drop') { input.files = e.dataTransfer.files; upd(input.files); }
+        }));
+    })();
+</script>
 </body></html>
