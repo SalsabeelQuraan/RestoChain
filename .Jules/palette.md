@@ -1,0 +1,3 @@
+## 2025-05-15 - [Dark Mode and Form Accessibility Patterns]
+**Learning:** In this static HTML project, dark mode is consistently implemented by toggling the 'dark' class on the `<html>` element. Providing immediate visual feedback for the toggle is best achieved by using dual icons (e.g., 'dark_mode' and 'light_mode') with Tailwind's `dark:hidden` and `hidden dark:block` utility classes. Additionally, the existing form elements often lack proper label-input associations, which is a significant but easily fixable accessibility gap.
+**Action:** When adding dark mode toggles, use the dual-icon pattern. Always verify and implement `id`/`for` associations for form fields to improve screen reader support and hit area usability.
