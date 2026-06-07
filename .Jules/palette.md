@@ -1,0 +1,3 @@
+## 2024-05-24 - [Accessible custom interactive elements in static HTML]
+**Learning:** In static HTML projects using utility-first CSS like Tailwind, custom interactive elements (like a `div` for file uploads) often lack basic accessibility. Transforming them into functional components requires adding `role="button"`, `tabindex="0"`, `aria-label`, and specific `onkeydown` handlers for Enter/Space keys to ensure keyboard parity with standard buttons.
+**Action:** Always verify custom "clickable" elements for these attributes and use concise inline handlers or IIFEs to add functionality without global scope pollution.
