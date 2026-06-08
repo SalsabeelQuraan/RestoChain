@@ -1,0 +1,3 @@
+## 2025-05-14 - [Enhanced Accessibility and Interactive Feedback for Custom Upload Zones]
+**Learning:** In static HTML projects, interactive 'div' elements (like custom upload zones) lack native keyboard support and feedback. They require explicit roles, tab indices, and event listeners for both click and keyboard (Enter/Space) to be accessible. Furthermore, immediate visual feedback (e.g., displaying selected file names) significantly improves the perceived responsiveness of the interface.
+**Action:** Always include `role="button"`, `tabindex="0"`, and `aria-label` on custom interactive elements, and implement both click/keydown listeners along with dynamic UI updates for user actions.
