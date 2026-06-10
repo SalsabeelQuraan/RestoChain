@@ -1,0 +1,3 @@
+## 2024-05-15 - Standardizing Theme Toggle with Persistence
+**Learning:** In static HTML projects using Tailwind, a functional theme toggle requires more than just a class toggle; it needs `localStorage` persistence and a script to apply the theme on load to prevent a "flash of light theme" or inconsistent UI across pages. Using `addEventListener` is preferred over inline `onclick` for better maintainability and to avoid global scope pollution when wrapped in an IIFE.
+**Action:** Always implement theme toggles with `localStorage` persistence and use an IIFE with `addEventListener` for the logic.
