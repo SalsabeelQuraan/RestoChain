@@ -51,8 +51,9 @@
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Dashboard</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Restaurant Registry</a>
 <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
-<button class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-<span class="material-symbols-outlined text-xl">dark_mode</span>
+<button id="theme-toggle" aria-label="Toggle dark mode" class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-xl dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined text-xl hidden dark:block">light_mode</span>
 </button>
 <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
 <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -76,16 +77,16 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
+<label for="order-number" class="text-sm font-medium text-slate-700 dark:text-slate-300">Order Number</label>
+<input id="order-number" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="e.g. #FS-98210-XC" type="text"/>
 </div>
 <div class="space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
-<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
+<label for="incident-date" class="text-sm font-medium text-slate-700 dark:text-slate-300">Date &amp; Time of Incident</label>
+<input id="incident-date" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" type="datetime-local"/>
 </div>
 <div class="md:col-span-2 space-y-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
-<textarea class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
+<label for="case-description" class="text-sm font-medium text-slate-700 dark:text-slate-300">Case Description</label>
+<textarea id="case-description" class="w-full bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:ring-primary focus:border-primary rounded-lg transition-all" placeholder="Please describe the symptoms, food consumed, and any other relevant details..." rows="4"></textarea>
 </div>
 </div>
 </div>
@@ -114,7 +115,7 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
+<button id="submit-button" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
 <span class="material-symbols-outlined">draw</span>
                             Sign &amp; Submit to Blockchain
                         </button>
@@ -202,4 +203,39 @@
 </div>
 </footer>
 
+<script>
+        (() => {
+            const submitBtn = document.getElementById('submit-button');
+            const themeToggle = document.getElementById('theme-toggle');
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    document.documentElement.classList.toggle('dark');
+                });
+            }
+
+            if (submitBtn) {
+                submitBtn.addEventListener('click', () => {
+                    // Signing state
+                    submitBtn.disabled = true;
+                    submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    submitBtn.innerHTML = `
+                        <span class="material-symbols-outlined animate-spin">sync</span>
+                        <span>Signing Transaction...</span>
+                    `;
+
+                    // Simulate transaction delay
+                    setTimeout(() => {
+                        // Success state
+                        submitBtn.classList.remove('bg-primary', 'hover:bg-primary/90', 'opacity-50', 'cursor-not-allowed');
+                        submitBtn.classList.add('bg-emerald-500');
+                        submitBtn.innerHTML = `
+                            <span class="material-symbols-outlined">check_circle</span>
+                            <span>Success! Transaction Confirmed</span>
+                        `;
+                    }, 2000);
+                });
+            }
+        })();
+    </script>
 </body></html>
