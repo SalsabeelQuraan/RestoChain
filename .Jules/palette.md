@@ -1,0 +1,3 @@
+## 2024-05-20 - Multi-state Blockchain Interaction & Persistent Theme Toggle
+**Learning:** In decentralized apps, users expect transaction latency. Providing immediate feedback ('Signing...') followed by a success state significantly improves perceived reliability. For theme toggles, using a script-based approach with `localStorage` and `prefers-color-scheme` avoids the 'flash of light theme' on dark mode pages.
+**Action:** Always implement `Sign` -> `Signing...` -> `Success` transitions for blockchain-related buttons. Use a standardized `id="theme-toggle"` and script IIFE for theme management across all pages.
