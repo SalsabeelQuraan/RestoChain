@@ -114,7 +114,7 @@
                                 By submitting this report, you are signing a transaction with your wallet. This action requires a small gas fee. Once verified, this report will impact the restaurant's safety rating in the decentralized registry.
                             </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
+<button id="submit-button" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20" type="button">
 <span class="material-symbols-outlined">draw</span>
                             Sign &amp; Submit to Blockchain
                         </button>
@@ -201,5 +201,33 @@
 <p class="text-sm text-slate-400">© 2024 FoodSafe Chain. All rights reserved.</p>
 </div>
 </footer>
-
+<div class="hidden bg-green-600"></div>
+<script>
+    (() => {
+        const btn = document.getElementById('submit-button');
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+            const icon = btn.querySelector('.material-symbols-outlined');
+            const textNode = Array.from(btn.childNodes).find(n => n.nodeType === 3 && n.textContent.trim());
+            btn.disabled = true;
+            btn.setAttribute('aria-busy', 'true');
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            if (icon) {
+                icon.textContent = 'sync';
+                icon.classList.add('animate-spin');
+            }
+            if (textNode) textNode.textContent = ' Signing Transaction...';
+            setTimeout(() => {
+                btn.setAttribute('aria-busy', 'false');
+                btn.classList.remove('bg-primary', 'hover:bg-primary/90', 'opacity-75', 'cursor-not-allowed', 'shadow-primary/20');
+                btn.classList.add('bg-green-600');
+                if (icon) {
+                    icon.textContent = 'check_circle';
+                    icon.classList.remove('animate-spin');
+                }
+                if (textNode) textNode.textContent = ' Submission Successful!';
+            }, 2000);
+        });
+    })();
+</script>
 </body></html>
