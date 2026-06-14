@@ -1,138 +1,126 @@
-# RestoChain
+# RestoChain: Decentralized Restaurant Rating & Food Safety Platform
 
-The project aims to build a decentralized restaurant rating system using blockchain technology and smart contracts to improve food safety standards and reduce cases of food poisoning. The system relies  on recording user reviews and reports on restaurant hygiene and food  quality on a public, immutable blockchain, ensuring transparency and  credibility.
+## Executive Summary
 
-**Key Features:**
+RestoChain is a blockchain-based platform designed to transform food safety standards through transparent, tamper-proof restaurant ratings and hygiene reporting. By leveraging smart contracts, decentralized storage, and trusted oracle integrations, the system establishes an immutable public record of consumer reviews and official health inspection data — empowering diners to make informed decisions while incentivizing restaurants to uphold rigorous hygiene standards.
 
-  - **Decentralized & tamper-proof:** Ratings cannot be altered or deleted.
-  - **Smart contract verification:** Reviews are validated automatically.
-  - **Trusted data sources:** Integration with health authorities (Oracles) for verified inspections.
-  - **Incentivized participation:** Possible token rewards for honest reviewers.
-    
-This system empowers consumers to make safer dining choices while encouraging restaurants to maintain high hygiene standards.
+---
 
-# Front-End                        
+## Core Principles
 
-1. **Signing in with a Gmail Account:**
-   
-  - Users can easily sign in using their Gmail account.  
-  - Login is integrated with Google OAuth for security and easy access.  
-  - No need to create a new account or enter a password manually.
-    
-2. **Linking the Account to Reviews:**
-   
-  - Each review is linked to the email address used in Gmail.  
-  - Reviews remain secure, encrypted, and stored on the blockchain while maintaining email privacy.  
-  - The email is not publicly stored on the chain; instead, it is used to generate an encrypted internal identifier.
-    
-3. **Full Data Ownership:**
-   
-  - Users retain full ownership of their reviews and data.  
-  - No intermediaries control or manipulate the content.  
-  - The system ensures accountability and prevents fake reviews by associating each review with a trusted Gmail identity.
+| Principle | Description |
+|-----------|-------------|
+| **Decentralization** | Ratings and reports are distributed across the blockchain — no single entity can alter or remove them. |
+| **Smart Contract Verification** | All review submissions are validated automatically through on-chain logic, eliminating the need for manual moderation. |
+| **Trusted Data Integration** | Official health inspection results are fed into the system via Oracle nodes, enabling verified authority-backed data. |
+| **Incentivized Participation** | Token rewards encourage honest, high-quality contributions from the user community. |
 
-# Smart Contract
+---
 
-**Dynamic evaluation model**
+## Platform Architecture
 
-  - Each entry is digitally signed and linked to a smart contract that ensures it cannot be modified later.
-  - Each review is recorded in a new block associated with the restaurant address.
+### 1. Front-End & User Authentication
 
-# Reputation System
+**Gmail OAuth Sign-In**
+Users authenticate securely using their existing Google accounts via OAuth 2.0. No separate credentials are required, reducing friction and improving accessibility.
 
-**Food Poisoning Incident Report**
+**Privacy-Preserving Identity Linkage**
+Each review is cryptographically linked to the user's Gmail identity without exposing the email address publicly. Instead, the system generates an encrypted internal identifier, ensuring accountability while preserving user privacy.
 
-A dedicated form requesting:
+**Data Ownership**
+Users retain full, sovereign ownership of their reviews and personal data. The platform operates without intermediaries and enforces content integrity through cryptographic proofs, effectively preventing fake or duplicate reviews.
 
-  - Case description (detailed account of the incident)
-  - Date & time (of the incident)
-  - Order/bill number (optional)
-  - Upload medical report or official certificate (for verification)
-  - Optional photos (of the food, receipt, or other evidence)
-    
-Technical Process:
+---
 
-  - Images & reports are uploaded to IPFS (decentralized storage)
-  - Linked to the review via a Smart Contract
-  - Smart Contract verifies duplicate reports and stores only the hash (ensuring privacy)
-  - If confirmed reports exceed a threshold, the smart contract triggers an alert mechanism (e.g., notifying health authorities or flagging the restaurant)
+### 2. Smart Contract Layer
 
-# Oracle
+**Immutable Review Submission**
+Every review is digitally signed by the submitting user and recorded on-chain via a dedicated smart contract. Once committed, the entry cannot be modified or deleted, ensuring a permanent and trustworthy record.
 
-**Ratings & Reports Log (On-Chain Viewer)**
+**Restaurant-Specific Ledger**
+Each review is stored in a new blockchain block associated with the restaurant's unique on-chain address, enabling a complete and auditable history per establishment.
 
-Users can view all previously recorded reviews and reports on the blockchain, including:
+**Reputation Score Aggregation**
+The smart contract continuously computes each restaurant's reputation score based on the aggregate of verified reviews, reflecting real-time community sentiment.
 
-  - Restaurant’s overall rating (average score based on verified reviews)
-  - Health violation reports (with timestamps and details)
-  - Verification status of each report (confirmed by an Oracle?  **Yes /  No**)
-                                                  
-Why This Matters?
+---
 
-  - **Fully transparent & decentralized:** No central database that can be manipulated.
-  - **Immutable history:** All ratings and reports are permanently stored on-chain.
-  - **Trustless verification:** Oracle-confirmed reports carry higher credibility.
-    
-Users can **audit restaurant safety records** before dining, ensuring informed decisions. 
+### 3. Food Poisoning Incident Reporting
 
-# BlockChain Ledger
+Users can submit formal incident reports through a structured form, providing the following information:
 
-**User Interaction with the Smart Contract**
+- **Incident Description** — A detailed account of the food poisoning event
+- **Date & Time** — Exact timing of the incident
+- **Order/Bill Reference** *(optional)* — For cross-referencing with restaurant records
+- **Supporting Documentation** — Medical reports, official certificates, or photographic evidence
 
-When submitting a review, the process works as follows:
+**Technical Pipeline:**
 
-  - **User Signs the Transaction**
-    
-    The user cryptographically signs the review submission using their wallet (e.g., MetaMask).
-    
-  - **Data is Sent to the Smart Contract**
-    
-    The review data (ratings, reports, images/IPFS hashes) is transmitted to the blockchain.
-    
-  - **Waiting for Network Confirmation**
-    
-    The transaction is processed by the blockchain (e.g., Ethereum, Polygon).
-    
-Miners/validators confirm the transaction (usually takes a few seconds to minutes).
+1. Supporting files (images, documents) are uploaded to **IPFS** (InterPlanetary File System) for decentralized, censorship-resistant storage.
+2. The IPFS content hash is recorded on-chain via the smart contract, preserving privacy while ensuring data integrity.
+3. The smart contract performs **duplicate detection**, ensuring each incident is logged only once.
+4. When confirmed reports for a given restaurant surpass a defined threshold, the contract triggers an **automated alert mechanism** — notifying health authorities and flagging the restaurant on the public ledger.
 
-  - **Success Notification**
-    
-    A confirmation message appears, displaying:
-    
-      - **Block Number** (where the review was recorded)
-      - **Transaction Hash** (TxHash) (proof of submission)
-                                                        
-Why This Matters?
+---
 
-  - **Self-Executing Logic:** The smart contract automatically enforces rules (no manual approval needed).
-  - **Tamper-Proof:** Once confirmed, the review cannot be altered or deleted.
-  - **Transparent & Verifiable:** Anyone can check the transaction on a block explorer (e.g., Etherscan).
-    
-This ensures **trustless, automated, and secure** review submissions. 
+### 4. Oracle Integration & On-Chain Transparency
 
-# Incentive Mechanism
+**Verified Health Authority Data**
+Oracle nodes act as trusted bridges between off-chain regulatory bodies (e.g., municipal health departments) and the blockchain, supplying independently verified inspection results.
 
-**Token Reward System**
+**Public Ratings & Reports Viewer**
+Any user can query the on-chain record for a given restaurant, accessing:
 
-To incentivize high-quality reviews, the system includes a token-based reward mechanism:
+- **Overall Rating** — Weighted average based on verified consumer reviews
+- **Health Violation Log** — Timestamped incident reports with full details
+- **Oracle Verification Status** — Indicating whether each report has been confirmed by an external authority
 
-1. **Automatic Rewards for Verified Reviews**
-   
-   When a user submits a **trusted review** (validated by the smart contract or oracles), they are **Automatically Rewarded** with a **25% discount token**.
-   The reward is issued instantly via the smart contract without manual intervention.
-2. **Token Utility (In-App Benefits)**
-   
-   Users can spend their earned tokens on:
-   
-     - **Access to premium reports** (e.g., detailed hygiene analytics)
-     - **Advanced features** (e.g., priority visibility for their reviews)
-     - **Exclusive discounts** (partnered restaurants or services)
-     - **Governance voting** (future DAO integration for system upgrades)
-       
-4. **Fair & Fraud-Proof Distribution**
-   
-     - **Anti-Spam Mechanism:** Only verified, unique reviews qualify for rewards.
-     - **Sybil-Resistant:** Duplicate or fake accounts won’t earn tokens.
-     - **Transparent Ledger:** All rewards are recorded on-chain for auditability.
-       
-This model **Encourages Honest Participation** while adding real value to the ecosystem.
+This transparency layer allows consumers to audit a restaurant's complete safety history before dining.
+
+---
+
+### 5. Blockchain Ledger & Transaction Flow
+
+When a user submits a review, the following sequence is executed:
+
+1. **Transaction Signing** — The user signs the submission using their connected wallet (e.g., MetaMask), ensuring cryptographic authenticity.
+2. **Data Broadcast** — Review data (ratings, text, and IPFS content hashes) is transmitted to the smart contract on the target blockchain (e.g., Ethereum, Polygon).
+3. **Network Confirmation** — Validators process and confirm the transaction, typically within seconds to minutes.
+4. **Success Receipt** — The user receives a confirmation containing:
+   - **Block Number** — The block in which the review was recorded
+   - **Transaction Hash (TxHash)** — A unique, publicly verifiable proof of submission
+
+All confirmed transactions are fully auditable via public block explorers (e.g., Etherscan), ensuring trustless and transparent operations.
+
+---
+
+### 6. Token Incentive Mechanism
+
+**Automatic Rewards for Verified Reviews**
+Upon successful validation of a review by the smart contract or oracle network, the contributor is automatically issued a **25% discount token** — with no manual approval required.
+
+**Token Utility**
+Earned tokens can be redeemed for:
+
+- **Premium Analytics Access** — Detailed hygiene statistics and trend reports
+- **Enhanced Visibility** — Priority display for the user's reviews
+- **Partner Discounts** — Exclusive offers from participating restaurants and services
+- **Governance Participation** — Voting rights in future DAO-based platform upgrades
+
+**Fraud Prevention & Fair Distribution**
+- **Anti-Spam Filtering** — Only unique, verified reviews qualify for token rewards.
+- **Sybil Resistance** — Duplicate or bot-generated accounts are ineligible for rewards.
+- **Transparent Ledger** — All token distributions are permanently recorded on-chain for full auditability.
+
+---
+
+## Why RestoChain?
+
+RestoChain addresses a critical gap in the current food service ecosystem: the lack of a trustworthy, manipulation-resistant source of restaurant safety information.
+
+- **No Central Point of Failure** — The decentralized architecture eliminates the risk of data manipulation by any single actor.
+- **Immutable Track Record** — Every rating and incident report is permanently preserved, creating a reliable historical reference.
+- **Authority-Backed Verification** — Oracle-confirmed reports carry measurable credibility, distinguishing them from unverified consumer complaints.
+- **Consumer Empowerment** — Users gain access to a transparent, auditable record that enables genuinely informed dining decisions.
+
+RestoChain does not merely rate restaurants — it holds them accountable.
