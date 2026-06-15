@@ -6,6 +6,21 @@ RestoChain is a blockchain-based platform designed to transform food safety stan
 
 ---
 
+## Table of Contents
+
+- [🎯 Executive Summary](#executive-summary)
+- [⚖️ Core Principles](#core-principles)
+- [🏗️ Platform Architecture](#platform-architecture)
+  - [1. Front-End & User Authentication](#1-front-end--user-authentication)
+  - [2. Smart Contract Layer](#2-smart-contract-layer)
+  - [3. Food Poisoning Incident Reporting](#3-food-poisoning-incident-reporting)
+  - [4. Oracle Integration & On-Chain Transparency](#4-oracle-integration--on-chain-transparency)
+  - [5. Blockchain Ledger & Transaction Flow](#5-blockchain-ledger--transaction-flow)
+  - [6. Token Incentive Mechanism](#6-token-incentive-mechanism)
+- [💡 Why RestoChain?](#why-restochain)
+
+---
+
 ## Core Principles
 
 | Principle | Description |
@@ -14,6 +29,8 @@ RestoChain is a blockchain-based platform designed to transform food safety stan
 | **Smart Contract Verification** | All review submissions are validated automatically through on-chain logic, eliminating the need for manual moderation. |
 | **Trusted Data Integration** | Official health inspection results are fed into the system via Oracle nodes, enabling verified authority-backed data. |
 | **Incentivized Participation** | Token rewards encourage honest, high-quality contributions from the user community. |
+
+[↑ Back to Top](#table-of-contents)
 
 ---
 
@@ -112,6 +129,8 @@ Earned tokens can be redeemed for:
 - **Sybil Resistance** — Duplicate or bot-generated accounts are ineligible for rewards.
 - **Transparent Ledger** — All token distributions are permanently recorded on-chain for full auditability.
 
+[↑ Back to Top](#table-of-contents)
+
 ---
 
 ## Why RestoChain?
@@ -124,3 +143,5 @@ RestoChain addresses a critical gap in the current food service ecosystem: the l
 - **Consumer Empowerment** — Users gain access to a transparent, auditable record that enables genuinely informed dining decisions.
 
 RestoChain does not merely rate restaurants — it holds them accountable.
+
+[↑ Back to Top](#table-of-contents)
