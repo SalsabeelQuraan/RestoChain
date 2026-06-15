@@ -1,0 +1,3 @@
+## 2026-06-15 - Documentation as UX in Minimal Repositories
+**Learning:** When a repository consists primarily of a README.md and lacks active UI files, enhancing the documentation's scannability (e.g., Table of Contents, emojis) is a valid micro-UX improvement. However, Markdown anchor links must strip emojis and special characters to function correctly; leading hyphens should not be added to anchors just because a header starts with an emoji.
+**Action:** Always verify Markdown anchor generation rules when adding emojis to headers. In minimal repos, focus on documentation UX while respecting the core goal of improving the "interface" in whatever form it currently exists.
