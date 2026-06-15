@@ -1,0 +1,3 @@
+## 2025-05-14 - Markdown Header Emojis and Anchor Links
+**Learning:** GitHub-style anchor generation for Markdown headers often ignores emoji characters or replaces them with dashes, which can lead to broken internal links if the emojis are included in the anchor hash. This applies to both the destination headers and any headers used as navigation targets (e.g., Table of Contents).
+**Action:** Keep emojis in the Table of Contents list for visual scannability but exclude them from all actual `##` and `###` headers. This ensures that internal links and "Back to Top" navigation remain stable and functional.
