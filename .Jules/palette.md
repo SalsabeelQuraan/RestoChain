@@ -1,0 +1,3 @@
+## 2026-06-17 - README UX as a Fallback Pattern
+**Learning:** When the primary application UI files are absent from the current repository state (e.g., deleted in history), enhancing the documentation's UX (adding a Table of Contents, scannability emojis, and 'Back to Top' links) is a valid way to fulfill the Palette mission by improving the user's first point of interaction with the project.
+**Action:** Always check the current working directory for UI source files (HTML/TSX) before defaulting to README improvements; if only documentation exists, ensure the Table of Contents links match GitHub's anchor generation rules (lowercase, alphanumeric with dashes, emojis removed).

@@ -1,12 +1,25 @@
 # RestoChain: Decentralized Restaurant Rating & Food Safety Platform
 
-## Executive Summary
-
-RestoChain is a blockchain-based platform designed to transform food safety standards through transparent, tamper-proof restaurant ratings and hygiene reporting. By leveraging smart contracts, decentralized storage, and trusted oracle integrations, the system establishes an immutable public record of consumer reviews and official health inspection data — empowering diners to make informed decisions while incentivizing restaurants to uphold rigorous hygiene standards.
+## Table of Contents
+- 📋 [Executive Summary](#executive-summary)
+- ⚖️ [Core Principles](#core-principles)
+- 🏗️ [Platform Architecture](#platform-architecture)
+- 🔮 [Oracle Integration & On-Chain Transparency](#oracle-integration--on-chain-transparency)
+- ⛓️ [Blockchain Ledger & Transaction Flow](#blockchain-ledger--transaction-flow)
+- 🪙 [Token Incentive Mechanism](#token-incentive-mechanism)
+- ❓ [Why RestoChain?](#why-restochain)
 
 ---
 
-## Core Principles
+## 📋 Executive Summary
+
+RestoChain is a blockchain-based platform designed to transform food safety standards through transparent, tamper-proof restaurant ratings and hygiene reporting. By leveraging smart contracts, decentralized storage, and trusted oracle integrations, the system establishes an immutable public record of consumer reviews and official health inspection data — empowering diners to make informed decisions while incentivizing restaurants to uphold rigorous hygiene standards.
+
+[↑ Back to Top](#table-of-contents)
+
+---
+
+## ⚖️ Core Principles
 
 | Principle | Description |
 |-----------|-------------|
@@ -15,9 +28,11 @@ RestoChain is a blockchain-based platform designed to transform food safety stan
 | **Trusted Data Integration** | Official health inspection results are fed into the system via Oracle nodes, enabling verified authority-backed data. |
 | **Incentivized Participation** | Token rewards encourage honest, high-quality contributions from the user community. |
 
+[↑ Back to Top](#table-of-contents)
+
 ---
 
-## Platform Architecture
+## 🏗️ Platform Architecture
 
 ### 1. Front-End & User Authentication
 
@@ -61,9 +76,11 @@ Users can submit formal incident reports through a structured form, providing th
 3. The smart contract performs **duplicate detection**, ensuring each incident is logged only once.
 4. When confirmed reports for a given restaurant surpass a defined threshold, the contract triggers an **automated alert mechanism** — notifying health authorities and flagging the restaurant on the public ledger.
 
+[↑ Back to Top](#table-of-contents)
+
 ---
 
-### 4. Oracle Integration & On-Chain Transparency
+## 🔮 Oracle Integration & On-Chain Transparency
 
 **Verified Health Authority Data**
 Oracle nodes act as trusted bridges between off-chain regulatory bodies (e.g., municipal health departments) and the blockchain, supplying independently verified inspection results.
@@ -77,9 +94,11 @@ Any user can query the on-chain record for a given restaurant, accessing:
 
 This transparency layer allows consumers to audit a restaurant's complete safety history before dining.
 
+[↑ Back to Top](#table-of-contents)
+
 ---
 
-### 5. Blockchain Ledger & Transaction Flow
+## ⛓️ Blockchain Ledger & Transaction Flow
 
 When a user submits a review, the following sequence is executed:
 
@@ -92,9 +111,11 @@ When a user submits a review, the following sequence is executed:
 
 All confirmed transactions are fully auditable via public block explorers (e.g., Etherscan), ensuring trustless and transparent operations.
 
+[↑ Back to Top](#table-of-contents)
+
 ---
 
-### 6. Token Incentive Mechanism
+## 🪙 Token Incentive Mechanism
 
 **Automatic Rewards for Verified Reviews**
 Upon successful validation of a review by the smart contract or oracle network, the contributor is automatically issued a **25% discount token** — with no manual approval required.
@@ -112,9 +133,11 @@ Earned tokens can be redeemed for:
 - **Sybil Resistance** — Duplicate or bot-generated accounts are ineligible for rewards.
 - **Transparent Ledger** — All token distributions are permanently recorded on-chain for full auditability.
 
+[↑ Back to Top](#table-of-contents)
+
 ---
 
-## Why RestoChain?
+## ❓ Why RestoChain?
 
 RestoChain addresses a critical gap in the current food service ecosystem: the lack of a trustworthy, manipulation-resistant source of restaurant safety information.
 
