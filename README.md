@@ -1,12 +1,29 @@
 # RestoChain: Decentralized Restaurant Rating & Food Safety Platform
 
-## Executive Summary
+## Table of Contents
 
-RestoChain is a blockchain-based platform designed to transform food safety standards through transparent, tamper-proof restaurant ratings and hygiene reporting. By leveraging smart contracts, decentralized storage, and trusted oracle integrations, the system establishes an immutable public record of consumer reviews and official health inspection data — empowering diners to make informed decisions while incentivizing restaurants to uphold rigorous hygiene standards.
+- [📝 Executive Summary](#executive-summary)
+- [⚖️ Core Principles](#core-principles)
+- [🏗️ Platform Architecture](#platform-architecture)
+  - [1. Front-End & User Authentication](#1-front-end--user-authentication)
+  - [2. Smart Contract Layer](#2-smart-contract-layer)
+  - [3. Food Poisoning Incident Reporting](#3-food-poisoning-incident-reporting)
+  - [4. Oracle Integration & On-Chain Transparency](#4-oracle-integration--on-chain-transparency)
+  - [5. Blockchain Ledger & Transaction Flow](#5-blockchain-ledger--transaction-flow)
+  - [6. Token Incentive Mechanism](#6-token-incentive-mechanism)
+- [❓ Why RestoChain?](#why-restochain)
 
 ---
 
-## Core Principles
+## 📝 Executive Summary
+
+RestoChain is a blockchain-based platform designed to transform food safety standards through transparent, tamper-proof restaurant ratings and hygiene reporting. By leveraging smart contracts, decentralized storage, and trusted oracle integrations, the system establishes an immutable public record of consumer reviews and official health inspection data — empowering diners to make informed decisions while incentivizing restaurants to uphold rigorous hygiene standards.
+
+[↑ Back to Top](#table-of-contents)
+
+---
+
+## ⚖️ Core Principles
 
 | Principle | Description |
 |-----------|-------------|
@@ -15,9 +32,11 @@ RestoChain is a blockchain-based platform designed to transform food safety stan
 | **Trusted Data Integration** | Official health inspection results are fed into the system via Oracle nodes, enabling verified authority-backed data. |
 | **Incentivized Participation** | Token rewards encourage honest, high-quality contributions from the user community. |
 
+[↑ Back to Top](#table-of-contents)
+
 ---
 
-## Platform Architecture
+## 🏗️ Platform Architecture
 
 ### 1. Front-End & User Authentication
 
@@ -112,9 +131,11 @@ Earned tokens can be redeemed for:
 - **Sybil Resistance** — Duplicate or bot-generated accounts are ineligible for rewards.
 - **Transparent Ledger** — All token distributions are permanently recorded on-chain for full auditability.
 
+[↑ Back to Top](#table-of-contents)
+
 ---
 
-## Why RestoChain?
+## ❓ Why RestoChain?
 
 RestoChain addresses a critical gap in the current food service ecosystem: the lack of a trustworthy, manipulation-resistant source of restaurant safety information.
 
@@ -124,3 +145,5 @@ RestoChain addresses a critical gap in the current food service ecosystem: the l
 - **Consumer Empowerment** — Users gain access to a transparent, auditable record that enables genuinely informed dining decisions.
 
 RestoChain does not merely rate restaurants — it holds them accountable.
+
+[↑ Back to Top](#table-of-contents)
