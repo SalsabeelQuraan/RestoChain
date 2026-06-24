@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>RestoChain - Oracle Submission</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                    theme: {
+                        extend: {
+                            "colors": {
+                                "on-secondary-container": "#5c647a",
+                                "on-error": "#ffffff",
+                                "surface": "#f8f9ff",
+                                "surface-container-highest": "#d3e4fe",
+                                "inverse-primary": "#4edea3",
+                                "outline": "#6c7a71",
+                                "tertiary-fixed": "#ffddb8",
+                                "error-container": "#ffdad6",
+                                "on-surface-variant": "#3c4a42",
+                                "surface-container-lowest": "#ffffff",
+                                "tertiary-container": "#e29100",
+                                "tertiary-fixed-dim": "#ffb95f",
+                                "surface-bright": "#f8f9ff",
+                                "outline-variant": "#bbcabf",
+                                "on-primary": "#ffffff",
+                                "on-secondary-fixed-variant": "#3f465c",
+                                "on-background": "#0b1c30",
+                                "on-tertiary": "#ffffff",
+                                "primary-fixed-dim": "#4edea3",
+                                "surface-container": "#e5eeff",
+                                "inverse-surface": "#213145",
+                                "primary": "#006c49",
+                                "secondary-fixed-dim": "#bec6e0",
+                                "primary-fixed": "#6ffbbe",
+                                "primary-container": "#10b981",
+                                "on-error-container": "#93000a",
+                                "background": "#f8f9ff",
+                                "surface-variant": "#d3e4fe",
+                                "on-surface": "#0b1c30",
+                                "on-secondary-fixed": "#131b2e",
+                                "on-primary-fixed": "#002113",
+                                "on-tertiary-fixed-variant": "#653e00",
+                                "secondary-container": "#dae2fd",
+                                "surface-container-high": "#dce9ff",
+                                "on-secondary": "#ffffff",
+                                "inverse-on-surface": "#eaf1ff",
+                                "surface-dim": "#cbdbf5",
+                                "error": "#ba1a1a",
+                                "on-tertiary-container": "#523200",
+                                "secondary-fixed": "#dae2fd",
+                                "on-primary-container": "#00422b",
+                                "on-tertiary-fixed": "#2a1700",
+                                "secondary": "#565e74",
+                                "surface-tint": "#006c49",
+                                "surface-container-low": "#eff4ff",
+                                "on-primary-fixed-variant": "#005236",
+                                "tertiary": "#855300"
+                            },
+                            "borderRadius": {
+                                "DEFAULT": "0.25rem",
+                                "lg": "0.5rem",
+                                "xl": "0.75rem",
+                                "full": "9999px"
+                            },
+                            "spacing": {
+                                "gutter": "16px",
+                                "xs": "4px",
+                                "margin-mobile": "16px",
+                                "base": "4px",
+                                "lg": "24px",
+                                "2xl": "48px",
+                                "sm": "8px",
+                                "md": "16px",
+                                "margin-desktop": "40px",
+                                "xl": "32px"
+                            },
+                            "fontFamily": {
+                                "label-md": ["Inter"],
+                                "headline-lg-mobile": ["Lexend"],
+                                "body-md": ["Inter"],
+                                "headline-xl": ["Lexend"],
+                                "headline-lg": ["Lexend"],
+                                "label-sm": ["Inter"],
+                                "headline-md": ["Lexend"],
+                                "body-lg": ["Inter"]
+                            },
+                            "fontSize": {
+                                "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                                "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                                "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                            }
+                        },
+                    },
+            }
+            </script>
+        <style>
+                .glass {
+                    background: rgba(255, 255, 255, 0.7);
+                    backdrop-filter: blur(12px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                }
+                .glow-emerald {
+                    box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+                }
+                .bento-card {
+                    background: #ffffff;
+                    box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+                    transition: transform 0.2s ease;
+                }
+                .bento-card:hover {
+                    transform: translateY(-2px);
+                }
+                .tab-active {
+                    border-bottom: 3px solid #006c49;
+                    color: #006c49;
+                }
+            </style>
+        <style>
+            body {
+                min-height: max(884px, 100dvh);
+            }
+        </style>
+    </head>
+    <body class="bg-surface text-on-surface font-body-md min-h-screen pb-24">
+        <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/70 backdrop-blur-md border-b border-outline-variant/20">
+            <div class="flex items-center gap-2 text-primary text-headline-md font-bold">
+                <span class="material-symbols-outlined">restaurant</span>
+                <span class="">RestoChain</span>
+            </div>
+            <a href="MyProfil.html" class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center">
+                <span class="material-symbols-outlined">account_balance_wallet</span>
+            </a>
+        </header>
+        <!-- TopAppBar -->
+        <main class="pt-24 px-margin-mobile max-w-7xl mx-auto lg:px-margin-desktop">
+            <!-- Warning Banner -->
+            <div id = "warning-banner" class="mb-lg p-md bg-error-container text-on-error-container rounded-xl flex items-center gap-md border border-error/20 animate-pulse">
+                <span class="material-symbols-outlined shrink-0" data-icon="warning" style="font-variation-settings: &quot;FILL&quot; 1;">warning</span>
+                <p class="font-label-md text-label-md">Submitting false reports is a violation of community governance. Intentional fraud may result in loss of trust score and staking collateral.</p>
+            </div>
+            <section class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+                <!-- Left Column: Illustration & Info -->
+                <div class="lg:col-span-4 flex flex-col gap-md">
+                    <div class="bento-card rounded-2xl overflow-hidden aspect-video lg:aspect-square relative">
+                        <img class="w-full h-full object-cover" data-alt="A clean high-tech laboratory setting where food samples are being analyzed under soft professional lighting. The aesthetic is clinical and modern with hints of emerald green and glowing digital interfaces representing blockchain verification processes. The scene conveys absolute precision, immutability, and safety in a futuristic hospitality context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLxdQQu6EblFbShNqN3YuAkA4Mj6tkTe_lELi-vhH8qL4Gvn5zbIGnHzV5f3CdLVJbFfZajRKJOJ3tNy6yeRgzapbF_qfkc0urmmYMK2iX427MQ93ECdjrUfG7y6_37gI0BztI0bczClm9-vYi3kARVFfDGNi4tjCRes4418j3URH0c6k1E-qJ_ZBfEAYoF3nPfEkcmwNFYd5zHPGef7zXQKOuZHqjj94Pm5hAo4jAsGoU50pdMXNKbj8R48bzKW_wnxErC0Ll2WVT">
+                        <div class="absolute inset-0 bg-gradient-to-t from-on-background/80 to-transparent flex flex-col justify-end p-lg">
+                            <h2 class="text-headline-md font-headline-md text-white mb-xs">Oracle Network</h2>
+                            <p class="text-label-sm font-label-sm text-white/80">Your submission contributes to the global RestoChain ledger, ensuring food transparency for all diners.</p>
+                        </div>
+                    </div>
+                    <div class="bento-card p-lg rounded-2xl border-l-4 border-primary">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-sm">Verification Status</h3>
+                        <div class="flex items-center gap-sm glass p-sm rounded-lg mb-md">
+                            <span class="material-symbols-outlined text-primary" data-icon="verified" style="font-variation-settings: &quot;FILL&quot; 1;">verified</span>
+                            <span class="font-label-md text-label-md">Node 0x71C Connected</span>
+                        </div>
+                        <p class="text-label-sm font-label-sm text-on-surface-variant">Status: Active Recording</p>
+                    </div>
+                </div>
+                <!-- Right Column: Interactive Tabs and Forms -->
+                <div class="lg:col-span-8">
+                    <div class="bento-card rounded-2xl overflow-hidden min-h-[500px] flex flex-col">
+                        <!-- Tab Headers -->
+                        <div class="flex border-b border-outline-variant/30">
+                            <button class="flex-1 py-md font-label-md text-label-md text-center transition-all tab-active" id="tab-review-btn">
+                                Submit Review
+                            </button>
+                            <button class="flex-1 py-md font-label-md text-label-md text-center transition-all text-on-surface-variant hover:bg-surface-container-low" id="tab-incident-btn">
+                                Report Incident
+                            </button>
+                        </div>
+                        <!-- Content Canvas -->
+                        <div class="p-lg flex-grow">
+                            <!-- Review Tab -->
+                            <div class="space-y-lg" id="tab-review-content">
+                                <div class="text-center py-md">
+                                    <h3 class="font-headline-lg text-headline-lg mb-sm">Rate Your Experience</h3>
+                                    <p class="text-on-surface-variant mb-md">How was the restaurant's compliance and quality?</p>
+                                    <div class="flex justify-center gap-sm">
+                                        <div class="flex gap-2" id="star-container">
+                                            <button class="star-btn transition-transform hover:scale-110 active:scale-95">
+                                                <span class="material-symbols-outlined text-4xl text-outline-variant hover:text-tertiary" data-icon="star">star</span>
+                                            </button>
+                                            <button class="star-btn transition-transform hover:scale-110 active:scale-95">
+                                                <span class="material-symbols-outlined text-4xl text-outline-variant hover:text-tertiary" data-icon="star">star</span>
+                                            </button>
+                                            <button class="star-btn transition-transform hover:scale-110 active:scale-95">
+                                                <span class="material-symbols-outlined text-4xl text-outline-variant hover:text-tertiary" data-icon="star">star</span>
+                                            </button>
+                                            <button class="star-btn transition-transform hover:scale-110 active:scale-95">
+                                                <span class="material-symbols-outlined text-4xl text-outline-variant hover:text-tertiary" data-icon="star">star</span>
+                                            </button>
+                                            <button class="star-btn transition-transform hover:scale-110 active:scale-95">
+                                                <span class="material-symbols-outlined text-4xl text-outline-variant hover:text-tertiary" data-icon="star">star</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-sm">
+                                    <label class="font-label-md text-label-md block">Commentary (Immutable Data)</label>
+                                    <textarea id="review-textarea" class="w-full rounded-xl border-outline-variant focus:border-primary focus:ring-primary bg-surface p-md" placeholder="Describe the hygiene, transparency, and food quality..." rows="5"></textarea>
+                                </div>
+                                <button id="submit-review-btn"  class="w-full py-md bg-primary-container hover:opacity-90 text-on-primary-container font-headline-md rounded-xl glow-emerald flex items-center justify-center gap-sm transition-all active:scale-95">
+                                    <span class="material-symbols-outlined" data-icon="blockchain">hub</span>Submit to Blockchain
+                                </button>
+                            </div>
+                            <!-- Incident Tab (Hidden by default) -->
+                            <div class="hidden space-y-lg" id="tab-incident-content">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                                    <div class="space-y-sm">
+                                        <label class="font-label-md text-label-md block">Date &amp; Time of Incident</label>
+                                        <input id="incident-datetime" class="w-full rounded-xl border-outline-variant focus:border-primary focus:ring-primary bg-surface p-md" type="datetime-local">
+                                    </div>
+                                    <div class="space-y-sm">
+                                        <label class="font-label-md text-label-md block">Bill Reference / Transaction Hash</label>
+                                        <input id="incident-txhash" class="w-full rounded-xl border-outline-variant focus:border-primary focus:ring-primary bg-surface p-md" placeholder="e.g. 0x4a...9f" type="text">
+                                    </div>
+                                </div>
+                                <div class="space-y-sm">
+                                    <label class="font-label-md text-label-md block">Detailed Description</label>
+                                    <textarea id="incident-textarea" class="w-full rounded-xl border-outline-variant focus:border-primary focus:ring-primary bg-surface p-md" placeholder="Provide factual evidence regarding the health violation..." rows="4"></textarea>
+                                </div>
+                                <div class="space-y-sm">
+                                    <label class="font-label-md text-label-md block">File Upload (Encrypted IPFS Storage)</label>
+                                    <div class="border-2 border-dashed border-outline-variant rounded-2xl p-xl flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer" id="dropzone">
+                                        <span class="material-symbols-outlined text-4xl text-primary mb-sm">cloud_upload</span>
+                                        <p class="font-label-md text-label-md">Click or drag photos of bills, food, or facilities</p>
+                                        <p class="text-xs text-on-surface-variant mt-xs">Supported: JPG, PNG, PDF (Max 10MB)</p>
+                                    </div>
+                                    <input id="file-input" type="file" accept=".jpg,.jpeg,.png,.pdf" class="hidden">
+                                    <p id="file-status" class="hidden text-label-sm text-primary mt-sm"></p>
+                                </div>
+                                <button id="submit-incident-btn" class="w-full py-md bg-error text-white font-headline-md rounded-xl hover:opacity-90 flex items-center justify-center gap-sm transition-all active:scale-95">
+                                    <span class="material-symbols-outlined" data-icon="report">report</span>
+                                        File Official Incident Report
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- BottomNavBar -->
+        <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface/90 backdrop-blur-lg border-t border-outline-variant/10 shadow-md">
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="Dashboard.html">
+                <span class="material-symbols-outlined" data-icon="home">home</span>
+                <span class="text-label-sm font-label-sm">Home</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="ExploreRest.html">
+                <span class="material-symbols-outlined" data-icon="search">search</span>
+                <span class="text-label-sm font-label-sm">Search</span>
+            </a>
+            <a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 transition-all" href="SubmitRepo.html">
+                <span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+                <span class="text-label-sm font-label-sm">Activity</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="RestoProfile.html">
+                <span class="material-symbols-outlined" data-icon="person">person</span>
+                <span class="text-label-sm font-label-sm">Profile</span>
+            </a>
+        </nav>
+        <script src="SubmitRepo.js"></script>
+    </body>
+</html>

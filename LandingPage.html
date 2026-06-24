@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>RestoChain | Transparent Food Safety</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet">
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                    theme: {
+                        extend: {
+                            "colors": {
+                            "on-secondary-container": "#5c647a",
+                            "on-error": "#ffffff",
+                            "surface": "#f8f9ff",
+                            "surface-container-highest": "#d3e4fe",
+                            "inverse-primary": "#4edea3",
+                            "outline": "#6c7a71",
+                            "tertiary-fixed": "#ffddb8",
+                            "error-container": "#ffdad6",
+                            "on-surface-variant": "#3c4a42",
+                            "surface-container-lowest": "#ffffff",
+                            "tertiary-container": "#e29100",
+                            "tertiary-fixed-dim": "#ffb95f",
+                            "surface-bright": "#f8f9ff",
+                            "outline-variant": "#bbcabf",
+                            "on-primary": "#ffffff",
+                            "on-secondary-fixed-variant": "#3f465c",
+                            "on-background": "#0b1c30",
+                            "on-tertiary": "#ffffff",
+                            "primary-fixed-dim": "#4edea3",
+                            "surface-container": "#e5eeff",
+                            "inverse-surface": "#213145",
+                            "primary": "#006c49",
+                            "secondary-fixed-dim": "#bec6e0",
+                            "primary-fixed": "#6ffbbe",
+                            "primary-container": "#10b981",
+                            "on-error-container": "#93000a",
+                            "background": "#f8f9ff",
+                            "surface-variant": "#d3e4fe",
+                            "on-surface": "#0b1c30",
+                            "on-secondary-fixed": "#131b2e",
+                            "on-primary-fixed": "#002113",
+                            "on-tertiary-fixed-variant": "#653e00",
+                            "secondary-container": "#dae2fd",
+                            "surface-container-high": "#dce9ff",
+                            "on-secondary": "#ffffff",
+                            "inverse-on-surface": "#eaf1ff",
+                            "surface-dim": "#cbdbf5",
+                            "error": "#ba1a1a",
+                            "on-tertiary-container": "#523200",
+                            "secondary-fixed": "#dae2fd",
+                            "on-primary-container": "#00422b",
+                            "on-tertiary-fixed": "#2a1700",
+                            "secondary": "#565e74",
+                            "surface-tint": "#006c49",
+                            "surface-container-low": "#eff4ff",
+                            "on-primary-fixed-variant": "#005236",
+                            "tertiary": "#855300"
+                                },
+                            "borderRadius": {
+                                "DEFAULT": "0.25rem",
+                                "lg": "0.5rem",
+                                "xl": "0.75rem",
+                                "full": "9999px"
+                                },
+                            "spacing": {
+                                "gutter": "16px",
+                                "xs": "4px",
+                                "margin-mobile": "16px",
+                                "base": "4px",
+                                "lg": "24px",
+                                "2xl": "48px",
+                                "sm": "8px",
+                                "md": "16px",
+                                "margin-desktop": "40px",
+                                "xl": "32px"
+                                },
+                            "fontFamily": {
+                                "label-md": ["Inter"],
+                                "headline-lg-mobile": ["Lexend"],
+                                "body-md": ["Inter"],
+                                "headline-xl": ["Lexend"],
+                                "headline-lg": ["Lexend"],
+                                "label-sm": ["Inter"],
+                                "headline-md": ["Lexend"],
+                                "body-lg": ["Inter"]
+                                },
+                            "fontSize": {
+                                "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                                "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                                "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                                }
+                            },
+                        },
+                    }
+        </script>
+        <style>
+            body {
+                background-color: #F8FAFC;
+                color: #0b1c30;
+                overflow-x: hidden;
+            }
+            .glass-card {
+                background: rgba(255, 255, 255, 0.7);
+                backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+            }
+            .glow-emerald {
+                box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+            }
+            .material-symbols-outlined {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+            .active-glow {
+                filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.5));
+            }
+        </style>
+        <style>
+            body {
+                min-height: max(884px, 100dvh);
+            }
+        </style>
+    </head>
+    <body class="font-body-md text-on-background">
+        <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/70 backdrop-blur-md border-b border-outline-variant/20">
+            <div class="flex items-center gap-2 text-primary text-headline-md font-bold">
+                <span class="material-symbols-outlined">restaurant</span>
+                <span class="">RestoChain</span>
+            </div>
+            <a href="SignIn.html" class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center">
+                <span class="material-symbols-outlined">account_balance_wallet</span>
+            </a>
+        </header>
+        <!-- TopAppBar -->
+        <main class="pt-24 px-margin-mobile max-w-7xl mx-auto lg:px-margin-desktop">
+            <!-- Hero Section -->
+            <section class="relative min-h-[795px] flex items-center justify-center overflow-hidden px-margin-mobile md:px-margin-desktop">
+                <div class="max-w-[1280px] w-full grid grid-cols-1 md:grid-cols-12 gap-lg items-center relative z-10">
+                    <div class="md:col-span-7 flex flex-col items-start gap-md">
+                        <div class="inline-flex items-center gap-sm px-md py-xs rounded-full glass-card border-primary/20 transition-all duration-700 ease-out opacity-100">
+                            <span class="material-symbols-outlined text-primary text-[18px] active-glow" data-icon="verified" style="font-variation-settings: &quot;FILL&quot; 1;">verified</span>
+                            <span class="text-label-sm font-label-sm text-primary uppercase tracking-wider">Oracle Network Live</span>
+                        </div>
+                        <h1 class="font-headline-xl text-headline-xl md:text-[64px] md:leading-[72px] text-on-background">
+                            Transparent Food Safety, <span class="text-primary">Powered by Blockchain.</span>
+                        </h1>
+                        <p class="font-body-lg text-body-lg text-on-secondary-container max-w-xl">
+                            Trust your food again with immutable restaurant ratings and verified health reports secured by decentralized ledger technology.
+                        </p>
+                        <div class="flex flex-wrap gap-md mt-md">
+                            <a href="SignIn.html" class="bg-primary-container text-on-primary-container font-label-md text-label-md px-xl py-md rounded-lg hover:opacity-90 active:scale-95 transition-all shadow-lg glow-emerald inline-block">
+                                Get Started
+                            </a>
+                            <a href="HowWork.html" class="border border-outline text-on-surface-variant font-label-md text-label-md px-xl py-md rounded-lg hover:bg-secondary-container/20 active:scale-95 transition-all inline-block">
+                                How it Works
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:col-span-5 relative flex justify-center items-center">
+                        <!-- High-end Visual Element: Shield over a Plate -->
+                        <div class="relative w-full aspect-square max-w-[450px]">
+                            <div class="absolute inset-0 bg-primary/5 rounded-full blur-3xl"></div>
+                            <div class="relative z-10 w-full h-full flex items-center justify-center">
+                                <div class="glass-card w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center border-white/40 overflow-hidden transition-all duration-700 ease-out opacity-100">
+                                    <img class="w-[85%] h-[85%] rounded-full object-cover" data-alt="A professional top-down photograph of a vibrant, healthy gourmet salad bowl with fresh greens, edible flowers, and grilled vegetables, set on a minimalist white ceramic plate. The lighting is bright and clean, emphasizing a high-trust laboratory-pure aesthetic. The composition is centered and calm, using a palette of lush emerald greens and soft whites to evoke food safety and technical precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8Fco41-SrBUSn-lHHCQ61D1EzX_MIGGIbX-t48z4x7B4MNEWrnuVWlKjaRAwocWRwM36xkqD7elR9SoNuuPVz3c9EopZNOa_UY6TDoqp-8SgAKj4Zfybw1WazqxPBJr51mS9ZT5oiTmFrAQlVZ0pb0lRgi6UqexHrK-SiL-CDB-mcG8v_r5HIyGJy3xDd2Pdi2uC2AXFwxwTNDdBmeU6-GrEpt4vS7sQ7D2jXqMZ6GfmHNMW8bG8944Er0QYHYov8s43qMu497S39">
+                                </div>
+                                <div class="absolute -bottom-4 -right-4 glass-card p-6 rounded-2xl flex flex-col gap-2 glow-emerald border-primary/30 transition-all duration-700 ease-out opacity-100">
+                                    <span class="material-symbols-outlined text-primary text-[48px]" data-icon="shield" style="font-variation-settings: &quot;FILL&quot; 1;">shield</span>
+                                    <div class="flex flex-col">
+                                        <span class="font-label-md text-label-md text-on-background">Safety Verified</span>
+                                        <span id="tx-hash" class="font-label-sm text-label-sm text-on-secondary-container">TX: 0x4e...9f2</span>
+                                    </div>
+                                </div>
+                                <div class="absolute top-10 -left-6 glass-card p-4 rounded-xl border-secondary/20 flex items-center gap-3 transition-all duration-700 ease-out opacity-100">
+                                    <div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center">
+                                    <span id="oracle-score" class="text-white font-headline-md text-headline-md">4.9</span>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="font-label-sm text-label-sm">Oracle Score</span>
+                                        <div class="h-1 w-16 bg-outline-variant rounded-full overflow-hidden">
+                                            <div class="h-full bg-primary w-[98%]"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Bento Grid / Features Section -->
+            <section class="py-2xl px-margin-mobile md:px-margin-desktop bg-surface-container-low/30">
+                <div class="max-w-[1280px] mx-auto">
+                    <div class="text-center mb-xl">
+                        <h2 class="font-headline-lg text-headline-lg text-on-background">The Future of Hospitality Trust</h2>
+                        <p class="font-body-md text-body-md text-on-secondary-container max-w-2xl mx-auto">Our protocol replaces centralized authorities with verifiable, real-time data oracles and smart contracts.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-md h-auto md:h-[500px]">
+                        <!-- Feature: Decentralization -->
+                        <div class="md:col-span-4 glass-card p-lg rounded-2xl flex flex-col justify-between group hover:border-primary/40 transition-colors transition-all duration-700 ease-out opacity-100">
+                            <div>
+                                <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-md group-hover:scale-110 transition-transform">
+                                    <span class="material-symbols-outlined" data-icon="hub">hub</span>
+                                </div>
+                                <h3 class="font-headline-md text-headline-md mb-sm">Decentralization</h3>
+                                <p class="font-body-md text-body-md text-on-surface-variant">Eliminate single points of failure. Health data is distributed across nodes for maximum integrity.</p>
+                            </div>
+                            <div class="mt-xl flex items-center gap-2 text-primary font-label-md">
+                                <span class="">Explore the Mesh</span>
+                                <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+                            </div>
+                        </div>
+                        <!-- Feature: Smart Contracts -->
+                        <div class="md:col-span-5 glass-card p-lg rounded-2xl flex flex-col justify-between group bg-on-background text-white hover:bg-on-background/95 transition-colors overflow-hidden relative transition-all duration-700 ease-out opacity-100">
+                            <div class="relative z-10">
+                                <div class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container mb-md">
+                                    <span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+                                </div>
+                                <h3 class="font-headline-md text-headline-md mb-sm">Smart Contracts</h3>
+                                <p class="font-body-md text-body-md text-outline-variant">Automated compliance checks. Rewards are triggered the moment a restaurant meets safety thresholds.</p>
+                            </div>
+                            <div class="relative z-10 flex gap-2 mt-xl">
+                                <div class="px-3 py-1 rounded bg-white/10 text-[10px] font-mono border border-white/20">if (temp &gt; 4) { trigger_alert() }</div>
+                            </div>
+                        </div>
+                        <!-- Feature: Token Rewards -->
+                        <div class="md:col-span-3 glass-card p-lg rounded-2xl flex flex-col items-center text-center justify-center group border-tertiary/20 transition-all duration-700 ease-out opacity-100">
+                            <div class="w-20 h-20 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed mb-md shadow-inner">
+                                <span class="material-symbols-outlined text-[40px]" data-icon="toll" style="font-variation-settings: &quot;FILL&quot; 1;">toll</span>
+                            </div>
+                            <h3 class="font-headline-md text-headline-md mb-sm">Token Rewards</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant">Earn RESTO tokens for reporting verifiable data and supporting the network's health.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Stats / Trust Indicators -->
+            <section id="stats-section" class="py-2xl px-margin-mobile md:px-margin-desktop">
+                <div class="max-w-[1280px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-lg">
+                    <div class="flex flex-col items-center">
+                        <span class="font-headline-xl text-headline-xl text-primary">12.4K</span>
+                        <span class="font-label-md text-label-md text-on-secondary-container uppercase">Verified Venues</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="font-headline-xl text-headline-xl text-primary">1.2M</span>
+                        <span class="font-label-md text-label-md text-on-secondary-container uppercase">Audits Performed</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="font-headline-xl text-headline-xl text-primary">99.9%</span>
+                        <span class="font-label-md text-label-md text-on-secondary-container uppercase">Uptime Score</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="font-headline-xl text-headline-xl text-primary">0ms</span>
+                        <span class="font-label-md text-label-md text-on-secondary-container uppercase">Latency</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- Bottom Nav for Mobile -->
+        <footer class="bg-inverse-surface text-inverse-on-surface py-2xl px-margin-mobile md:px-margin-desktop mb-20 md:mb-0">
+            <div class="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-xl">
+                <div class="col-span-1 md:col-span-2">
+                    <span class="text-headline-md font-headline-md font-bold text-primary-fixed mb-md block">RestoChain</span>
+                    <p class="font-body-md text-body-md text-outline-variant max-w-sm">
+                        Empowering the global food industry with transparent, immutable, and verifiable safety data. Joining the future of dining trust.
+                    </p>
+                </div>
+            </div>
+        </footer>
+        <script src="LandingPage.js"></script>
+    </body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+        <title>RestoChain - The Emerald Bistro</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                    theme: {
+                        extend: {
+                            "colors": {
+                                "on-secondary-fixed": "#131b2e",
+                                "secondary-container": "#dae2fd",
+                                "on-tertiary-fixed": "#2a1700",
+                                "on-tertiary-container": "#523200",
+                                "error": "#ba1a1a",
+                                "secondary": "#565e74",
+                                "outline": "#6c7a71",
+                                "on-primary": "#ffffff",
+                                "on-tertiary-fixed-variant": "#653e00",
+                                "on-surface-variant": "#3c4a42",
+                                "background": "#f8f9ff",
+                                "surface-container": "#e5eeff",
+                                "inverse-on-surface": "#eaf1ff",
+                                "on-surface": "#0b1c30",
+                                "surface-variant": "#d3e4fe",
+                                "tertiary-fixed": "#ffddb8",
+                                "secondary-fixed": "#dae2fd",
+                                "primary-fixed": "#6ffbbe",
+                                "surface": "#f8f9ff",
+                                "on-secondary": "#ffffff",
+                                "tertiary-fixed-dim": "#ffb95f",
+                                "surface-bright": "#f8f9ff",
+                                "on-secondary-fixed-variant": "#3f465c",
+                                "on-primary-fixed-variant": "#005236",
+                                "inverse-surface": "#213145",
+                                "primary-fixed-dim": "#4edea3",
+                                "outline-variant": "#bbcabf",
+                                "on-primary-container": "#00422b",
+                                "on-primary-fixed": "#002113",
+                                "on-background": "#0b1c30",
+                                "primary": "#006c49",
+                                "on-tertiary": "#ffffff",
+                                "on-secondary-container": "#5c647a",
+                                "surface-dim": "#cbdbf5",
+                                "on-error-container": "#93000a",
+                                "on-error": "#ffffff",
+                                "surface-container-lowest": "#ffffff",
+                                "surface-container-low": "#eff4ff",
+                                "surface-container-high": "#dce9ff",
+                                "primary-container": "#10b981",
+                                "tertiary": "#855300",
+                                "secondary-fixed-dim": "#bec6e0",
+                                "tertiary-container": "#e29100",
+                                "inverse-primary": "#4edea3",
+                                "surface-container-highest": "#d3e4fe",
+                                "error-container": "#ffdad6",
+                                "surface-tint": "#006c49"
+                            },
+                            "borderRadius": {
+                                "DEFAULT": "0.25rem",
+                                "lg": "0.5rem",
+                                "xl": "0.75rem",
+                                "full": "9999px"
+                            },
+                            "spacing": {
+                                "xs": "4px",
+                                "2xl": "48px",
+                                "md": "16px",
+                                "margin-mobile": "16px",
+                                "lg": "24px",
+                                "gutter": "16px",
+                                "margin-desktop": "40px",
+                                "xl": "32px",
+                                "sm": "8px",
+                                "base": "4px"
+                            },
+                            "fontFamily": {
+                                "label-sm": ["Inter"],
+                                "label-md": ["Inter"],
+                                "body-md": ["Inter"],
+                                "headline-xl": ["Lexend"],
+                                "headline-lg": ["Lexend"],
+                                "body-lg": ["Inter"],
+                                "headline-md": ["Lexend"],
+                                "headline-lg-mobile": ["Lexend"]
+                            },
+                            "fontSize": {
+                                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                                "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                                "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                                "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+                            }
+                        },
+                    },
+            }
+        </script>
+        <style>
+            body {
+                background-color: #f8f9ff;
+                color: #0b1c30;
+                -webkit-font-smoothing: antialiased;
+            }
+            .material-symbols-outlined {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+            .glass-panel {
+                background: rgba(255, 255, 255, 0.7);
+                backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            .glow-emerald {
+                box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+            }
+            .custom-shadow {
+                box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+            }
+        </style>
+        <style>
+            body {
+                min-height: max(884px, 100dvh);
+            }
+        </style>
+    </head>
+    <body class="font-body-md overflow-x-hidden pb-24">
+        <!-- Top Navigation Bar -->
+        <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/70 backdrop-blur-md border-b border-outline-variant/20">
+            <div class="flex items-center gap-2 text-primary text-headline-md font-bold">
+                <span class="material-symbols-outlined">restaurant</span>
+                <span class="">RestoChain</span>
+            </div>
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="ExploreRest.html">
+                <span class="material-symbols-outlined" data-icon="search">search</span>
+            </a>
+        </header>
+        <main class="mt-16 pt-0">
+            <!-- Hero Section -->
+            <section class="relative w-full h-[320px] overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center" data-alt="An elegant, modern restaurant interior with emerald green velvet seating, minimalist wooden tables, and warm atmospheric lighting. Large floor-to-ceiling windows overlook a lush urban garden at dusk. The scene is shot with high-end architectural photography techniques, emphasizing clean lines and a premium light-mode aesthetic consistent with the RestoChain brand." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDbpy_xYEWFp68GnPMU2-SGZJR3hOIXRjd7UxtiXKfwC6CpiGJ2jFMUWql1x0KZ9Ihzi0JIBaKafYvjDfuJ7JeT66sYSm5Hx5GBvbva4BORRPzuZO5jxgLVlJXS7X1hwmBgl-99GdOziQvPzLyZewmbkV6lcoVA9RHgJ81S3H8fVseN-yF627Zz7M1Rh8rLCHacq9Z70Q12K7c9UR-uX9bjxAclhCp0RHbte8DKahlGyUhdDumpHPp5TQ4F0SebPXpoIqSK4wt9LPxc')"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+                <div class="absolute bottom-6 left-margin-mobile right-margin-mobile">
+                    <div class="inline-flex items-center gap-1 glass-panel px-3 py-1 rounded-full text-primary font-label-md mb-2 glow-emerald">
+                        <span class="material-symbols-outlined text-[16px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+                        <span>Oracle Verified</span>
+                    </div>
+                    <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1">The Emerald Bistro</h1>
+                    <p class="text-on-surface-variant font-label-md">Farm-to-Table • French Fusion • Mayfair, London</p>
+                </div>
+            </section>
+            <div class="px-margin-mobile space-y-6 -mt-4 relative z-10">
+                <!-- Transparency Score & Reputation Trend -->
+                <div class="bg-surface-container-lowest rounded-xl p-lg custom-shadow flex flex-col gap-4">
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <p class="text-on-surface-variant font-label-sm uppercase tracking-wider mb-1">Trust Ranking</p>
+                            <div class="flex items-baseline gap-1">
+                                <span class="font-headline-xl text-headline-xl text-primary">4.8</span>
+                                <span class="text-on-surface-variant font-headline-md">/5.0</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-on-surface-variant font-label-sm mb-2">Reputation Trend</p>
+                            <div class="flex items-end gap-1 h-12">
+                                <div class="w-2 bg-primary/20 rounded-t-sm h-[40%]"></div>
+                                <div class="w-2 bg-primary/30 rounded-t-sm h-[60%]"></div>
+                                <div class="w-2 bg-primary/40 rounded-t-sm h-[55%]"></div>
+                                <div class="w-2 bg-primary/60 rounded-t-sm h-[80%]"></div>
+                                <div class="w-2 bg-primary/80 rounded-t-sm h-[90%]"></div>
+                                <div class="w-2 bg-primary rounded-t-sm h-full glow-emerald"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-px bg-outline-variant/20"></div>
+                    <p class="font-label-sm text-on-surface-variant">Top 1% of restaurants in the decentralized safety index.</p>
+                </div>
+                <!-- Transparency Breakdown (Bento Grid) -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-surface-container-lowest rounded-xl p-md custom-shadow border-l-4 border-primary-container">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="material-symbols-outlined text-primary text-md" data-icon="thermostat">thermostat</span>
+                            <span class="font-label-md text-on-surface">Storage Temp</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-headline-md text-primary">100%</span>
+                            <div class="w-2 h-2 rounded-full bg-primary-container glow-emerald animate-pulse"></div>
+                        </div>
+                        <p class="text-[10px] text-on-surface-variant mt-1">Real-time IoT verified</p>
+                    </div>
+                    <div class="bg-surface-container-lowest rounded-xl p-md custom-shadow">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="material-symbols-outlined text-primary text-md" data-icon="clean_hands">clean_hands</span>
+                            <span class="font-label-md text-on-surface">Hygiene Audit</span>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="font-headline-md text-primary">4.8</span>
+                            <span class="text-label-sm text-on-surface-variant">/5.0</span>
+                        </div>
+                    <p class="text-[10px] text-on-surface-variant mt-1">Last audit: 2 days ago</p>
+                    </div>
+                    <div class="col-span-2 bg-surface-container-lowest rounded-xl p-md custom-shadow flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-primary-container/10 rounded-lg">
+                                <span class="material-symbols-outlined text-primary" data-icon="package_2">package_2</span>
+                            </div>
+                            <div>
+                                <span class="font-label-md text-on-surface block">Ingredient Sourcing</span>
+                                <span class="text-label-sm text-on-surface-variant">82% On-Chain Traceable</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1 text-primary font-label-md">
+                            <span class="material-symbols-outlined text-sm" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+                            <span>Verified</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Health Safety Log (Timeline) -->
+                <div class="bg-surface-container-lowest rounded-xl p-lg custom-shadow">
+                    <h3 class="font-headline-md text-headline-md mb-md">Health Safety Log</h3>
+                    <div class="space-y-6 relative">
+                        <!-- Vertical Line -->
+                        <div class="absolute left-[11px] top-2 bottom-2 w-0.5 bg-outline-variant/30"></div>
+                        <div class="flex gap-4 relative">
+                            <div class="z-10 w-6 h-6 rounded-full bg-primary-container flex items-center justify-center glow-emerald">
+                                <span class="material-symbols-outlined text-[14px] text-white" data-icon="check" style="font-variation-settings: 'wght' 700;">check</span>
+                            </div>
+                            <div>
+                                <p class="font-label-md text-on-surface">Sanitary Inspection (Success)</p>
+                                <p class="text-label-sm text-on-surface-variant">May 12, 2024 • 0x4f...92a1</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 relative">
+                            <div class="z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[14px] text-white" data-icon="ac_unit">ac_unit</span>
+                            </div>
+                            <div>
+                                <p class="font-label-md text-on-surface">Smart-Freezer Check</p>
+                                <p class="text-label-sm text-on-surface-variant">May 11, 2024 • Batch Proof Confirmed</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 relative">
+                            <div class="z-10 w-6 h-6 rounded-full bg-surface-container-high border border-outline-variant/30 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[14px] text-primary" data-icon="description">description</span>
+                            </div>
+                            <div>
+                                <p class="font-label-md text-on-surface">Public Health Report Published</p>
+                                <p class="text-label-sm text-on-surface-variant">May 09, 2024 • Q1 Compliance</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Location & Contact -->
+                <div class="bg-surface-container-lowest rounded-xl overflow-hidden custom-shadow">
+                    <div class="h-40 w-full relative bg-surface-container">
+                        <img class="w-full h-full object-cover" data-location="London, Mayfair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvrO-m3YimVhaWRCZPjv8tcDdqZrsyVNBGwCk4Io-0GRy26FRZRRwcz3LGoqHAQCKBl1_VSEFyAzFMI7zI_DDlMqEibqcZ2k8az_du8ECuqZjjjfO5tFl0Jt3zJ5Fra9M76uEO6kpYIIHykXOqG6GRIy97WsYza906Sz0D3U5XOBeawvtrA9bBt8HGF_FqocDPqP7Slnea7RpAsLfvr2IrEfLum8bWxhPkBbGQdGwGybbQ8IQqd0xErYkBbP1HGxw9BLXB8yhGiD3E"/>
+                        <div class="absolute top-4 right-4 bg-primary-container px-2 py-1 rounded-full text-white font-label-sm glow-emerald">Open Now</div>
+                    </div>
+                    <div class="p-lg space-y-3">
+                        <div class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-primary" data-icon="location_on">location_on</span>
+                            <span class="font-body-md text-on-surface">42 Emerald Lane, Mayfair, London W1K</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary" data-icon="call">call</span>
+                            <span class="font-body-md text-on-surface">+44 20 7946 0123</span>
+                        </div>
+                        <div class="flex gap-2 mt-4">
+                            <button type="button" class="flex-1 bg-surface-container-high border border-outline-variant/30 py-3 rounded-xl font-label-md flex items-center justify-center gap-2 active:scale-95 transition-all">
+                                <span class="material-symbols-outlined text-md" data-icon="directions">directions</span>Directions
+                            </button>
+                            <button type="button" class="flex-1 bg-surface-container-high border border-outline-variant/30 py-3 rounded-xl font-label-md flex items-center justify-center gap-2 active:scale-95 transition-all">
+                                <span class="material-symbols-outlined text-md" data-icon="calendar_today">calendar_today</span>Book Table
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Actions -->
+                <a href="SubmitRepo.html" class="flex flex-col gap-3 py-2 no-underline">
+                    <span class="w-full bg-primary py-4 rounded-xl text-on-primary font-headline-md flex items-center justify-center gap-2 shadow-lg glow-emerald active:scale-95 transition-all cursor-pointer">
+                        <span class="material-symbols-outlined" data-icon="edit_square">edit_square</span>Write a Review
+                    </span>
+                </a>
+                <!-- Proof of Authenticity -->
+                <footer class="text-center py-8 px-4 opacity-70">
+                    <div class="flex justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary text-4xl" data-icon="database">database</span>
+                    </div>
+                    <p class="font-label-md text-on-surface mb-2">Immutable Safety Infrastructure</p>
+                    <p class="text-label-sm text-on-surface-variant max-w-xs mx-auto mb-4">
+                        Every temperature reading, hygiene audit, and sanitary report is cryptographically signed and stored on the RestoChain ledger.
+                    </p>
+                    <a class="inline-flex items-center gap-1 text-primary font-label-md border-b border-primary/30 pb-1" href="#">
+                        View On-Chain Ledger
+                        <span class="material-symbols-outlined text-[16px]" data-icon="open_in_new">open_in_new</span>
+                    </a>
+                </footer>
+            </div>
+        </main>
+        <script src="ReProfil.js"></script>
+    </body>
+</html>

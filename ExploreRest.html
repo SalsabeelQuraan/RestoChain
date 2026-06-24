@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+        <title>RestoChain | Explore Restaurants</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        "colors": {
+                            "on-secondary-container": "#5c647a",
+                            "on-error": "#ffffff",
+                            "surface": "#f8f9ff",
+                            "surface-container-highest": "#d3e4fe",
+                            "inverse-primary": "#4edea3",
+                            "outline": "#6c7a71",
+                            "tertiary-fixed": "#ffddb8",
+                            "error-container": "#ffdad6",
+                            "on-surface-variant": "#3c4a42",
+                            "surface-container-lowest": "#ffffff",
+                            "tertiary-container": "#e29100",
+                            "tertiary-fixed-dim": "#ffb95f",
+                            "surface-bright": "#f8f9ff",
+                            "outline-variant": "#bbcabf",
+                            "on-primary": "#ffffff",
+                            "on-secondary-fixed-variant": "#3f465c",
+                            "on-background": "#0b1c30",
+                            "on-tertiary": "#ffffff",
+                            "primary-fixed-dim": "#4edea3",
+                            "surface-container": "#e5eeff",
+                            "inverse-surface": "#213145",
+                            "primary": "#006c49",
+                            "secondary-fixed-dim": "#bec6e0",
+                            "primary-fixed": "#6ffbbe",
+                            "primary-container": "#10b981",
+                            "on-error-container": "#93000a",
+                            "background": "#f8f9ff",
+                            "surface-variant": "#d3e4fe",
+                            "on-surface": "#0b1c30",
+                            "on-secondary-fixed": "#131b2e",
+                            "on-primary-fixed": "#002113",
+                            "on-tertiary-fixed-variant": "#653e00",
+                            "secondary-container": "#dae2fd",
+                            "surface-container-high": "#dce9ff",
+                            "on-secondary": "#ffffff",
+                            "inverse-on-surface": "#eaf1ff",
+                            "surface-dim": "#cbdbf5",
+                            "error": "#ba1a1a",
+                            "on-tertiary-container": "#523200",
+                            "secondary-fixed": "#dae2fd",
+                            "on-primary-container": "#00422b",
+                            "on-tertiary-fixed": "#2a1700",
+                            "secondary": "#565e74",
+                            "surface-tint": "#006c49",
+                            "surface-container-low": "#eff4ff",
+                            "on-primary-fixed-variant": "#005236",
+                            "tertiary": "#855300"
+                        },
+                        "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                        },
+                        "spacing": {
+                            "gutter": "16px",
+                            "xs": "4px",
+                            "margin-mobile": "16px",
+                            "base": "4px",
+                            "lg": "24px",
+                            "2xl": "48px",
+                            "sm": "8px",
+                            "md": "16px",
+                            "margin-desktop": "40px",
+                            "xl": "32px"
+                        },
+                        "fontFamily": {
+                            "label-md": ["Inter"],
+                            "headline-lg-mobile": ["Lexend"],
+                            "body-md": ["Inter"],
+                            "headline-xl": ["Lexend"],
+                            "headline-lg": ["Lexend"],
+                            "label-sm": ["Inter"],
+                            "headline-md": ["Lexend"],
+                            "body-lg": ["Inter"]
+                        },
+                        "fontSize": {
+                            "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                            "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                            "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                        }
+                    },
+                },
+            };
+        </script>
+        <style>
+            body {
+                background-color: #f8f9ff;
+                font-family: 'Inter', sans-serif;
+                color: #0b1c30;
+            }
+            .oracle-glow {
+                box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+            }
+            .glass-badge {
+                background: rgba(255, 255, 255, 0.7);
+                backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            .card-shadow {
+                box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+            }
+            ::-webkit-scrollbar {
+                display: none;
+            }
+        </style>
+        <style>
+            body {
+                min-height: max(884px, 100dvh);
+            }
+        </style>
+    </head>
+    <body class="bg-surface pb-24">
+        <header class="fixed top-0 w-full z-50 bg-surface/70 dark:bg-surface-dim/70 backdrop-blur-md border-b border-outline-variant/20 shadow-sm h-16 flex items-center justify-between px-margin-mobile md:px-margin-desktop">
+            <div class="flex items-center gap-2 text-primary text-headline-md font-bold">
+                <span class="material-symbols-outlined">restaurant</span>
+                <span class="">RestoChain</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <nav class="flex items-center gap-6">
+                    <a href="AddResto.html" class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center">
+                        <span class="material-symbols-outlined">add</span>
+                    </a>
+                    <a href="MyProfil.html" class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center">
+                        <span class="material-symbols-outlined">account_balance_wallet</span>
+                    </a>
+                </nav>
+            </div>
+            <div class="md:hidden">
+                <button class="p-2 text-on-surface-variant">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+        </header>
+        <!-- TopAppBar -->
+        <main class="pt-24 px-margin-mobile max-w-7xl mx-auto lg:px-margin-desktop">
+            <!-- Search & Discovery Hero -->
+            <section class="py-lg">
+                <h1 class="text-headline-xl font-headline-xl text-on-surface mb-md">Explore</h1>
+                <!-- Search Bar -->
+                <div class="relative w-full group">
+                    <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-outline">
+                        <span class="material-symbols-outlined">search</span>
+                    </div>
+                    <input id="search-input" class="w-full h-14 pl-12 pr-4 rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none text-body-md font-body-md" placeholder="Search restaurants, oracles, or nodes..." type="text">
+                </div>
+            </section>
+            <!-- Restaurant List Container -->
+            <section class="flex flex-col gap-6 w-full max-w-md mx-auto">
+                <div
+                    class="w-full text-left bg-surface-container-lowest rounded-xl p-4 card-shadow border border-white/50 flex flex-col gap-4 transition-all duration-200 hover:scale-[1.01] hover:shadow-md cursor-pointer group focus:outline-none focus:ring-2 focus:ring-primary/50" 
+                    data-restaurant="The Alchemist Table"
+                    data-href="ReProfil.html"
+                    data-id="alchemist"
+                    role="button"
+                    tabindex="0"
+                    aria-label="View details for The Alchemist Table">
+                    <div class="relative h-48 w-full rounded-lg overflow-hidden bg-muted">
+                        <img 
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                            alt="A bright, minimalist organic cafe..." 
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-VEOIJdHQKuKtvfr_L0uFoIhNA1H96B48FiM5boYGN9qdnMtvqRTwNrf-PFV2iTIEdoII130FJmVCs6hau7nla0V25P688xYP8PVetdESlyuWGIiwAAKlJf5AdMywzAQ5uG4x41jd29IB3JMpup5e-FvibXybCgaHjGB3_jpThmpNaBkDWaEk0qOdZ5rRpZfTKIZIWZDTfU2PsNeqWiiG2--BfBrT1Kl0FajGVhTpvvheZ1K2_D-xWDqeaTYHzN3pC8NbiR3UsRt0">
+                        <div class="absolute top-4 left-4 glass-badge px-3 py-1.5 rounded-full flex items-center gap-2 oracle-glow bg-white/80 backdrop-blur-md shadow-sm">
+                            <span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-primary font-medium text-xs tracking-wide">Oracle Verified</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start w-full">
+                        <div>
+                            <h3 class="text-xl font-bold text-on-surface tracking-tight group-hover:text-primary transition-colors">
+                                The Alchemist Table
+                            </h3>
+                            <div class="flex items-center gap-1 mt-1">
+                                <span class="text-tertiary-container font-bold text-lg leading-none">4.7</span>
+                                <div class="flex text-amber-500">
+                                    <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                                </div>
+                                <span class="text-on-secondary-container text-xs font-normal opacity-80 ml-1">(850 audits)</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end gap-1 text-right">
+                            <span class="material-symbols-outlined text-outline text-[20px]" aria-hidden="true">account_tree</span>
+                            <span class="text-[10px] text-outline font-mono uppercase tracking-wider bg-surface-variant/30 px-1.5 py-0.5 rounded">0x41...c9d</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-3 border-t border-outline-variant/20 w-full">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                            <span class="text-xs font-medium text-on-surface-variant">Live Fridge Monitoring</span>
+                        </div>
+                        <span class="hidden" data-hash="0x41...c9d"></span>
+                        <button class="blockchain-log-btn text-xs font-semibold text-primary bg-transparent border-none p-0 cursor-pointer hover:underline focus:outline-none focus:underline">
+                            View Blockchain Log
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- BottomNavBar -->
+        <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface/90 backdrop-blur-lg border-t border-outline-variant/10 shadow-md">
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="Dashboard.html">
+                <span class="material-symbols-outlined" data-icon="home">home</span>
+                <span class="text-label-sm font-label-sm">Home</span>
+            </a>
+            <a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 transition-all" href="ExploreRest.html">
+                <span class="material-symbols-outlined" data-icon="search">search</span>
+                <span class="text-label-sm font-label-sm">Search</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="SubmitRepo.html">
+                <span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+                <span class="text-label-sm font-label-sm">Activity</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="RestoProfile.html">
+                <span class="material-symbols-outlined" data-icon="person">person</span>
+                <span class="text-label-sm font-label-sm">Profile</span>
+            </a>
+        </nav>
+        <script src="ExploreRest.js"></script>
+    </body>
+</html>

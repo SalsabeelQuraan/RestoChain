@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>RestoChain - How it Works</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                    theme: {
+                        extend: {
+                            "colors": {
+                                "on-primary": "#ffffff",
+                                "primary-container": "#10b981",
+                                "on-tertiary": "#ffffff",
+                                "surface-container-highest": "#d3e4fe",
+                                "inverse-surface": "#213145",
+                                "background": "#f8f9ff",
+                                "on-surface-variant": "#3c4a42",
+                                "primary-fixed": "#6ffbbe",
+                                "on-error-container": "#93000a",
+                                "on-error": "#ffffff",
+                                "surface-container-lowest": "#ffffff",
+                                "on-surface": "#0b1c30",
+                                "on-secondary": "#ffffff",
+                                "on-background": "#0b1c30",
+                                "surface-container-low": "#eff4ff",
+                                "on-tertiary-fixed-variant": "#653e00",
+                                "surface-tint": "#006c49",
+                                "surface-dim": "#cbdbf5",
+                                "secondary-fixed-dim": "#bec6e0",
+                                "on-secondary-fixed": "#131b2e",
+                                "surface-container-high": "#dce9ff",
+                                "error": "#ba1a1a",
+                                "inverse-primary": "#4edea3",
+                                "tertiary-fixed-dim": "#ffb95f",
+                                "surface-container": "#e5eeff",
+                                "tertiary-container": "#e29100",
+                                "primary": "#006c49",
+                                "on-primary-container": "#00422b",
+                                "outline-variant": "#bbcabf",
+                                "surface-variant": "#d3e4fe",
+                                "on-secondary-fixed-variant": "#3f465c",
+                                "secondary-fixed": "#dae2fd",
+                                "surface": "#f8f9ff",
+                                "secondary": "#565e74",
+                                "inverse-on-surface": "#eaf1ff",
+                                "outline": "#6c7a71",
+                                "on-tertiary-fixed": "#2a1700",
+                                "error-container": "#ffdad6",
+                                "on-secondary-container": "#5c647a",
+                                "on-primary-fixed-variant": "#005236",
+                                "tertiary-fixed": "#ffddb8",
+                                "tertiary": "#855300",
+                                "secondary-container": "#dae2fd",
+                                "surface-bright": "#f8f9ff",
+                                "on-primary-fixed": "#002113",
+                                "primary-fixed-dim": "#4edea3",
+                                "on-tertiary-container": "#523200"
+                            },
+                            "borderRadius": {
+                                "DEFAULT": "0.25rem",
+                                "lg": "0.5rem",
+                                "xl": "0.75rem",
+                                "full": "9999px"
+                            },
+                            "spacing": {
+                                "lg": "24px",
+                                "xs": "4px",
+                                "sm": "8px",
+                                "margin-mobile": "16px",
+                                "2xl": "48px",
+                                "margin-desktop": "40px",
+                                "gutter": "16px",
+                                "xl": "32px",
+                                "md": "16px",
+                                "base": "4px"
+                            },
+                            "fontFamily": {
+                                "body-md": ["Inter"],
+                                "headline-md": ["Lexend"],
+                                "label-sm": ["Inter"],
+                                "headline-lg-mobile": ["Lexend"],
+                                "body-lg": ["Inter"],
+                                "label-md": ["Inter"],
+                                "headline-xl": ["Lexend"],
+                                "headline-lg": ["Lexend"]
+                            },
+                            "fontSize": {
+                                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                                "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                                "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                                "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                            }
+                        },
+                    },
+            }
+        </script>
+        <style>
+            .glass-card {
+                background: rgba(255, 255, 255, 0.7);
+                backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+                transition: border-color 0.3s ease;
+            }
+            .glow-emerald {
+                box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+            }
+            .timeline-line {
+                background: linear-gradient(to bottom, #10b981 0%, #bbcabf 100%);
+            }
+            .material-symbols-outlined {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+        </style>
+        <style>
+            body {
+                min-height: max(884px, 100dvh);
+            }
+        </style>
+    </head>
+    <body class="bg-background font-body-md text-on-surface">
+        <!-- TopAppBar -->
+        <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/70 backdrop-blur-md border-b border-outline-variant/20">
+            <div class="flex items-center gap-2 text-primary text-headline-md font-bold">
+                <span class="material-symbols-outlined">restaurant</span>
+                <span class="">RestoChain</span>
+            </div>
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="LandingPage.html">
+                <span class="material-symbols-outlined" data-icon="home">home</span>
+            </a>
+        </header>
+        <!-- TopAppBar -->
+        <main class="pt-24 px-margin-mobile max-w-7xl mx-auto lg:px-margin-desktop">
+            <!-- Hero Section -->
+            <section class="mb-16 text-center">
+                <h1 class="font-headline-xl text-headline-xl text-on-background mb-4">How Transparency Works</h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                    Bridging the gap between restaurant operations and consumer trust using decentralized oracles and immutable ledger technology.
+                </p>
+            </section>
+            <!-- The 4 Main Steps (Bento Grid Style) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-2xl">
+                <!-- Step 1: Authentication -->
+                <div class="glass-card p-lg rounded-xl flex flex-col items-start gap-4 hover:translate-y-[-4px] transition-transform duration-300">
+                    <div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center text-on-primary glow-emerald">
+                        <span class="material-symbols-outlined text-2xl" data-icon="key">key</span>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-primary">1. Authentication</h3>
+                    <p class="text-body-md text-on-surface-variant">Sign in effortlessly with Gmail while we generate a secure Web3 wallet connection in the background.</p>
+                    <div class="mt-auto pt-4 flex items-center gap-2 text-primary font-label-md">
+                        <span class="material-symbols-outlined" data-icon="security" style="font-variation-settings: 'FILL' 1;">security</span>Secure Identity
+                    </div>
+                </div>
+                <!-- Step 2: Verified Reviews -->
+                <div class="glass-card p-lg rounded-xl flex flex-col items-start gap-4 hover:translate-y-[-4px] transition-transform duration-300">
+                    <div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center text-on-primary glow-emerald">
+                        <span class="material-symbols-outlined text-2xl" data-icon="rate_review">rate_review</span>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-primary">2. Verified Reviews</h3>
+                    <p class="text-body-md text-on-surface-variant">Submit detailed ratings and incident reports. Your data is hashed and stored on <strong>IPFS</strong> and the <strong>Public Ledger</strong>.</p>
+                    <div class="mt-auto pt-4 flex items-center gap-2 text-primary font-label-md">
+                        <span class="material-symbols-outlined" data-icon="database" style="font-variation-settings: 'FILL' 1;">database</span>IPFS Storage
+                    </div>
+                </div>
+                <!-- Step 3: Oracle Verification -->
+                <div class="glass-card p-lg rounded-xl flex flex-col items-start gap-4 hover:translate-y-[-4px] transition-transform duration-300 border-2 border-primary-container/20">
+                    <div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center text-on-primary glow-emerald">
+                        <span class="material-symbols-outlined text-2xl" data-icon="query_stats">query_stats</span>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-primary">3. Oracle Verification</h3>
+                    <p class="text-body-md text-on-surface-variant">Chainlink Oracles fetch real-time health inspection data and temperature logs to validate every user claim.</p>
+                    <div class="mt-auto pt-4 flex items-center gap-2 text-primary font-label-md">
+                        <span class="material-symbols-outlined" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>Chainlink Nodes
+                    </div>
+                </div>
+                <!-- Step 4: Token Rewards -->
+                <div class="glass-card p-lg rounded-xl flex flex-col items-start gap-4 hover:translate-y-[-4px] transition-transform duration-300">
+                    <div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center text-on-primary glow-emerald">
+                        <span class="material-symbols-outlined text-2xl" data-icon="toll">toll</span>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-primary">4. Token Rewards</h3>
+                    <p class="text-body-md text-on-surface-variant">Once verified, a <strong>Smart Contract</strong> automatically releases RESTO tokens to your wallet as a reward for accuracy.</p>
+                    <div class="mt-auto pt-4 flex items-center gap-2 text-primary font-label-md">
+                        <span class="material-symbols-outlined" data-icon="description" style="font-variation-settings: 'FILL' 1;">description</span>Auto-Execution
+                    </div>
+                </div>
+            </div>
+            <!-- FAQ Section -->
+            <section class="max-w-4xl mx-auto mb-16">
+                <h2 class="font-headline-lg text-headline-lg text-on-background mb-8 text-center">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <details class="group bg-white rounded-xl border border-outline-variant/30 overflow-hidden" open="">
+                        <summary class="flex justify-between items-center p-md cursor-pointer hover:bg-surface-container-low transition-colors list-none">
+                            <span class="font-headline-md text-body-lg text-primary">How is my data privacy protected?</span>
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform" data-icon="expand_more">expand_more</span>
+                        </summary>
+                        <div class="p-md text-body-md text-on-surface-variant border-t border-outline-variant/10"
+                                style="overflow: hidden; transition: max-height 0.3s ease, opacity 0.3s ease;">
+                                     We use zero-knowledge proofs (ZKP) to verify that you visited a restaurant without revealing your exact coordinates or identity. Only the hash of your review is public; your personal Gmail data remains off-chain.
+                        </div>
+                    </details>
+                    <details class="group bg-white rounded-xl border border-outline-variant/30 overflow-hidden">
+                        <summary class="flex justify-between items-center p-md cursor-pointer hover:bg-surface-container-low transition-colors list-none">
+                            <span class="font-headline-md text-body-lg text-primary">Where can I redeem RESTO tokens?</span>
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform" data-icon="expand_more">expand_more</span>
+                        </summary>
+                        <div class="p-md text-body-md text-on-surface-variant border-t border-outline-variant/10"
+                                style="max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.3s ease;">                            
+                                    RESTO tokens can be redeemed directly at participating restaurants for discounts or exclusive dining experiences. Simply scan the restaurant's QR code in the app to apply your balance during checkout.
+                        </div>
+                    </details>
+                    <details class="group bg-white rounded-xl border border-outline-variant/30 overflow-hidden">
+                        <summary class="flex justify-between items-center p-md cursor-pointer hover:bg-surface-container-low transition-colors list-none">
+                            <span class="font-headline-md text-body-lg text-primary">What happens if my report is invalid?</span>
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform" data-icon="expand_more">expand_more</span>
+                        </summary>
+                        <div class="p-md text-body-md text-on-surface-variant border-t border-outline-variant/10"
+                                style="max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.3s ease;">
+                            If an Oracle cross-check shows conflicting data (e.g., reporting a closed restaurant as having poor service), the report is flagged for community audit. Repeated invalid reports may lower your Trust Score.
+                        </div>
+                    </details>
+                </div>
+            </section>
+        </main>
+        <!-- Simple Hover & Interaction Scripts -->
+        <script src="HowWork.js"></script>
+    </body>
+</html>
