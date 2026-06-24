@@ -1,12 +1,27 @@
 # RestoChain: Decentralized Restaurant Rating & Food Safety Platform
 
-## Executive Summary
+## Table of Contents
+
+- [📋 Executive Summary](#executive-summary)
+- [⚖️ Core Principles](#core-principles)
+- [🏗️ Platform Architecture](#platform-architecture)
+  - [🔐 1. Front-End & User Authentication](#1-front-end--user-authentication)
+  - [📜 2. Smart Contract Layer](#2-smart-contract-layer)
+  - [🚨 3. Food Poisoning Incident Reporting](#3-food-poisoning-incident-reporting)
+  - [🌐 4. Oracle Integration & On-Chain Transparency](#4-oracle-integration--on-chain-transparency)
+  - [⛓️ 5. Blockchain Ledger & Transaction Flow](#5-blockchain-ledger--transaction-flow)
+  - [🎁 6. Token Incentive Mechanism](#6-token-incentive-mechanism)
+- [❓ Why RestoChain?](#why-restochain)
+
+---
+
+## 📋 Executive Summary
 
 RestoChain is a blockchain-based platform designed to transform food safety standards through transparent, tamper-proof restaurant ratings and hygiene reporting. By leveraging smart contracts, decentralized storage, and trusted oracle integrations, the system establishes an immutable public record of consumer reviews and official health inspection data — empowering diners to make informed decisions while incentivizing restaurants to uphold rigorous hygiene standards.
 
 ---
 
-## Core Principles
+## ⚖️ Core Principles
 
 | Principle | Description |
 |-----------|-------------|
@@ -15,11 +30,13 @@ RestoChain is a blockchain-based platform designed to transform food safety stan
 | **Trusted Data Integration** | Official health inspection results are fed into the system via Oracle nodes, enabling verified authority-backed data. |
 | **Incentivized Participation** | Token rewards encourage honest, high-quality contributions from the user community. |
 
+[↑ Back to Top](#table-of-contents)
+
 ---
 
-## Platform Architecture
+## 🏗️ Platform Architecture
 
-### 1. Front-End & User Authentication
+### 🔐 1. Front-End & User Authentication
 
 **Gmail OAuth Sign-In**
 Users authenticate securely using their existing Google accounts via OAuth 2.0. No separate credentials are required, reducing friction and improving accessibility.
@@ -32,7 +49,7 @@ Users retain full, sovereign ownership of their reviews and personal data. The p
 
 ---
 
-### 2. Smart Contract Layer
+### 📜 2. Smart Contract Layer
 
 **Immutable Review Submission**
 Every review is digitally signed by the submitting user and recorded on-chain via a dedicated smart contract. Once committed, the entry cannot be modified or deleted, ensuring a permanent and trustworthy record.
@@ -45,7 +62,7 @@ The smart contract continuously computes each restaurant's reputation score base
 
 ---
 
-### 3. Food Poisoning Incident Reporting
+### 🚨 3. Food Poisoning Incident Reporting
 
 Users can submit formal incident reports through a structured form, providing the following information:
 
@@ -63,7 +80,7 @@ Users can submit formal incident reports through a structured form, providing th
 
 ---
 
-### 4. Oracle Integration & On-Chain Transparency
+### 🌐 4. Oracle Integration & On-Chain Transparency
 
 **Verified Health Authority Data**
 Oracle nodes act as trusted bridges between off-chain regulatory bodies (e.g., municipal health departments) and the blockchain, supplying independently verified inspection results.
@@ -79,7 +96,7 @@ This transparency layer allows consumers to audit a restaurant's complete safety
 
 ---
 
-### 5. Blockchain Ledger & Transaction Flow
+### ⛓️ 5. Blockchain Ledger & Transaction Flow
 
 When a user submits a review, the following sequence is executed:
 
@@ -94,7 +111,7 @@ All confirmed transactions are fully auditable via public block explorers (e.g.,
 
 ---
 
-### 6. Token Incentive Mechanism
+### 🎁 6. Token Incentive Mechanism
 
 **Automatic Rewards for Verified Reviews**
 Upon successful validation of a review by the smart contract or oracle network, the contributor is automatically issued a **25% discount token** — with no manual approval required.
@@ -112,9 +129,11 @@ Earned tokens can be redeemed for:
 - **Sybil Resistance** — Duplicate or bot-generated accounts are ineligible for rewards.
 - **Transparent Ledger** — All token distributions are permanently recorded on-chain for full auditability.
 
+[↑ Back to Top](#table-of-contents)
+
 ---
 
-## Why RestoChain?
+## ❓ Why RestoChain?
 
 RestoChain addresses a critical gap in the current food service ecosystem: the lack of a trustworthy, manipulation-resistant source of restaurant safety information.
 
