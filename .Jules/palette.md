@@ -1,0 +1,3 @@
+## 2026-03-13 - Documentation Navigation vs. Clutter
+**Learning:** For short documentation files (under ~150 lines), adding "[↑ Back to Top]" links after every subsection can introduce excessive visual noise and break reading flow, even if it theoretically improves navigation. Modern platforms like GitHub already provide automated TOCs or smooth scrolling.
+**Action:** Focus on a high-quality manual Table of Contents with anchor links and visual cues (emojis) for scannability, and only use "Back to Top" links in exceptionally long documents where vertical scrolling becomes a significant barrier.
