@@ -58,6 +58,7 @@ if (starContainer) {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'star-btn transition-transform hover:scale-110 active:scale-95';
+        btn.setAttribute('aria-label', `Rate ${i} out of 5 stars`);
         btn.innerHTML = `<span class="material-symbols-outlined text-4xl text-outline-variant" style="font-variation-settings:'FILL' 0">star</span>`;
 
         btn.addEventListener('click', () => {
@@ -106,6 +107,7 @@ if (submitReviewBtn) {
         }
 
         submitReviewBtn.disabled = true;
+        submitReviewBtn.setAttribute('aria-busy', 'true');
         submitReviewBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Submitting to Blockchain...`;
 
         setTimeout(() => {
@@ -118,6 +120,7 @@ if (submitReviewBtn) {
                 updateStars();
                 submitReviewBtn.innerHTML = `<span class="material-symbols-outlined">hub</span> Submit to Blockchain`;
                 submitReviewBtn.disabled = false;
+                submitReviewBtn.setAttribute('aria-busy', 'false');
             }, 2500);
         }, 2000);
     });
@@ -130,6 +133,13 @@ const fileStatus = document.getElementById('file-status');
 
 if (dropzone) {
     dropzone.addEventListener('click', () => fileInput?.click());
+
+    dropzone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput?.click();
+        }
+    });
 
     dropzone.addEventListener('dragover', (e) => {
         e.preventDefault();
@@ -194,6 +204,7 @@ if (submitIncidentBtn) {
         }
 
         submitIncidentBtn.disabled = true;
+        submitIncidentBtn.setAttribute('aria-busy', 'true');
         submitIncidentBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Filing Report...`;
 
         setTimeout(() => {
@@ -206,6 +217,7 @@ if (submitIncidentBtn) {
                 incidentTextarea.value = '';
                 submitIncidentBtn.innerHTML = `<span class="material-symbols-outlined">report</span> File Official Incident Report`;
                 submitIncidentBtn.disabled = false;
+                submitIncidentBtn.setAttribute('aria-busy', 'false');
             }, 2500);
         }, 2000);
     });
