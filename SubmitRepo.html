@@ -208,7 +208,7 @@
                                     </div>
                                 </div>
                                 <div class="space-y-sm">
-                                    <label class="font-label-md text-label-md block">Commentary (Immutable Data)</label>
+                                    <label for="review-textarea" class="font-label-md text-label-md block">Commentary (Immutable Data)</label>
                                     <textarea id="review-textarea" class="w-full rounded-xl border-outline-variant focus:border-primary focus:ring-primary bg-surface p-md" placeholder="Describe the hygiene, transparency, and food quality..." rows="5"></textarea>
                                 </div>
                                 <button id="submit-review-btn"  class="w-full py-md bg-primary-container hover:opacity-90 text-on-primary-container font-headline-md rounded-xl glow-emerald flex items-center justify-center gap-sm transition-all active:scale-95">
@@ -219,21 +219,21 @@
                             <div class="hidden space-y-lg" id="tab-incident-content">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
                                     <div class="space-y-sm">
-                                        <label class="font-label-md text-label-md block">Date &amp; Time of Incident</label>
+                                        <label for="incident-datetime" class="font-label-md text-label-md block">Date &amp; Time of Incident</label>
                                         <input id="incident-datetime" class="w-full rounded-xl border-outline-variant focus:border-primary focus:ring-primary bg-surface p-md" type="datetime-local">
                                     </div>
                                     <div class="space-y-sm">
-                                        <label class="font-label-md text-label-md block">Bill Reference / Transaction Hash</label>
+                                        <label for="incident-txhash" class="font-label-md text-label-md block">Bill Reference / Transaction Hash</label>
                                         <input id="incident-txhash" class="w-full rounded-xl border-outline-variant focus:border-primary focus:ring-primary bg-surface p-md" placeholder="e.g. 0x4a...9f" type="text">
                                     </div>
                                 </div>
                                 <div class="space-y-sm">
-                                    <label class="font-label-md text-label-md block">Detailed Description</label>
+                                    <label for="incident-textarea" class="font-label-md text-label-md block">Detailed Description</label>
                                     <textarea id="incident-textarea" class="w-full rounded-xl border-outline-variant focus:border-primary focus:ring-primary bg-surface p-md" placeholder="Provide factual evidence regarding the health violation..." rows="4"></textarea>
                                 </div>
                                 <div class="space-y-sm">
                                     <label class="font-label-md text-label-md block">File Upload (Encrypted IPFS Storage)</label>
-                                    <div class="border-2 border-dashed border-outline-variant rounded-2xl p-xl flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer" id="dropzone">
+                                    <div class="border-2 border-dashed border-outline-variant rounded-2xl p-xl flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer focus:border-primary focus-within:border-primary outline-none focus-visible:ring-2 ring-primary ring-offset-2 dark:ring-offset-slate-900" id="dropzone" tabindex="0" role="button" aria-label="Upload evidence files">
                                         <span class="material-symbols-outlined text-4xl text-primary mb-sm">cloud_upload</span>
                                         <p class="font-label-md text-label-md">Click or drag photos of bills, food, or facilities</p>
                                         <p class="text-xs text-on-surface-variant mt-xs">Supported: JPG, PNG, PDF (Max 10MB)</p>
