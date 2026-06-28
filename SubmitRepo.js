@@ -7,6 +7,8 @@ function showToast(message, type = 'info', duration = 3000) {
     };
     const toast = document.createElement('div');
     toast.className = `fixed bottom-24 left-1/2 -translate-x-1/2 z-50 px-lg py-md rounded-xl font-label-md shadow-lg transition-all duration-300 opacity-0 whitespace-nowrap ${colors[type]}`;
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
     toast.textContent = message;
     document.body.appendChild(toast);
     setTimeout(() => toast.style.opacity = '1', 10);
@@ -57,7 +59,8 @@ if (starContainer) {
     for (let i = 1; i <= 5; i++) {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'star-btn transition-transform hover:scale-110 active:scale-95';
+        btn.className = 'star-btn transition-transform hover:scale-110 active:scale-95 focus-visible:ring-2 ring-primary rounded-full outline-none';
+        btn.setAttribute('aria-label', `Rate ${i} out of 5 stars`);
         btn.innerHTML = `<span class="material-symbols-outlined text-4xl text-outline-variant" style="font-variation-settings:'FILL' 0">star</span>`;
 
         btn.addEventListener('click', () => {
@@ -106,9 +109,11 @@ if (submitReviewBtn) {
         }
 
         submitReviewBtn.disabled = true;
+        submitReviewBtn.setAttribute('aria-busy', 'true');
         submitReviewBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Submitting to Blockchain...`;
 
         setTimeout(() => {
+            submitReviewBtn.setAttribute('aria-busy', 'false');
             submitReviewBtn.innerHTML = `<span class="material-symbols-outlined">check_circle</span> Submitted Successfully!`;
             showToast(`Review submitted! +${currentRating * 2} RST earned`, 'success', 3000);
 
@@ -130,6 +135,12 @@ const fileStatus = document.getElementById('file-status');
 
 if (dropzone) {
     dropzone.addEventListener('click', () => fileInput?.click());
+    dropzone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput?.click();
+        }
+    });
 
     dropzone.addEventListener('dragover', (e) => {
         e.preventDefault();
@@ -194,9 +205,11 @@ if (submitIncidentBtn) {
         }
 
         submitIncidentBtn.disabled = true;
+        submitIncidentBtn.setAttribute('aria-busy', 'true');
         submitIncidentBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Filing Report...`;
 
         setTimeout(() => {
+            submitIncidentBtn.setAttribute('aria-busy', 'false');
             submitIncidentBtn.innerHTML = `<span class="material-symbols-outlined">check_circle</span> Report Filed!`;
             showToast('Incident report filed on blockchain', 'success', 3000);
 
