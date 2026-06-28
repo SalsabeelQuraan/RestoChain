@@ -6,6 +6,8 @@ function showToast(message, type = 'info', duration = 3000) {
         success: 'bg-primary text-on-primary'
     };
     const toast = document.createElement('div');
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
     toast.className = `fixed bottom-24 left-1/2 -translate-x-1/2 z-50 px-lg py-md rounded-xl font-label-md shadow-lg transition-all duration-300 opacity-0 whitespace-nowrap ${colors[type]}`;
     toast.textContent = message;
     document.body.appendChild(toast);
@@ -57,7 +59,8 @@ if (starContainer) {
     for (let i = 1; i <= 5; i++) {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'star-btn transition-transform hover:scale-110 active:scale-95';
+        btn.setAttribute('aria-label', `Rate ${i} out of 5 stars`);
+        btn.className = 'star-btn transition-transform hover:scale-110 active:scale-95 focus-visible:ring-2 ring-primary ring-offset-2 outline-none rounded-lg';
         btn.innerHTML = `<span class="material-symbols-outlined text-4xl text-outline-variant" style="font-variation-settings:'FILL' 0">star</span>`;
 
         btn.addEventListener('click', () => {
@@ -106,6 +109,8 @@ if (submitReviewBtn) {
         }
 
         submitReviewBtn.disabled = true;
+        submitReviewBtn.setAttribute('aria-busy', 'true');
+        submitReviewBtn.setAttribute('aria-live', 'polite');
         submitReviewBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Submitting to Blockchain...`;
 
         setTimeout(() => {
@@ -118,6 +123,8 @@ if (submitReviewBtn) {
                 updateStars();
                 submitReviewBtn.innerHTML = `<span class="material-symbols-outlined">hub</span> Submit to Blockchain`;
                 submitReviewBtn.disabled = false;
+                submitReviewBtn.removeAttribute('aria-busy');
+                submitReviewBtn.removeAttribute('aria-live');
             }, 2500);
         }, 2000);
     });
@@ -130,6 +137,12 @@ const fileStatus = document.getElementById('file-status');
 
 if (dropzone) {
     dropzone.addEventListener('click', () => fileInput?.click());
+    dropzone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput?.click();
+        }
+    });
 
     dropzone.addEventListener('dragover', (e) => {
         e.preventDefault();
@@ -194,6 +207,8 @@ if (submitIncidentBtn) {
         }
 
         submitIncidentBtn.disabled = true;
+        submitIncidentBtn.setAttribute('aria-busy', 'true');
+        submitIncidentBtn.setAttribute('aria-live', 'polite');
         submitIncidentBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Filing Report...`;
 
         setTimeout(() => {
@@ -206,6 +221,8 @@ if (submitIncidentBtn) {
                 incidentTextarea.value = '';
                 submitIncidentBtn.innerHTML = `<span class="material-symbols-outlined">report</span> File Official Incident Report`;
                 submitIncidentBtn.disabled = false;
+                submitIncidentBtn.removeAttribute('aria-busy');
+                submitIncidentBtn.removeAttribute('aria-live');
             }, 2500);
         }, 2000);
     });
@@ -223,8 +240,14 @@ if (warningBanner) {
 }
 
 // ── 7. MICRO-INTERACTIONS ────────────────────────────────────
-document.querySelectorAll('button, a').forEach(elem => {
+document.querySelectorAll('button, a, [role="button"]').forEach(elem => {
     elem.addEventListener('mousedown',  () => { if (!elem.disabled) elem.style.transform = 'scale(0.95)'; });
     elem.addEventListener('mouseup',    () => elem.style.transform = '');
     elem.addEventListener('mouseleave', () => elem.style.transform = '');
+    elem.addEventListener('keydown', (e) => {
+        if (!elem.disabled && (e.key === 'Enter' || e.key === ' ')) {
+            elem.style.transform = 'scale(0.95)';
+        }
+    });
+    elem.addEventListener('keyup', () => elem.style.transform = '');
 });
