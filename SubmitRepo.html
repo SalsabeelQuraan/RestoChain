@@ -138,7 +138,7 @@
                 <span class="material-symbols-outlined">restaurant</span>
                 <span class="">RestoChain</span>
             </div>
-            <a href="MyProfil.html" class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center">
+            <a href="MyProfil.html" class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center" aria-label="View wallet profile">
                 <span class="material-symbols-outlined">account_balance_wallet</span>
             </a>
         </header>
@@ -233,7 +233,7 @@
                                 </div>
                                 <div class="space-y-sm">
                                     <label class="font-label-md text-label-md block">File Upload (Encrypted IPFS Storage)</label>
-                                    <div class="border-2 border-dashed border-outline-variant rounded-2xl p-xl flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer" id="dropzone">
+                                    <div class="border-2 border-dashed border-outline-variant rounded-2xl p-xl flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer focus-within:border-primary outline-none focus-visible:ring-2 ring-primary ring-offset-2 dark:ring-offset-slate-900" id="dropzone" tabindex="0" role="button" aria-label="Click or drag photos of bills, food, or facilities to upload">
                                         <span class="material-symbols-outlined text-4xl text-primary mb-sm">cloud_upload</span>
                                         <p class="font-label-md text-label-md">Click or drag photos of bills, food, or facilities</p>
                                         <p class="text-xs text-on-surface-variant mt-xs">Supported: JPG, PNG, PDF (Max 10MB)</p>
@@ -253,19 +253,19 @@
         </main>
         <!-- BottomNavBar -->
         <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface/90 backdrop-blur-lg border-t border-outline-variant/10 shadow-md">
-            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="Dashboard.html">
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="Dashboard.html" aria-label="Go to Home">
                 <span class="material-symbols-outlined" data-icon="home">home</span>
                 <span class="text-label-sm font-label-sm">Home</span>
             </a>
-            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="ExploreRest.html">
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="ExploreRest.html" aria-label="Search Restaurants">
                 <span class="material-symbols-outlined" data-icon="search">search</span>
                 <span class="text-label-sm font-label-sm">Search</span>
             </a>
-            <a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 transition-all" href="SubmitRepo.html">
+            <a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 transition-all" href="SubmitRepo.html" aria-label="View Activity">
                 <span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
                 <span class="text-label-sm font-label-sm">Activity</span>
             </a>
-            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="RestoProfile.html">
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="RestoProfile.html" aria-label="View Profile">
                 <span class="material-symbols-outlined" data-icon="person">person</span>
                 <span class="text-label-sm font-label-sm">Profile</span>
             </a>
