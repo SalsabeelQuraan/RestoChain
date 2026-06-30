@@ -6,6 +6,8 @@ function showToast(message, type = 'info', duration = 3000) {
         success: 'bg-primary text-on-primary'
     };
     const toast = document.createElement('div');
+    toast.role = 'status';
+    toast.ariaLive = 'polite';
     toast.className = `fixed bottom-24 left-1/2 -translate-x-1/2 z-50 px-lg py-md rounded-xl font-label-md shadow-lg transition-all duration-300 opacity-0 whitespace-nowrap ${colors[type]}`;
     toast.textContent = message;
     document.body.appendChild(toast);
@@ -58,6 +60,7 @@ if (starContainer) {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'star-btn transition-transform hover:scale-110 active:scale-95';
+        btn.ariaLabel = `Rate ${i} out of 5 stars`;
         btn.innerHTML = `<span class="material-symbols-outlined text-4xl text-outline-variant" style="font-variation-settings:'FILL' 0">star</span>`;
 
         btn.addEventListener('click', () => {
@@ -130,6 +133,13 @@ const fileStatus = document.getElementById('file-status');
 
 if (dropzone) {
     dropzone.addEventListener('click', () => fileInput?.click());
+
+    dropzone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            dropzone.click();
+        }
+    });
 
     dropzone.addEventListener('dragover', (e) => {
         e.preventDefault();
