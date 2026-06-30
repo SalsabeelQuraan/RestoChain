@@ -1,0 +1,3 @@
+## 2025-05-15 - [Accessible Custom Interactive Elements & Form Associations]
+**Learning:** In this static HTML/JS design system, custom interactive elements (like the `div` dropzone) and dynamically generated UI (like star ratings) often lack standard accessibility features. Specifically, they require explicit `role="button"`, `tabindex="0"`, and keyboard event listeners ('Enter'/'Space') to be usable by keyboard and screen reader users. Additionally, strict `<label for="...">` pairing is essential for form scannability and accessibility.
+**Action:** When adding or modifying interactive components, always ensure they are focusable, have appropriate ARIA roles/labels, and are explicitly linked to their corresponding form controls.
