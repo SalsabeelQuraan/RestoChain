@@ -145,7 +145,7 @@
         <!-- TopAppBar -->
         <main class="pt-24 px-margin-mobile max-w-7xl mx-auto lg:px-margin-desktop">
             <!-- Warning Banner -->
-            <div id = "warning-banner" class="mb-lg p-md bg-error-container text-on-error-container rounded-xl flex items-center gap-md border border-error/20 animate-pulse">
+            <div id = "warning-banner" role="alert" aria-label="Community governance warning" class="mb-lg p-md bg-error-container text-on-error-container rounded-xl flex items-center gap-md border border-error/20 animate-pulse">
                 <span class="material-symbols-outlined shrink-0" data-icon="warning" style="font-variation-settings: &quot;FILL&quot; 1;">warning</span>
                 <p class="font-label-md text-label-md">Submitting false reports is a violation of community governance. Intentional fraud may result in loss of trust score and staking collateral.</p>
             </div>
@@ -172,11 +172,11 @@
                 <div class="lg:col-span-8">
                     <div class="bento-card rounded-2xl overflow-hidden min-h-[500px] flex flex-col">
                         <!-- Tab Headers -->
-                        <div class="flex border-b border-outline-variant/30">
-                            <button class="flex-1 py-md font-label-md text-label-md text-center transition-all tab-active" id="tab-review-btn">
+                        <div class="flex border-b border-outline-variant/30" role="tablist">
+                            <button class="flex-1 py-md font-label-md text-label-md text-center transition-all tab-active" id="tab-review-btn" role="tab" aria-selected="true" aria-controls="tab-review-content">
                                 Submit Review
                             </button>
-                            <button class="flex-1 py-md font-label-md text-label-md text-center transition-all text-on-surface-variant hover:bg-surface-container-low" id="tab-incident-btn">
+                            <button class="flex-1 py-md font-label-md text-label-md text-center transition-all text-on-surface-variant hover:bg-surface-container-low" id="tab-incident-btn" role="tab" aria-selected="false" aria-controls="tab-incident-content">
                                 Report Incident
                             </button>
                         </div>
@@ -233,7 +233,7 @@
                                 </div>
                                 <div class="space-y-sm">
                                     <label class="font-label-md text-label-md block">File Upload (Encrypted IPFS Storage)</label>
-                                    <div class="border-2 border-dashed border-outline-variant rounded-2xl p-xl flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer" id="dropzone">
+                                    <div class="border-2 border-dashed border-outline-variant rounded-2xl p-xl flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer focus-within:border-primary outline-none focus-visible:ring-2 ring-primary ring-offset-2 dark:ring-offset-slate-900" id="dropzone" role="button" tabindex="0" aria-label="Upload supporting documentation">
                                         <span class="material-symbols-outlined text-4xl text-primary mb-sm">cloud_upload</span>
                                         <p class="font-label-md text-label-md">Click or drag photos of bills, food, or facilities</p>
                                         <p class="text-xs text-on-surface-variant mt-xs">Supported: JPG, PNG, PDF (Max 10MB)</p>
