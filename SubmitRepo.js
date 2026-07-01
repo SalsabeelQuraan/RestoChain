@@ -7,6 +7,8 @@ function showToast(message, type = 'info', duration = 3000) {
     };
     const toast = document.createElement('div');
     toast.className = `fixed bottom-24 left-1/2 -translate-x-1/2 z-50 px-lg py-md rounded-xl font-label-md shadow-lg transition-all duration-300 opacity-0 whitespace-nowrap ${colors[type]}`;
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
     toast.textContent = message;
     document.body.appendChild(toast);
     setTimeout(() => toast.style.opacity = '1', 10);
@@ -26,15 +28,19 @@ function switchTab(tab) {
     if (tab === 'review') {
         reviewBtn.classList.add('tab-active');
         reviewBtn.classList.remove('text-on-surface-variant');
+        reviewBtn.setAttribute('aria-selected', 'true');
         incidentBtn.classList.remove('tab-active');
         incidentBtn.classList.add('text-on-surface-variant');
+        incidentBtn.setAttribute('aria-selected', 'false');
         reviewContent.classList.remove('hidden');
         incidentContent.classList.add('hidden');
     } else {
         incidentBtn.classList.add('tab-active');
         incidentBtn.classList.remove('text-on-surface-variant');
+        incidentBtn.setAttribute('aria-selected', 'true');
         reviewBtn.classList.remove('tab-active');
         reviewBtn.classList.add('text-on-surface-variant');
+        reviewBtn.setAttribute('aria-selected', 'false');
         incidentContent.classList.remove('hidden');
         reviewContent.classList.add('hidden');
     }
@@ -58,6 +64,7 @@ if (starContainer) {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'star-btn transition-transform hover:scale-110 active:scale-95';
+        btn.setAttribute('aria-label', `Rate ${i} out of 5 stars`);
         btn.innerHTML = `<span class="material-symbols-outlined text-4xl text-outline-variant" style="font-variation-settings:'FILL' 0">star</span>`;
 
         btn.addEventListener('click', () => {
@@ -106,9 +113,12 @@ if (submitReviewBtn) {
         }
 
         submitReviewBtn.disabled = true;
+        submitReviewBtn.setAttribute('aria-busy', 'true');
+        submitReviewBtn.setAttribute('aria-live', 'polite');
         submitReviewBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Submitting to Blockchain...`;
 
         setTimeout(() => {
+            submitReviewBtn.removeAttribute('aria-busy');
             submitReviewBtn.innerHTML = `<span class="material-symbols-outlined">check_circle</span> Submitted Successfully!`;
             showToast(`Review submitted! +${currentRating * 2} RST earned`, 'success', 3000);
 
@@ -117,6 +127,7 @@ if (submitReviewBtn) {
                 currentRating = 0;
                 updateStars();
                 submitReviewBtn.innerHTML = `<span class="material-symbols-outlined">hub</span> Submit to Blockchain`;
+                submitReviewBtn.removeAttribute('aria-live');
                 submitReviewBtn.disabled = false;
             }, 2500);
         }, 2000);
@@ -130,6 +141,12 @@ const fileStatus = document.getElementById('file-status');
 
 if (dropzone) {
     dropzone.addEventListener('click', () => fileInput?.click());
+    dropzone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput?.click();
+        }
+    });
 
     dropzone.addEventListener('dragover', (e) => {
         e.preventDefault();
@@ -194,9 +211,12 @@ if (submitIncidentBtn) {
         }
 
         submitIncidentBtn.disabled = true;
+        submitIncidentBtn.setAttribute('aria-busy', 'true');
+        submitIncidentBtn.setAttribute('aria-live', 'polite');
         submitIncidentBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Filing Report...`;
 
         setTimeout(() => {
+            submitIncidentBtn.removeAttribute('aria-busy');
             submitIncidentBtn.innerHTML = `<span class="material-symbols-outlined">check_circle</span> Report Filed!`;
             showToast('Incident report filed on blockchain', 'success', 3000);
 
@@ -205,6 +225,7 @@ if (submitIncidentBtn) {
                 if (incidentTxHash) incidentTxHash.value = '';
                 incidentTextarea.value = '';
                 submitIncidentBtn.innerHTML = `<span class="material-symbols-outlined">report</span> File Official Incident Report`;
+                submitIncidentBtn.removeAttribute('aria-live');
                 submitIncidentBtn.disabled = false;
             }, 2500);
         }, 2000);
