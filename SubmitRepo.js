@@ -7,6 +7,8 @@ function showToast(message, type = 'info', duration = 3000) {
     };
     const toast = document.createElement('div');
     toast.className = `fixed bottom-24 left-1/2 -translate-x-1/2 z-50 px-lg py-md rounded-xl font-label-md shadow-lg transition-all duration-300 opacity-0 whitespace-nowrap ${colors[type]}`;
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
     toast.textContent = message;
     document.body.appendChild(toast);
     setTimeout(() => toast.style.opacity = '1', 10);
@@ -25,15 +27,19 @@ function switchTab(tab) {
 
     if (tab === 'review') {
         reviewBtn.classList.add('tab-active');
+        reviewBtn.setAttribute('aria-selected', 'true');
         reviewBtn.classList.remove('text-on-surface-variant');
         incidentBtn.classList.remove('tab-active');
+        incidentBtn.setAttribute('aria-selected', 'false');
         incidentBtn.classList.add('text-on-surface-variant');
         reviewContent.classList.remove('hidden');
         incidentContent.classList.add('hidden');
     } else {
         incidentBtn.classList.add('tab-active');
+        incidentBtn.setAttribute('aria-selected', 'true');
         incidentBtn.classList.remove('text-on-surface-variant');
         reviewBtn.classList.remove('tab-active');
+        reviewBtn.setAttribute('aria-selected', 'false');
         reviewBtn.classList.add('text-on-surface-variant');
         incidentContent.classList.remove('hidden');
         reviewContent.classList.add('hidden');
@@ -58,6 +64,7 @@ if (starContainer) {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'star-btn transition-transform hover:scale-110 active:scale-95';
+        btn.setAttribute('aria-label', `Rate ${i} out of 5 stars`);
         btn.innerHTML = `<span class="material-symbols-outlined text-4xl text-outline-variant" style="font-variation-settings:'FILL' 0">star</span>`;
 
         btn.addEventListener('click', () => {
@@ -106,10 +113,12 @@ if (submitReviewBtn) {
         }
 
         submitReviewBtn.disabled = true;
-        submitReviewBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Submitting to Blockchain...`;
+        submitReviewBtn.setAttribute('aria-busy', 'true');
+        submitReviewBtn.innerHTML = `<span class="material-symbols-outlined animate-spin" aria-live="polite">progress_activity</span> Submitting to Blockchain...`;
 
         setTimeout(() => {
             submitReviewBtn.innerHTML = `<span class="material-symbols-outlined">check_circle</span> Submitted Successfully!`;
+            submitReviewBtn.setAttribute('aria-busy', 'false');
             showToast(`Review submitted! +${currentRating * 2} RST earned`, 'success', 3000);
 
             setTimeout(() => {
@@ -130,6 +139,12 @@ const fileStatus = document.getElementById('file-status');
 
 if (dropzone) {
     dropzone.addEventListener('click', () => fileInput?.click());
+    dropzone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput?.click();
+        }
+    });
 
     dropzone.addEventListener('dragover', (e) => {
         e.preventDefault();
@@ -194,10 +209,12 @@ if (submitIncidentBtn) {
         }
 
         submitIncidentBtn.disabled = true;
-        submitIncidentBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Filing Report...`;
+        submitIncidentBtn.setAttribute('aria-busy', 'true');
+        submitIncidentBtn.innerHTML = `<span class="material-symbols-outlined animate-spin" aria-live="polite">progress_activity</span> Filing Report...`;
 
         setTimeout(() => {
             submitIncidentBtn.innerHTML = `<span class="material-symbols-outlined">check_circle</span> Report Filed!`;
+            submitIncidentBtn.setAttribute('aria-busy', 'false');
             showToast('Incident report filed on blockchain', 'success', 3000);
 
             setTimeout(() => {
@@ -223,8 +240,16 @@ if (warningBanner) {
 }
 
 // ── 7. MICRO-INTERACTIONS ────────────────────────────────────
-document.querySelectorAll('button, a').forEach(elem => {
-    elem.addEventListener('mousedown',  () => { if (!elem.disabled) elem.style.transform = 'scale(0.95)'; });
-    elem.addEventListener('mouseup',    () => elem.style.transform = '');
-    elem.addEventListener('mouseleave', () => elem.style.transform = '');
+document.querySelectorAll('button, a, [role="button"]').forEach(elem => {
+    const press = () => { if (!elem.disabled) elem.style.transform = 'scale(0.95)'; };
+    const release = () => elem.style.transform = '';
+
+    elem.addEventListener('mousedown', press);
+    elem.addEventListener('mouseup', release);
+    elem.addEventListener('mouseleave', release);
+
+    elem.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') press();
+    });
+    elem.addEventListener('keyup', release);
 });
