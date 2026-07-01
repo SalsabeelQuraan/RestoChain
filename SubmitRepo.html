@@ -138,14 +138,14 @@
                 <span class="material-symbols-outlined">restaurant</span>
                 <span class="">RestoChain</span>
             </div>
-            <a href="MyProfil.html" class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center">
+            <a href="MyProfil.html" class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center" aria-label="View wallet profile">
                 <span class="material-symbols-outlined">account_balance_wallet</span>
             </a>
         </header>
         <!-- TopAppBar -->
         <main class="pt-24 px-margin-mobile max-w-7xl mx-auto lg:px-margin-desktop">
             <!-- Warning Banner -->
-            <div id = "warning-banner" class="mb-lg p-md bg-error-container text-on-error-container rounded-xl flex items-center gap-md border border-error/20 animate-pulse">
+            <div id="warning-banner" role="alert" aria-label="Important warning about reporting accuracy" class="mb-lg p-md bg-error-container text-on-error-container rounded-xl flex items-center gap-md border border-error/20 animate-pulse">
                 <span class="material-symbols-outlined shrink-0" data-icon="warning" style="font-variation-settings: &quot;FILL&quot; 1;">warning</span>
                 <p class="font-label-md text-label-md">Submitting false reports is a violation of community governance. Intentional fraud may result in loss of trust score and staking collateral.</p>
             </div>
@@ -172,18 +172,18 @@
                 <div class="lg:col-span-8">
                     <div class="bento-card rounded-2xl overflow-hidden min-h-[500px] flex flex-col">
                         <!-- Tab Headers -->
-                        <div class="flex border-b border-outline-variant/30">
-                            <button class="flex-1 py-md font-label-md text-label-md text-center transition-all tab-active" id="tab-review-btn">
+                        <div class="flex border-b border-outline-variant/30" role="tablist">
+                            <button class="flex-1 py-md font-label-md text-label-md text-center transition-all tab-active" id="tab-review-btn" role="tab" aria-selected="true" aria-controls="tab-review-content">
                                 Submit Review
                             </button>
-                            <button class="flex-1 py-md font-label-md text-label-md text-center transition-all text-on-surface-variant hover:bg-surface-container-low" id="tab-incident-btn">
+                            <button class="flex-1 py-md font-label-md text-label-md text-center transition-all text-on-surface-variant hover:bg-surface-container-low" id="tab-incident-btn" role="tab" aria-selected="false" aria-controls="tab-incident-content">
                                 Report Incident
                             </button>
                         </div>
                         <!-- Content Canvas -->
                         <div class="p-lg flex-grow">
                             <!-- Review Tab -->
-                            <div class="space-y-lg" id="tab-review-content">
+                            <div class="space-y-lg" id="tab-review-content" role="tabpanel" aria-labelledby="tab-review-btn">
                                 <div class="text-center py-md">
                                     <h3 class="font-headline-lg text-headline-lg mb-sm">Rate Your Experience</h3>
                                     <p class="text-on-surface-variant mb-md">How was the restaurant's compliance and quality?</p>
@@ -216,7 +216,7 @@
                                 </button>
                             </div>
                             <!-- Incident Tab (Hidden by default) -->
-                            <div class="hidden space-y-lg" id="tab-incident-content">
+                            <div class="hidden space-y-lg" id="tab-incident-content" role="tabpanel" aria-labelledby="tab-incident-btn">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
                                     <div class="space-y-sm">
                                         <label class="font-label-md text-label-md block">Date &amp; Time of Incident</label>
@@ -233,12 +233,12 @@
                                 </div>
                                 <div class="space-y-sm">
                                     <label class="font-label-md text-label-md block">File Upload (Encrypted IPFS Storage)</label>
-                                    <div class="border-2 border-dashed border-outline-variant rounded-2xl p-xl flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer" id="dropzone">
+                                    <div class="border-2 border-dashed border-outline-variant rounded-2xl p-xl flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer focus-within:border-primary outline-none focus-visible:ring-2 ring-primary ring-offset-2" id="dropzone" role="button" tabindex="0" aria-label="Upload supporting documentation">
                                         <span class="material-symbols-outlined text-4xl text-primary mb-sm">cloud_upload</span>
                                         <p class="font-label-md text-label-md">Click or drag photos of bills, food, or facilities</p>
                                         <p class="text-xs text-on-surface-variant mt-xs">Supported: JPG, PNG, PDF (Max 10MB)</p>
                                     </div>
-                                    <input id="file-input" type="file" accept=".jpg,.jpeg,.png,.pdf" class="hidden">
+                                    <input id="file-input" type="file" accept=".jpg,.jpeg,.png,.pdf" class="hidden" tabindex="-1">
                                     <p id="file-status" class="hidden text-label-sm text-primary mt-sm"></p>
                                 </div>
                                 <button id="submit-incident-btn" class="w-full py-md bg-error text-white font-headline-md rounded-xl hover:opacity-90 flex items-center justify-center gap-sm transition-all active:scale-95">
@@ -253,19 +253,19 @@
         </main>
         <!-- BottomNavBar -->
         <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface/90 backdrop-blur-lg border-t border-outline-variant/10 shadow-md">
-            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="Dashboard.html">
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="Dashboard.html" aria-label="Go to Home">
                 <span class="material-symbols-outlined" data-icon="home">home</span>
                 <span class="text-label-sm font-label-sm">Home</span>
             </a>
-            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="ExploreRest.html">
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="ExploreRest.html" aria-label="Search Restaurants">
                 <span class="material-symbols-outlined" data-icon="search">search</span>
                 <span class="text-label-sm font-label-sm">Search</span>
             </a>
-            <a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 transition-all" href="SubmitRepo.html">
+            <a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 transition-all" href="SubmitRepo.html" aria-label="View Activity">
                 <span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
                 <span class="text-label-sm font-label-sm">Activity</span>
             </a>
-            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="RestoProfile.html">
+            <a class="flex flex-col items-center justify-center text-on-secondary-container hover:bg-secondary-container/50 transition-all rounded-xl p-2" href="RestoProfile.html" aria-label="View Profile">
                 <span class="material-symbols-outlined" data-icon="person">person</span>
                 <span class="text-label-sm font-label-sm">Profile</span>
             </a>
