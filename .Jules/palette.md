@@ -1,0 +1,3 @@
+## 2025-05-14 - [Enhanced Accessibility for Dynamic Ratings and Custom Upload Zones]
+**Learning:** In static HTML projects where interactive components (like star ratings) are generated via JavaScript, accessibility attributes must be explicitly injected during element creation. Furthermore, custom-styled upload zones (using div) require manual implementation of tabindex, ARIA roles, and keyboard event listeners to achieve parity with native inputs.
+**Action:** Always verify that dynamic elements receive descriptive aria-labels and that div-based interactive elements include keydown listeners for Enter/Space.

@@ -26,15 +26,19 @@ function switchTab(tab) {
     if (tab === 'review') {
         reviewBtn.classList.add('tab-active');
         reviewBtn.classList.remove('text-on-surface-variant');
+        reviewBtn.setAttribute('aria-selected', 'true');
         incidentBtn.classList.remove('tab-active');
         incidentBtn.classList.add('text-on-surface-variant');
+        incidentBtn.setAttribute('aria-selected', 'false');
         reviewContent.classList.remove('hidden');
         incidentContent.classList.add('hidden');
     } else {
         incidentBtn.classList.add('tab-active');
         incidentBtn.classList.remove('text-on-surface-variant');
+        incidentBtn.setAttribute('aria-selected', 'true');
         reviewBtn.classList.remove('tab-active');
         reviewBtn.classList.add('text-on-surface-variant');
+        reviewBtn.setAttribute('aria-selected', 'false');
         incidentContent.classList.remove('hidden');
         reviewContent.classList.add('hidden');
     }
@@ -58,6 +62,7 @@ if (starContainer) {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'star-btn transition-transform hover:scale-110 active:scale-95';
+        btn.setAttribute('aria-label', `Rate ${i} out of 5 stars`);
         btn.innerHTML = `<span class="material-symbols-outlined text-4xl text-outline-variant" style="font-variation-settings:'FILL' 0">star</span>`;
 
         btn.addEventListener('click', () => {
@@ -130,6 +135,12 @@ const fileStatus = document.getElementById('file-status');
 
 if (dropzone) {
     dropzone.addEventListener('click', () => fileInput?.click());
+    dropzone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput?.click();
+        }
+    });
 
     dropzone.addEventListener('dragover', (e) => {
         e.preventDefault();
